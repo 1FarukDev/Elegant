@@ -8,12 +8,18 @@ import ElegantLogo from '@/public/assets/icons/3legant..svg'
 import SearchIcon from '@/public/assets/icons/search.svg'
 import Profile from '@/public/assets/icons/profile.svg'
 import BagIcon from '@/public/assets/icons/shopping bag.svg'
+import CloseIcon from '@/public/assets/icons/close.svg'
+import React, { useState } from "react"
 interface HeaderMenu {
     id: number
     name: string
     to: string
 }
 const ELHeader = () => {
+    const [promo, setPromo] = useState<Boolean>(true)
+    const handleClosePromo = () => {
+        setPromo(false)
+    }
     const headerMenu = [
         {
             id: 0,
@@ -38,14 +44,25 @@ const ELHeader = () => {
     ]
     return (
         <main>
-            <div className="flex bg-gray-300 justify-center items-center py-2">
-                <Image src={PromoIcon} alt="Promo Icon" />
-                <ELText text='30% off storewide — Limited time!' className={'pl-3 text-black text-[20px]'} />
-                <div className="text-blue-500 flex items-center border-blue-500 border-b ml-3">
-                    <ELText text='Shop Now' className={''} />
-                    <Image src={ArrowRight} alt="Promo Icon" />
+            {promo && <div className=" bg-gray-300 ">
+                <div className="flex justify-between items-center py-2 container mx-auto">
+                    <div>
+
+                    </div>
+                    <div className="flex">
+                        <Image src={PromoIcon} alt="Promo Icon" />
+                        <ELText text='30% off storewide — Limited time!' className={'pl-3 text-black text-[20px]'} />
+                        <div className="text-blue-500 flex items-center border-blue-500 border-b ml-3">
+                            <ELText text='Shop Now' className={''} />
+                            <Image src={ArrowRight} alt="Promo Icon" />
+                        </div>
+                    </div>
+                    <div className="">
+                        <Image src={CloseIcon} alt="CloseIcon" onClick={handleClosePromo} />
+                    </div>
                 </div>
             </div>
+            }
             <div className="container mx-auto my-5 flex items-center justify-between">
                 <Image src={ElegantLogo} alt="Elegant logo" />
                 <div className="flex gap-10">
@@ -65,6 +82,7 @@ const ELHeader = () => {
                         <ELText text='2' className={'bg-black text-white rounded-full px-2'} />
                     </div>
                 </div>
+
             </div>
         </main>
     )
