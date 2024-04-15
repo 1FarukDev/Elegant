@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.scrollbar>::-webkit-scrollbar {
+.scrollbar > ::-webkit-scrollbar {
   width: 0;
 }
 
@@ -10,6 +10,10 @@
   -ms-overflow-style: none;
 }
 
-.newsletter{
-  background: url('../public/assets/images/Newsletter.svg');
+.newsletter {
+  background: url("../public/assets/images/Newsletter.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 360px;
 }

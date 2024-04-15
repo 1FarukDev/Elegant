@@ -9,6 +9,7 @@ import SearchIcon from '@/public/assets/icons/search.svg'
 import Profile from '@/public/assets/icons/profile.svg'
 import BagIcon from '@/public/assets/icons/shopping bag.svg'
 import CloseIcon from '@/public/assets/icons/close.svg'
+import menuIcon from '@/public/assets/icons/menu-line-horizontal.svg'
 import React, { useState } from "react"
 interface HeaderMenu {
     id: number
@@ -45,14 +46,13 @@ const ELHeader = () => {
     return (
         <main>
             {promo && <div className=" bg-gray-300 ">
-                <div className="flex justify-between items-center py-2 container mx-auto">
-                    <div>
-
+                <div className="flex justify-between items-center py-2 md:container mx-auto w-4/5">
+                    <div className="hidden md:block">
                     </div>
                     <div className="flex">
                         <Image src={PromoIcon} alt="Promo Icon" />
-                        <ELText text='30% off storewide — Limited time!' className={'pl-3 text-black text-[20px]'} />
-                        <div className="text-blue-500 flex items-center border-blue-500 border-b ml-3">
+                        <ELText text='30% off storewide — Limited time!' className={'pl-3 text-black text-[15px] md:text-[20px]'} />
+                        <div className="text-blue-500 md:flex items-center border-blue-500 border-b ml-3 hidden ">
                             <ELText text='Shop Now' className={''} />
                             <Image src={ArrowRight} alt="Promo Icon" />
                         </div>
@@ -63,9 +63,10 @@ const ELHeader = () => {
                 </div>
             </div>
             }
-            <div className="container mx-auto my-5 flex items-center justify-between">
-                <Image src={ElegantLogo} alt="Elegant logo" />
-                <div className="flex gap-10">
+            <div className="container mx-auto my-5 flex items-center md:justify-between">
+                <Image src={menuIcon} alt="Menu Icon" className="md:hidden mb-1 w-7" />
+                <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-full" />
+                <div className="md:flex gap-10 hidden">
                     {headerMenu.map((menu: HeaderMenu) => {
                         return (
                             <ul className="flex cursor-pointer hover:text-black text-gray-500">
@@ -74,7 +75,7 @@ const ELHeader = () => {
                         )
                     })}
                 </div>
-                <div className="flex gap-4">
+                <div className="md:flex gap-4 hidden">
                     <Image src={SearchIcon} alt="Search Icon" />
                     <Image src={Profile} alt="Profile Icon" />
                     <div className="flex gap-2">
