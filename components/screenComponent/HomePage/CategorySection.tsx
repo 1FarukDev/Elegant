@@ -9,8 +9,8 @@ import ArrowRight from '@/public/assets/icons/arrowRightBlack.svg'
 
 const CategorySection = () => {
     return (
-        <main className="flex justify-between gap-6 my-10">
-            <div className="w-1/2 relative">
+        <main className="md:flex justify-between gap-6 my-10">
+            <div className="md:w-1/2 relative">
                 <Image src={LivingRoom} alt='Image Of A Sofa' className="w-[100%]" />
                 <div className="absolute top-[48px] left-[48px] ">
                     <ELText text='Living Room' className={'font-medium text-[35px]'} />
@@ -20,8 +20,8 @@ const CategorySection = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-1/2 relative">
-                <div className="w-full relative">
+            <div className="md:w-1/2 relative">
+                <div className="w-full relative my-5 md:my-0">
                     <Image src={BedRoom} alt="Image of a Drawer" className="w-[100%] h-[50%]" />
                     <div className="absolute bottom-[40px] left-[48px] ">
                         <ELText text='Bedroom' className={'font-medium text-[35px]'} />
@@ -31,7 +31,7 @@ const CategorySection = () => {
                         </div>
                     </div>
                 </div>
-                <div className="w-full absolute bottom-0">
+                <div className="w-full md:absolute bottom-0">
                     <Image src={Kitchen} alt="Image of a Toaster" className="w-[100%] h-[50%]" />
                     <div className="absolute bottom-[40px] left-[48px] ">
                         <ELText text='Kitchen' className={'font-medium text-[35px]'} />
