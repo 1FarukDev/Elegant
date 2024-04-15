@@ -63,9 +63,11 @@ const ELHeader = () => {
                 </div>
             </div>
             }
-            <div className="container mx-auto my-5 flex items-center md:justify-between">
-                <Image src={menuIcon} alt="Menu Icon" className="md:hidden mb-1 w-7" />
-                <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-full" />
+            <div className="container mx-auto my-5 flex items-center justify-between">
+                <div className="flex">
+                    <Image src={menuIcon} alt="Menu Icon" className="md:hidden mb-1 w-7" />
+                    <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-[105px]" />
+                </div>
                 <div className="md:flex gap-10 hidden">
                     {headerMenu.map((menu: HeaderMenu) => {
                         return (
@@ -75,9 +77,11 @@ const ELHeader = () => {
                         )
                     })}
                 </div>
-                <div className="md:flex gap-4 hidden">
-                    <Image src={SearchIcon} alt="Search Icon" />
-                    <Image src={Profile} alt="Profile Icon" />
+                <div className="flex gap-4 ">
+                    <div className="hidden md:flex gap-4">
+                        <Image src={SearchIcon} alt="Search Icon" />
+                        <Image src={Profile} alt="Profile Icon" />
+                    </div>
                     <div className="flex gap-2">
                         <Image src={BagIcon} alt="Bag Icon" />
                         <ELText text='2' className={'bg-black text-white rounded-full px-2'} />
