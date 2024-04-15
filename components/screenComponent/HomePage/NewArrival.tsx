@@ -176,7 +176,7 @@ const NewArrival = () => {
             <section className="flex gap-6 w-full overflow-x-scroll overflow-hidden scrollbar">
                 {productDetails.map((product: any) => {
                     return (
-                        <div className="bg-gray-200 flex-shrink-0 relative" onMouseEnter={() => handleShowDetails(product.id)} onMouseLeave={handleHideDetails}>
+                        <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer" onMouseEnter={() => handleShowDetails(product.id)} onMouseLeave={handleHideDetails}>
                             <Image src={product.image} alt="Image" />
                             {showDetailsId === product.id && <>  <div className="flex justify-between absolute top-3 w-full px-4" >
                                 <div>

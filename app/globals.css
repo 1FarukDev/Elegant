@@ -9,3 +9,7 @@
 .overflow-hidden {
   -ms-overflow-style: none;
 }
+
+.newsletter{
+  background: url('../public/assets/images/Newsletter.svg');
+}
