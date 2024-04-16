@@ -7,7 +7,7 @@ interface InputProps {
     label?: string;
     placeholder: string;
     type?: string;
-    register: UseFormRegisterReturn;
+    register: any;
     required?: boolean;
     errors?: any; // Adjust the type of errors according to your use case
     className?: any
@@ -30,7 +30,7 @@ const ELInput: React.FC<InputProps> = ({ name, label, placeholder, type = 'text'
                     type={type === 'password' && !showPassword ? 'password' : 'text'}
                     placeholder={placeholder}
                     {...register(name, { required })}
-                    className={`${className} mt-1 outline-none w-full px-6 py-4 h-[52px] border border-[#2525253b] rounded-l-[12px] rounded-r-[12px] font-normal text-[14px] text-primaryColor`}
+                    className={`${className} mt-1 outline-none w-full px-6 py-4 h-[100%]  rounded-l-[12px] rounded-r-[12px] font-normal text-[14px] text-primaryColor`}
                 />
                 {type === 'password' && (
                     <button

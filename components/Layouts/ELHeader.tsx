@@ -11,6 +11,7 @@ import BagIcon from '@/public/assets/icons/shopping bag.svg'
 import CloseIcon from '@/public/assets/icons/close.svg'
 import menuIcon from '@/public/assets/icons/menu-line-horizontal.svg'
 import React, { useState } from "react"
+import ELHeaderMobile from "./ELHeaderMobile"
 interface HeaderMenu {
     id: number
     name: string
@@ -18,6 +19,7 @@ interface HeaderMenu {
 }
 const ELHeader = () => {
     const [promo, setPromo] = useState<Boolean>(true)
+    const [mobileHeader, setMobileHeader] = useState<Boolean>(false)
     const handleClosePromo = () => {
         setPromo(false)
     }
@@ -65,7 +67,7 @@ const ELHeader = () => {
             }
             <div className="container mx-auto my-5 flex items-center justify-between px-8 md:px-0">
                 <div className="flex">
-                    <Image src={menuIcon} alt="Menu Icon" className="md:hidden mb-1 w-7" />
+                    <Image src={menuIcon} alt="Menu Icon" className="md:hidden mb-1 w-7" onClick={() => setMobileHeader(true)}/>
                     <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-[105px]" />
                 </div>
                 <div className="md:flex gap-10 hidden">
@@ -89,6 +91,8 @@ const ELHeader = () => {
                 </div>
 
             </div>
+            {mobileHeader && <ELHeaderMobile handleClose={() => setMobileHeader(false)}/> }
+            
         </main>
     )
 }

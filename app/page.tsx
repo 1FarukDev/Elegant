@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <section className="overflow-hidden">
+    <section className="z-0">
       <main className="container mx-auto px-8 md:px-0">
         <HeroSection />
         <CategorySection />
