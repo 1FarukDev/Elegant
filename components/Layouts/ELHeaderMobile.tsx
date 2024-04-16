@@ -63,10 +63,10 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
                 <ELInput name='Hello' placeholder='Search' register={register} />
             </div>
             <div className='flex flex-col gap-3 mt-4'>
-                {headerMenu.map((menu: any) => {
+                {headerMenu.map((menu: any, index:number) => {
                     return (
-                        <div>
-                            <ul className='mb-4'>
+                        <div key={index}>
+                            <ul className='mb-4' >
                                 <li>{menu.name}</li>
                             </ul>
                             <hr className='bg-gray-400' />
@@ -76,11 +76,11 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
             </div>
             <div className='absolute bottom-[24px] w-full '>
                 <div className='flex flex-col gap-3 mt-4 w-[85%]'>
-                    {bottomMenu.map((menu: any) => {
+                    {bottomMenu.map((menu: any, index:number) => {
                         return (
-                            <div>
+                            <div key={index}>
                                 <ul>
-                                    <li className='mb-4'>
+                                    <li className='mb-4' >
                                         {menu.name}
                                     </li>
                                 </ul>

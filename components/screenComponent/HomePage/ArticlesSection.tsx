@@ -40,9 +40,9 @@ const ArticleSection = () => {
             </div>
 
             <div className="md:flex gap-3 justify-between mt-10">
-                {BLogPosts.map((blog: any) => {
+                {BLogPosts.map((blog: any, index:number) => {
                     return (
-                        <div className="md:w-1/3 gap-6">
+                        <div className="md:w-1/3 gap-6" key={index}>
                             <BlogCard title={blog.title} image={blog.image} handleClick={blog.handleClick} />
                         </div>
                     )

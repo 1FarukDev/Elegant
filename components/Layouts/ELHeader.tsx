@@ -71,9 +71,9 @@ const ELHeader = () => {
                     <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-[105px]" />
                 </div>
                 <div className="md:flex gap-10 hidden">
-                    {headerMenu.map((menu: HeaderMenu) => {
+                    {headerMenu.map((menu: HeaderMenu, index:number) => {
                         return (
-                            <ul className="flex cursor-pointer hover:text-black text-gray-500">
+                            <ul className="flex cursor-pointer hover:text-black text-gray-500" key={index}>
                                 <li>{menu.name}</li>
                             </ul>
                         )

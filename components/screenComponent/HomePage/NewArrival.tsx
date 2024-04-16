@@ -174,9 +174,9 @@ const NewArrival = () => {
             </section>
 
             <section className="flex gap-6 w-full overflow-x-scroll overflow-hidden scrollbar">
-                {productDetails.map((product: any) => {
+                {productDetails.map((product: any, index:number) => {
                     return (
-                        <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer" onMouseEnter={() => handleShowDetails(product.id)} onMouseLeave={handleHideDetails}>
+                        <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer" key={index} onMouseEnter={() => handleShowDetails(product.id)} onMouseLeave={handleHideDetails}>
                             <Image src={product.image} alt="Image" />
                             {showDetailsId === product.id && <>  <div className="flex justify-between absolute top-3 w-full px-4" >
                                 <div>
@@ -201,9 +201,9 @@ const NewArrival = () => {
             </div>
 
             <section className="mt-12 md:flex justify-between gap-6 grid grid-cols-2">
-                {Options.map((option: any) => {
+                {Options.map((option: any, index:any) => {
                     return (
-                        <div className="bg-gray-100 md:w-[30%] py-12 rounded-lg md:pl-8 pl-4">
+                        <div className="bg-gray-100 md:w-[30%] py-12 rounded-lg md:pl-8 pl-4" key={index}>
                             <Image src={option.image} alt="" />
                             <ELText text={option.head} className={'font-bold text-[15px] '} />
                             <ELText text={option.text} className={'font-normal text-[10px] '} />

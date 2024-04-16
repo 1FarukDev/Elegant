@@ -43,9 +43,9 @@ const ELFooter = () => {
                         <div><ELText text='Gift & Decoration Store' className={'md:text-white text-gray-300'} /></div>
                     </div>
                     <div className="md:flex gap-10 grid place-items-center mt-10">
-                        {FooterMenu.map((menu: any) => {
+                        {FooterMenu.map((menu: any, index:any) => {
                             return (
-                                <ul className="cursor-pointer">
+                                <ul className="cursor-pointer" key={index}>
                                     <li className="md:text-white text-gray-300 font-normal">{menu.name}</li>
                                 </ul>
                             )
