@@ -53,7 +53,7 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
     ]
     const { register, handleSubmit, formState: { errors } } = useForm();
     return (
-        <main className='absolute top-0 w-[90%] bg-white h-screen p-6 z-[100]'>
+        <main className=' fixed top-0 w-[90%] bg-white h-screen p-6 z-[100]'>
             <div className="flex w-full justify-between item-center ">
                 <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-[105px]" />
                 <Image src={CloseIcon} alt="Close Icon" className="w-[30px] md:w-[105px]" onClick={handleClose}/>
