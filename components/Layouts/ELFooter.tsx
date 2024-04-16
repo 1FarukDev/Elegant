@@ -36,17 +36,17 @@ const ELFooter = () => {
     return (
         <main className="bg-black">
             <div className="container mx-auto py-20">
-                <div className="flex justify-between">
-                    <div className="flex items-center">
+                <div className="md:flex md:justify-between justify-center">
+                    <div className="md:flex items-center justify-center  grid place-items-center">
                         <Image src={Logo} alt="Elegant Logo" />
-                        <div className="w-[1px] h-6 bg-gray-500 mx-8"></div>
-                        <div><ELText text='Gift & Decoration Store' className={'text-white'} /></div>
+                        <div className="md:w-[1px] md:h-6 w-6 h-[1px] bg-gray-500 mx-8 my-4 md:my-0"></div>
+                        <div><ELText text='Gift & Decoration Store' className={'md:text-white text-gray-300'} /></div>
                     </div>
-                    <div className="flex gap-10">
+                    <div className="md:flex gap-10 grid place-items-center mt-10">
                         {FooterMenu.map((menu: any) => {
                             return (
                                 <ul className="cursor-pointer">
-                                    <li className="text-white font-normal">{menu.name}</li>
+                                    <li className="md:text-white text-gray-300 font-normal">{menu.name}</li>
                                 </ul>
                             )
                         })}
@@ -54,13 +54,15 @@ const ELFooter = () => {
                 </div>
                 <div className="mt-12">
                     <hr className="text-[gray]" />
-                    <div className="mt-4 flex justify-between">
-                        <div className="flex gap-10 ">
-                            <ELText text='Copyright © 2023 3legant. All rights reserved' className={'text-white'} />
-                            <ELText text='Privacy' className={'text-white'} />
-                            <ELText text='Terms of use' className={'text-white'} />
+                    <div className="md:mt-4 mt-12 flex justify-between md:flex-row flex-col-reverse">
+                        <div className="flex gap-10 flex-col-reverse md:flex-row place-items-center">
+                            <ELText text='Copyright © 2023 3legant. All rights reserved' className={'md:text-white text-gray-300'} />
+                            <div className="gap-7 flex text-center ">
+                                <ELText text='Privacy' className={'text-white'} />
+                                <ELText text='Terms of use' className={'text-white'} />
+                            </div>
                         </div>
-                        <div className="flex gap-5">
+                        <div className="flex gap-5 justify-center mb-6 md:mb-0">
                             <Image src={instagram} alt="Instagram" />
                             <Image src={facebook} alt="facebook" />
                             <Image src={youtube} alt="youtube" />

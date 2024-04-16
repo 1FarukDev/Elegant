@@ -63,7 +63,7 @@ const ELHeader = () => {
                 </div>
             </div>
             }
-            <div className="container mx-auto my-5 flex items-center justify-between">
+            <div className="container mx-auto my-5 flex items-center justify-between px-8 md:px-0">
                 <div className="flex">
                     <Image src={menuIcon} alt="Menu Icon" className="md:hidden mb-1 w-7" />
                     <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-[105px]" />

@@ -8,10 +8,10 @@ const NewsLetter = () => {
     return (
         <main className="newsletter mt-20">
             <div className=" py-24 h-[100%]">
-                <div className="flex justify-center ">
+                <div className="flex justify-center items-center ">
                     <ELText text='Join Our Newsletter' className={'font-medium text-[35px] '} />
                 </div>
-                <div className="flex justify-center ">
+                <div className="flex justify-center items-center text-center">
                     <ELText text='Sign up for deals, new products and promotions' className={'font-medium text-[20px]'} />
                 </div>
             </div>

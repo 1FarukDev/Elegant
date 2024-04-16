@@ -155,10 +155,10 @@ const NewArrival = () => {
         },
     ]
     const handleShowDetails = (id: string) => {
-        setShowDetailsId(id); // Set the id of the product to show details
+        setShowDetailsId(id);
     }
     const handleHideDetails = () => {
-        setShowDetailsId(null); // Reset the id to hide details
+        setShowDetailsId(null);
     }
     return (
         <main>
@@ -167,7 +167,7 @@ const NewArrival = () => {
                     <ELText text='New' className={'font-medium text-[30px]'} />
                     <ELText text='Arivals' className={'font-medium text-[30px]'} />
                 </div>
-                <div className="flex items-center gap-2 border-b w-max border-black cursor-pointer mb-3">
+                <div className="md:flex hidden items-center gap-2 border-b w-max border-black cursor-pointer mb-3 ">
                     <ELText text='Show more' className={'font-normal text-[15px]'} />
                     <Image src={ArrowRight} alt="Arrow Icon" />
                 </div>
@@ -195,11 +195,15 @@ const NewArrival = () => {
                     )
                 })}
             </section>
+            <div className="flex items-center md:hidden gap-2 border-b w-max border-black cursor-pointer my-3 ">
+                <ELText text='More product' className={'font-normal text-[15px]'} />
+                <Image src={ArrowRight} alt="Arrow Icon" />
+            </div>
 
-            <section className="mt-12 flex justify-between gap-6">
+            <section className="mt-12 md:flex justify-between gap-6 grid grid-cols-2">
                 {Options.map((option: any) => {
                     return (
-                        <div className="bg-gray-100 w-[30%] py-12 rounded-lg pl-8">
+                        <div className="bg-gray-100 md:w-[30%] py-12 rounded-lg md:pl-8 pl-4">
                             <Image src={option.image} alt="" />
                             <ELText text={option.head} className={'font-bold text-[15px] '} />
                             <ELText text={option.text} className={'font-normal text-[10px] '} />

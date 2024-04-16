@@ -8,15 +8,16 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <section>
-
-      <main className="container mx-auto">
+    <section className="overflow-hidden">
+      <main className="container mx-auto px-8 md:px-0">
         <HeroSection />
         <CategorySection />
         <NewArrival />
       </main>
       <SalesSection />
-      <ArticleSection />
+      <div className="px-8 md:px-0">
+        <ArticleSection />
+      </div>
       <NewsLetter />
     </section>
   );
