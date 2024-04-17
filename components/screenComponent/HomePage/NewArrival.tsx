@@ -174,7 +174,7 @@ const NewArrival = () => {
             </section>
 
             <section className="flex gap-6 w-full overflow-x-scroll overflow-hidden scrollbar">
-                {productDetails.map((product: any, index:number) => {
+                {productDetails.map((product: any, index: number) => {
                     return (
                         <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer" key={index} onMouseEnter={() => handleShowDetails(product.id)} onMouseLeave={handleHideDetails}>
                             <Image src={product.image} alt="Image" />
@@ -201,7 +201,7 @@ const NewArrival = () => {
             </div>
 
             <section className="mt-12 md:flex justify-between gap-6 grid grid-cols-2">
-                {Options.map((option: any, index:any) => {
+                {Options.map((option: any, index: any) => {
                     return (
                         <div className="bg-gray-100 md:w-[30%] py-12 rounded-lg md:pl-8 pl-4" key={index}>
                             <Image src={option.image} alt="" />
