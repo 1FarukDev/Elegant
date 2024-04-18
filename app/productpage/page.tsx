@@ -33,7 +33,7 @@ type productTab = {
     name: string
 }
 
-const productpage = () => {
+const Productpage = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [activeTab, setActiveTab] = useState('Reviews')
 
@@ -275,4 +275,4 @@ const productpage = () => {
     )
 }
 
-export default productpage
+export default Productpage
