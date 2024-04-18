@@ -12,6 +12,7 @@ import shipping from '@/public/assets/icons/fast delivery.svg'
 import money from '@/public/assets/icons/money.svg'
 import lock from '@/public/assets/icons/lock 01.svg'
 import call from '@/public/assets/icons/call.svg'
+import Link from "next/link"
 
 interface ProductDetail {
     id: string
@@ -160,6 +161,9 @@ const NewArrival = () => {
     const handleHideDetails = () => {
         setShowDetailsId(null);
     }
+    const handleNavigateToDetailsPage = () => {
+
+    }
     return (
         <main>
             <section className="flex justify-between items-end">
@@ -174,7 +178,7 @@ const NewArrival = () => {
             </section>
 
             <section className="flex gap-6 w-full overflow-x-scroll overflow-hidden scrollbar">
-                {productDetails.map((product: any, index:number) => {
+                {productDetails.map((product: any, index: number) => {
                     return (
                         <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer" key={index} onMouseEnter={() => handleShowDetails(product.id)} onMouseLeave={handleHideDetails}>
                             <Image src={product.image} alt="Image" />
@@ -187,9 +191,9 @@ const NewArrival = () => {
                                     <Image src={LoveIcon} alt="Icon for add to wishlist" />
                                 </div>
                             </div>
-                                <div className="absolute w-full bottom-0 bg-gray-100 p-4">
+                                <Link href={'/productpage'} className="absolute w-full bottom-0 bg-gray-100 p-4">
                                     <ELButton name="Add to cart" className="bg-black text-white w-full p-2 rounded-lg" />
-                                </div>
+                                </Link>
                             </>}
                         </div>
                     )
@@ -201,7 +205,7 @@ const NewArrival = () => {
             </div>
 
             <section className="mt-12 md:flex justify-between gap-6 grid grid-cols-2">
-                {Options.map((option: any, index:any) => {
+                {Options.map((option: any, index: any) => {
                     return (
                         <div className="bg-gray-100 md:w-[30%] py-12 rounded-lg md:pl-8 pl-4" key={index}>
                             <Image src={option.image} alt="" />
