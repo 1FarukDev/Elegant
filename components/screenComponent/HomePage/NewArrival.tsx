@@ -12,6 +12,7 @@ import shipping from '@/public/assets/icons/fast delivery.svg'
 import money from '@/public/assets/icons/money.svg'
 import lock from '@/public/assets/icons/lock 01.svg'
 import call from '@/public/assets/icons/call.svg'
+import Link from "next/link"
 
 interface ProductDetail {
     id: string
@@ -160,6 +161,9 @@ const NewArrival = () => {
     const handleHideDetails = () => {
         setShowDetailsId(null);
     }
+    const handleNavigateToDetailsPage = () => {
+
+    }
     return (
         <main>
             <section className="flex justify-between items-end">
@@ -187,9 +191,9 @@ const NewArrival = () => {
                                     <Image src={LoveIcon} alt="Icon for add to wishlist" />
                                 </div>
                             </div>
-                                <div className="absolute w-full bottom-0 bg-gray-100 p-4">
+                                <Link href={'/productpage'} className="absolute w-full bottom-0 bg-gray-100 p-4">
                                     <ELButton name="Add to cart" className="bg-black text-white w-full p-2 rounded-lg" />
-                                </div>
+                                </Link>
                             </>}
                         </div>
                     )
