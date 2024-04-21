@@ -13,6 +13,7 @@ import money from '@/public/assets/icons/money.svg'
 import lock from '@/public/assets/icons/lock 01.svg'
 import call from '@/public/assets/icons/call.svg'
 import Link from "next/link"
+import ProductCard from "@/components/card/ProductCard"
 
 interface ProductDetail {
     id: string
@@ -25,7 +26,7 @@ interface ProductDetail {
     image: string
 }
 const NewArrival = () => {
-    const [showDetailsId, setShowDetailsId] = useState<string | null>(null);
+    const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
     const productDetails = [
         {
             id: '0',
@@ -155,11 +156,18 @@ const NewArrival = () => {
             text: 'Phone and Email support'
         },
     ]
+
     const handleShowDetails = (id: string) => {
-        setShowDetailsId(id);
+        setShowButtonMap(prevState => ({
+            ...prevState,
+            [id]: true
+        }));
     }
-    const handleHideDetails = () => {
-        setShowDetailsId(null);
+    const handleHideDetails = (id: string) => {
+        setShowButtonMap(prevState => ({
+            ...prevState,
+            [id]: false
+        }));
     }
     const handleNavigateToDetailsPage = () => {
 
@@ -179,22 +187,16 @@ const NewArrival = () => {
 
             <section className="flex gap-6 w-full overflow-x-scroll overflow-hidden scrollbar">
                 {productDetails.map((product: any, index: number) => {
+                    const id = product.id; 
                     return (
-                        <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer" key={index} onMouseEnter={() => handleShowDetails(product.id)} onMouseLeave={handleHideDetails}>
-                            <Image src={product.image} alt="Image" />
-                            {showDetailsId === product.id && <>  <div className="flex justify-between absolute top-3 w-full px-4" >
-                                <div>
-                                    {product.new && <ELText text='NEW' className={'bg-white py-1 px-5 rounded-lg mb-2'} />}
-                                    <ELText text='-50%' className={'bg-green-400 py-1 px-5 rounded-lg'} />
-                                </div>
-                                <div className="">
-                                    <Image src={LoveIcon} alt="Icon for add to wishlist" />
-                                </div>
-                            </div>
-                                <Link href={'/productpage'} className="absolute w-full bottom-0 bg-gray-100 p-4">
-                                    <ELButton name="Add to cart" className="bg-black text-white w-full p-2 rounded-lg" />
-                                </Link>
-                            </>}
+                        <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer" key={index}>
+                            <ProductCard
+                                image={product.image}
+                                handleClick={() => console.log('Hello')}
+                                onMouseEnter={() => handleShowDetails(id)}
+                                onMouseLeave={() => handleHideDetails(id)}
+                                showButton={showButtonMap[id] || (window.innerWidth <= 768)} 
+                            />
                         </div>
                     )
                 })}
