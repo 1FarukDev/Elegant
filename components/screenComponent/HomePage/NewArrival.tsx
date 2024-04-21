@@ -5,14 +5,11 @@ import Image from "next/image"
 import ArrowRight from '@/public/assets/icons/arrowRightBlack.svg'
 import Star from '@/public/assets/icons/Rating Group.svg'
 import ProductImage from '@/public/assets/images/product.png'
-import LoveIcon from '@/public/assets/icons/wishlistadd.svg'
-import ELButton from "@/components/Atoms/ELButton"
 import React, { useState } from "react"
 import shipping from '@/public/assets/icons/fast delivery.svg'
 import money from '@/public/assets/icons/money.svg'
 import lock from '@/public/assets/icons/lock 01.svg'
 import call from '@/public/assets/icons/call.svg'
-import Link from "next/link"
 import ProductCard from "@/components/card/ProductCard"
 
 interface ProductDetail {
@@ -189,13 +186,17 @@ const NewArrival = () => {
                 {productDetails.map((product: any, index: number) => {
                     const id = product.id; 
                     return (
-                        <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer" key={index}>
+                        <div className=" flex-shrink-0 relative cursor-pointer" key={index}>
                             <ProductCard
                                 image={product.image}
                                 handleClick={() => console.log('Hello')}
                                 onMouseEnter={() => handleShowDetails(id)}
                                 onMouseLeave={() => handleHideDetails(id)}
                                 showButton={showButtonMap[id] || (window.innerWidth <= 768)} 
+                                discountPrice={product.discountPrice}
+                                price={product.price}
+                                name={product.name}
+                                starRating={product.rating}
                             />
                         </div>
                     )

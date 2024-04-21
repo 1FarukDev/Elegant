@@ -6,6 +6,8 @@ import ArrorRight from '@/public/assets/icons/arrow right 3.svg'
 import Image from 'next/image'
 import { useState } from 'react'
 import ELCheckBox from '@/components/Atoms/ELCheckbox'
+import Star from '@/public/assets/icons/Rating Group.svg'
+import ProductImage from '@/public/assets/images/product.png'
 
 const Shop = () => {
     const [activeCategory, setActiveCategory] = useState('All Rooms')
@@ -71,6 +73,109 @@ const Shop = () => {
             name:'$400.00+'
         },
     ]
+    const productDetails = [
+        {
+            id: '0',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+        {
+            id: '1',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+        {
+            id: '2',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+        {
+            id: '3',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+        {
+            id: '4',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+        {
+            id: '5',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+        {
+            id: '6',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+        {
+            id: '7',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+        {
+            id: '8',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+        {
+            id: '9',
+            name: 'Loveseat Sofa',
+            discountPrice: '$199.00',
+            price: '$400.00',
+            new: true,
+            discount: '-50%',
+            rating: Star,
+            image: ProductImage
+        },
+
+    ]
     return (
         <main>
             <section className='container mx-auto  '>
@@ -121,6 +226,9 @@ const Shop = () => {
                     </div>
                 </div>
                     <div className='w-[80%]'>{category}</div>
+                    <div>
+
+                    </div>
                </div>
             </section>
         </main>

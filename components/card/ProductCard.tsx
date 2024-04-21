@@ -13,11 +13,15 @@ interface CardInputFieldProps {
     image?: any;
     handleClick?: any
     showButton?: any
-    onMouseEnter?:any
-    onMouseLeave?:any
+    onMouseEnter?: any
+    onMouseLeave?: any
+    starRating?:any
+    name?:string
+    price?:string
+    discountPrice:string
 }
 
-const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButton = false, onMouseEnter, onMouseLeave }) => {
+const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButton = false, onMouseEnter, onMouseLeave, starRating, name, price, discountPrice }) => {
     return (
         <main>
             <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
@@ -36,6 +40,18 @@ const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButt
                         <ELButton name="Add to cart" className="bg-black text-white w-full p-2 rounded-lg" handleClick={handleClick} />
                     </Link>
                 )}
+
+            </div>
+            <div>
+                <Image src={starRating} alt="Star Rating"/>
+                <ELText text={name} />
+              <div className="flex gap-4">
+                    <ELText text={discountPrice} className={'text-[15px]'}/>
+                    <div className="relative">
+                        <ELText text={price} className={'text-[15px] font-medium text-gray-500'} />
+                        <hr className="absolute top-[10px] text-gray-500 border w-full font-medium " />
+                    </div>
+              </div>
             </div>
         </main>
     )
