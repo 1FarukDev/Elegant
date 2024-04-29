@@ -40,11 +40,11 @@ const ELDropdown: React.FC<DropDownItem> = ({ title, options, Label }) => {
                         }`} />
                 </button>
                 {isOpen && (
-                    <ul className="absolute text-gray-700 pt-1 z-[100]" >
+                    <ul className="absolute text-gray-700 pt-1 z-[100] bg-white w-full rounded-lg" >
                         {options.map(({ id, name, path }) => (
                             <li key={id}>
                                 <a
-                                    className="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap"
+                                    className="hover:bg-gray-200 py-4 px-4 block whitespace-no-wrap"
                                     href={path}
                                 >
                                     {name}
