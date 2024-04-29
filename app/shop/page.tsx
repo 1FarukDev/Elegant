@@ -9,6 +9,7 @@ import Star from '@/public/assets/icons/Rating Group.svg'
 import ProductImage from '@/public/assets/images/product.png'
 import ProductCard from '@/components/card/ProductCard'
 import ELDropdown from '@/components/Atoms/ELDropdown'
+import ELButton from '@/components/Atoms/ELButton'
 
 const Shop = () => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
@@ -215,32 +216,36 @@ const Shop = () => {
                             <Image src={FilterIcon} alt='FilterIcon' className='w-[15px]' />
                             <ELText text='Filter' className={'font-semibold text-[15px]'} />
                         </div>
-                        <div className='md:mt-8 mt-4'>
+                        <div className='md:mt-0 mt-0'>
                             <ELText text='CATEGORIES' className={'font-semibold text-[15px]'} />
                             <div className='mt-3 hidden md:block'>
                                 {shopCategroy.map((category: any) => {
                                     return (
                                         <main key={category.id} onClick={() => handleChangeCategory(category.name)} className='w-max'>
-                                            <ELText text={category.name} className={`${activeCategory === category.name ? 'text-black border-b border-black' : 'text-gray-500'}  text-[15px] mb-2 hover:text-black cursor-pointer`} />
+                                            <ELText text={category.name} className={`${activeCategory === category.name ? 'text-black border-b border-black' : 'text-gray-500'}  text-[15px] md:text-[10px] mb-2 hover:text-black cursor-pointer`} />
                                         </main>
                                     )
                                 })}
                             </div>
-                            <ELDropdown options={shopCategroy} title={category} />
+                            <div className='md:hidden'>
+                                <ELDropdown options={shopCategroy} title={category} />
+                            </div>
                         </div>
-                        <div className='md:mt-8 mt-4'>
+                        <div className='md:mt-0 mt-0'>
                             <ELText text='PRICE' className={'font-semibold text-[15px]'} />
                             <div className='mt-3 hidden md:block'>
                                 {priceCategory.map((category: any) => {
                                     return (
                                         <main key={category.id} className='flex justify-between'>
-                                            <ELText text={category.name} className={'text-gray-500 text-[15px] mb-2 hover:text-black cursor-pointer'} />
+                                            <ELText text={category.name} className={'text-gray-500 text-[15px] md:text-[10px] mb-2 hover:text-black cursor-pointer'} />
                                             <ELCheckBox name={category.name} label='' />
                                         </main>
                                     )
                                 })}
                             </div>
-                            <ELDropdown options={priceCategory} title={priceCategory[0].name} />
+                            <div className='md:hidden'>
+                                <ELDropdown options={priceCategory} title={priceCategory[0].name} />
+                            </div>
                         </div>
                     </div>
                     <div className='md:w-[80%] w-[100%] mt-8 md:mt-0'>
@@ -266,7 +271,9 @@ const Shop = () => {
                             })}
                         </div>
                     </div>
-
+                </div>
+                <div className='flex justify-center my-8'>
+                    <ELButton name='Show more' className='px-4 py-2 border border-black text-black rounded-full'/>
                 </div>
             </section>
         </main>

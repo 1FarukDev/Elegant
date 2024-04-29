@@ -40,7 +40,7 @@ const ELDropdown: React.FC<DropDownItem> = ({ title, options, Label }) => {
                         }`} />
                 </button>
                 {isOpen && (
-                    <ul className="absolute text-gray-700 pt-1 z-[100] bg-white w-full rounded-lg" >
+                    <ul className="absolute text-gray-700 pt-1 z-[100] bg-white w-full rounded-lg border border-[#2525253b]" >
                         {options.map(({ id, name, path }) => (
                             <li key={id}>
                                 <a

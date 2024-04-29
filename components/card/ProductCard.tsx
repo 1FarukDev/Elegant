@@ -38,8 +38,8 @@ const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButt
                     </div>
                 </div>
                 {showButton && (
-                    <Link href={'/productpage'} className="absolute w-full bottom-0 bg-gray-100 p-4 rounded-lg">
-                        <ELButton name="Add to cart" className="bg-black text-white w-full p-2 rounded-lg" handleClick={handleClick} />
+                    <Link href={'/productpage'} className="absolute w-full bottom-0 bg-gray-100 md:p-4 p-2 rounded-lg">
+                        <ELButton name="Add to cart" className="bg-black text-white w-full md:p-2 p-1 md:text-[20px] text-[15px] rounded-lg" handleClick={handleClick} />
                     </Link>
                 )}
 
