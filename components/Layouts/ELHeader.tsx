@@ -74,7 +74,7 @@ const ELHeader = () => {
                 <div className="md:flex gap-10 hidden">
                     {headerMenu.map((menu: HeaderMenu, index: number) => {
                         return (
-                            <Link href={menu.to}>
+                            <Link href={menu.to} key={index}>
                                 <ul className="flex cursor-pointer hover:text-black text-gray-500" key={index}>
                                     <li>{menu.name}</li>
                                 </ul>

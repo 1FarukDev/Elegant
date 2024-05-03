@@ -196,7 +196,6 @@ const Shop = () => {
             <section className='container mx-auto  '>
                 <section className='px-8 md:px-0'>
                     <div className=' w-full  shop_header flex justify-center items-center px-4 '>
-                        {/* <Image src={ShopHeader} alt='Shop Header Image' className='w-[100%]' /> */}
                         <div className='flex flex-col place-items-center '>
                             <div className='flex md:gap-3 gap-2'>
                                 <ELText text='Home' className={'text-[10px] text-gray-600'} />
