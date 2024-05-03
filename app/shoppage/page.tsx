@@ -259,7 +259,7 @@ const Shop = () => {
                                             handleClick={() => console.log('Hello')}
                                             onMouseEnter={() => handleShowDetails(id)}
                                             onMouseLeave={() => handleHideDetails(id)}
-                                            showButton={showButtonMap[id] || (window.innerWidth <= 768)}
+                                            showButton={showButtonMap[id]}
                                             discountPrice={product.discountPrice}
                                             price={product.price}
                                             name={product.name}
