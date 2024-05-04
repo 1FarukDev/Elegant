@@ -3,7 +3,7 @@
 import ELText from "@/components/Atoms/ELText"
 import CartItems from "@/components/cartcomponent/items"
 import { useState } from "react"
-
+import TrayTable from '@/public/assets/images/Tray table.png'
 
 type steps = {
     tag: string
@@ -14,8 +14,37 @@ const CartPage = () => {
     const handleSteps = (newStep: string) => {
         setActiceSteps(newStep)
         console.log(activeSteps);
-        
+
     }
+
+    const cartItem = [
+        {
+            id: '0',
+            image: TrayTable,
+            color: 'black',
+            quantity: '2',
+            size: '$19.00',
+            subtotal: '$39.00'
+        },
+        {
+            id: '1',
+            image: TrayTable,
+            color: 'black',
+            quantity: '2',
+            size: '$19.00',
+            subtotal: '$39.00'
+        },
+        {
+            id: '2',
+            image: TrayTable,
+            color: 'black',
+            quantity: '2',
+            size: '$19.00',
+            subtotal: '$39.00'
+        },
+
+    ]
+
     const steps = [
         {
             tag: '1',
@@ -45,6 +74,8 @@ const CartPage = () => {
                         )
                     })}
                 </div>
+                <CartItems CartItem={cartItem} />
+
             </section>
         </main>
     )
