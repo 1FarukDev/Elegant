@@ -12,6 +12,7 @@ import CloseIcon from '@/public/assets/icons/close.svg'
 import menuIcon from '@/public/assets/icons/menu-line-horizontal.svg'
 import React, { useState } from "react"
 import ELHeaderMobile from "./ELHeaderMobile"
+import Link from "next/link"
 interface HeaderMenu {
     id: number
     name: string
@@ -32,7 +33,7 @@ const ELHeader = () => {
         {
             id: 0,
             name: 'Shop',
-            to: '/'
+            to: '/shop'
         },
         {
             id: 0,
@@ -67,15 +68,17 @@ const ELHeader = () => {
             }
             <div className="container mx-auto my-5 flex items-center justify-between px-8 md:px-0">
                 <div className="flex">
-                    <Image src={menuIcon} alt="Menu Icon" className="md:hidden mb-1 w-7" onClick={() => setMobileHeader(true)}/>
+                    <Image src={menuIcon} alt="Menu Icon" className="md:hidden mb-1 w-7" onClick={() => setMobileHeader(true)} />
                     <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-[105px]" />
                 </div>
                 <div className="md:flex gap-10 hidden">
-                    {headerMenu.map((menu: HeaderMenu, index:number) => {
+                    {headerMenu.map((menu: HeaderMenu, index: number) => {
                         return (
-                            <ul className="flex cursor-pointer hover:text-black text-gray-500" key={index}>
-                                <li>{menu.name}</li>
-                            </ul>
+                            <Link href={menu.to} key={index}>
+                                <ul className="flex cursor-pointer hover:text-black text-gray-500" key={index}>
+                                    <li>{menu.name}</li>
+                                </ul>
+                            </Link>
                         )
                     })}
                 </div>
@@ -91,8 +94,8 @@ const ELHeader = () => {
                 </div>
 
             </div>
-            {mobileHeader && <ELHeaderMobile handleClose={() => setMobileHeader(false)}/> }
-            
+            {mobileHeader && <ELHeaderMobile handleClose={() => setMobileHeader(false)} />}
+
         </main>
     )
 }

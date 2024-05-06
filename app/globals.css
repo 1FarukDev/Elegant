@@ -17,3 +17,10 @@
   background-size: cover;
   min-height: 360px;
 }
+.shop_header{
+   background: url("../public/assets/images/shop\ header.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 360px;
+}
