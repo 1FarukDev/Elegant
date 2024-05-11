@@ -62,11 +62,11 @@ const CartPage = () => {
         },
     ]
     return (
-        <main className="container mx-auto">
+        <main className="container mx-auto px-8 md:px-0">
             <section className="my-[70px]">
                 <div className="text-center"><ELText text='Cart' className={'text-[30px] font-bold'} /></div>
 
-                <div className="flex justify-center gap-8 mt-10">
+                <div className="md:flex justify-center gap-8 mt-10">
                     {steps.map((step: steps, index: number) => {
                         return (
                             <ul key={index} className={`${activeSteps === step.tag ? 'border-black border-b-2' : 'border-gray-200 border-b-2'} flex justify-start items-center gap-4  pb-6 pr-[100px] cursor-pointer`} onClick={() => handleSteps(step.tag)}>

@@ -11,10 +11,10 @@ const CheckoutComplete = () => {
     ]
     return (
         <>
-        <main className="flex flex-col justify-center items-center text-center mt-[70px] px-[130px] bg-white shadow-md rounded-lg w-max mx-auto py-[80px]">
+        <main className="flex flex-col md:justify-center md:items-center md:text-center mt-[70px] p-8 md:px-[130px] bg-white shadow-md rounded-lg w-max mx-auto md:py-[80px]">
             <ELText text='Thank you 🎉' className={'text-[25px] text-gray-400'} />
             <p className="text-[35px]">Your order has been <br /> received</p>
-            <div className="flex gap-9 mt-10">
+            <div className="flex justify-between md:gap-9 mt-10">
                 {itemDetail.map((item: any) => {
                     return (
                         <main>
@@ -26,7 +26,7 @@ const CheckoutComplete = () => {
                     );
                 })}
             </div>
-            <div className="flex text-start gap-16 mt-10">
+            <div className="md:flex text-start gap-16 mt-10 hidden">
                 <div>
                     <ELText text='Order code:' className={'text-gray-400'} />
                     <ELText text='Date:' className={'text-gray-400'} />
@@ -40,8 +40,30 @@ const CheckoutComplete = () => {
                     <ELText text='Credit Card' className={'text-black font-semibold'} />
                 </div>
             </div>
+            <div className="mt-10">
+                    <div>
+                        <ELText text='Order code:' className={'text-gray-400'} />
+                        <ELText text='#0123_45678' className={'text-black font-semibold'} />
+                       <hr className="my-3"/>
+                    </div>
+                    <div>
+                        <ELText text='Date:' className={'text-gray-400'} />
+                        <ELText text='October 19, 2023' className={'text-black font-semibold'} />
+                       <hr className="my-3"/>
+                    </div>
+                    <div>
+                        <ELText text='Total:' className={'text-gray-400'} />
+                        <ELText text='$1,345.00' className={'text-black font-semibold'} />
+                       <hr className="my-3"/>
+                    </div>
+                    <div>
+                        <ELText text='Payment method:' className={'text-gray-400'} />
+                        <ELText text='Credit Card' className={'text-black font-semibold'} />
+                       <hr className="my-3"/>
+                    </div>
+            </div>
         </main><div className='flex justify-center my-8'>
-                <ELButton name='Purchase history' className='px-4 py-2 border border-black bg-black text-whiterounded-full' />
+                <ELButton name='Purchase history' className='md:px-4 px-6 py-3 md:py-2 border border-black bg-black text-white rounded-full' />
             </div>
             </>
     )

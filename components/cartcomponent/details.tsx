@@ -54,8 +54,8 @@ const DeliveryDetails = (props: CartItemProps) => {
     ]
     const { register, handleSubmit } = useForm()
     return (
-        <main className="flex items-start justify-between mt-[70px]">
-            <div className="w-[60%] ">
+        <main className="md:flex items-start justify-between mt-[70px]">
+            <div className="md:w-[60%] ">
                 <div className=" border-2 border-gray-400 rounded-lg px-[24px] py-[40px]">
                     <ELText text='Contact Information' className={'text-[20px] font-medium mb-6'} />
                     <div className="flex  gap-6">
@@ -108,20 +108,20 @@ const DeliveryDetails = (props: CartItemProps) => {
                     </div>
 
                 </div>
-                <div className="mt-[35px]">
+                <div className="mt-[35px] hidden md:block">
                     <ELButton name="Place Order" className="text-white bg-black w-full py-[15px] rounded-lg " />
                 </div>
                 <div>
 
                 </div>
             </div>
-            <div className="w-[35%] rounded-lg border-2 border-gray-400 px-[24px] py-[40px]">
+            <div className="md:w-[35%] mt-6 md:mt-0 rounded-lg border-2 border-gray-400 px-[24px] py-[40px]">
                 <div className="mb-6">
                     {CartItem.map((item: any) => {
                         return (
                             <>
                                 <main className="flex justify-between w-full items-start mb-8">
-                                    <div className="w-[45%]">
+                                    <div className="md:w-[45%]">
                                         <div className="flex gap-2 items-start">
                                             <div className="w-[80px] h-[96px]">
                                                 <Image src={item.image} alt="Cart Item" className="bg-gray-200" />
@@ -139,8 +139,9 @@ const DeliveryDetails = (props: CartItemProps) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className="flex flex-col items-end  md:mt-0">
                                         <ELText text={item.subtotal} className={'font-semibold'} />
+                                        <Image src={AddIcon} alt="Add Icon" className="rotate-45 md:hidden block" width={30} />
                                     </div>
                                 </main>
                                 <hr className="mb-11" />
@@ -150,7 +151,7 @@ const DeliveryDetails = (props: CartItemProps) => {
                 </div>
                 <div className="flex gap-4 ">
                     <ELInput name="coupon" placeholder="Input" register={register} className={'border w-[90%]'} />
-                    <div className="w-[30%]">
+                    <div className="md:w-[30%] w-[50%]">
                         <ELButton name="Appy" className="text-white bg-black w-full  py-[15px] rounded-xl  " />
                     </div>
                 </div>
@@ -178,6 +179,9 @@ const DeliveryDetails = (props: CartItemProps) => {
                         <ELText text='$1234.00' className={'font-semibold text-[20px]'} />
                     </div>
                 </div>
+            </div>
+            <div className="mt-[35px] md:hidden">
+                <ELButton name="Place Order" className="text-white bg-black w-full py-[15px] rounded-lg " />
             </div>
         </main>
     )
