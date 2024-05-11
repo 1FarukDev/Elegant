@@ -4,12 +4,22 @@ import ELText from "../Atoms/ELText"
 import AddIcon from '@/public/assets/icons/add icon.svg'
 import SubIcon from '@/public/assets/icons/minu sign.svg'
 import Image from "next/image"
+import { ELRadio } from "../Atoms/ELRadio"
+import ELButton from "../Atoms/ELButton"
 
 interface CartItemProps {
     CartItem: any
 }
+type deliveryType = {
+    id: number, label: string, value: string
+}
 
 const CartItems = (props: CartItemProps) => {
+    const deliveryType = [
+        { id: 0, label: 'Free shipping', value: '$0.00', addedValue: '$0.00' },
+        { id: 1, label: 'Express shipping', value: '+$15.00', addedValue:'+$15.00' },
+        { id: 2, label: 'Pick Up', value: '%21.00', addedValue:'%21.00' }
+    ]
     const { CartItem } = props
     return (
         <div className="flex mt-[70px]  justify-between">
@@ -51,9 +61,9 @@ const CartItems = (props: CartItemProps) => {
                                         </div>
                                     </div>
                                     <div className="w-[15%] flex justify-around border-2 rounded-lg py-2">
-                                        <Image src={SubIcon} alt="Sub Icon" />
+                                        <Image src={SubIcon} alt="Sub Icon" className="cursor-pointer" />
                                         <ELText text={item.quantity} />
-                                        <Image src={AddIcon} alt="Add Icon" />
+                                        <Image src={AddIcon} alt="Add Icon" className="cursor-pointer" />
                                     </div>
                                     <div>
                                         <ELText text={item.size} className={'font-normal'} />
@@ -67,7 +77,28 @@ const CartItems = (props: CartItemProps) => {
                     </div>
                 </div>
             </div>
-            <div className="w-[30%]">dad</div>
+            <div className="w-[30%] border border-black rounded-lg p-6">
+                <ELText text='Cart summary' className={'font-semibold mb-4 text-[20px]'}/>
+                <div className="">
+                    <ELRadio name='' options={deliveryType} className={'flex flex-col gap-4 '} buttonStyle={'flex gap-4 justify-between border-[2px] rounded-md p-[17px] border-black '}
+                    handleRadioButtonClick={() => console.log(deliveryType)}
+                    />
+                </div>
+             <div className="mt-[16px]">
+                    <div className="flex justify-between">
+                        <ELText text='Subtotal' className={'text-[18px]'} />
+                        <ELText text='$1234.00' className={'font-semibold'} />
+                    </div>
+                    <hr className="my-[13px]" />
+                    <div className="flex justify-between">
+                        <ELText text='Total' className={'font-semibold text-[20px]'} />
+                        <ELText text='$1234.00' className={'font-semibold text-[20px]'} />
+                    </div>
+             </div>
+             <div className="mt-[35px]">
+                <ELButton name="Checkout" className="text-white bg-black w-full py-[15px] rounded-lg "/>
+             </div>
+            </div>
         </div>
     )
 }
