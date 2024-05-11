@@ -75,8 +75,8 @@ const CartPage = () => {
                         )
                     })}
                 </div>
-                {/* <CartItems CartItem={cartItem} /> */}
-                <DeliveryDetails CartItem={cartItem}/>
+                <CartItems CartItem={cartItem} />
+                {/* <DeliveryDetails CartItem={cartItem}/> */}
 
             </section>
         </main>
