@@ -1,10 +1,11 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
+import Image from 'next/image';
 interface RadioOption {
     label: string;
     value: string;
     addedValue?: string
+    iconRight?:any
 }
 
 interface RadioProps {
@@ -13,6 +14,7 @@ interface RadioProps {
     className?: any
     buttonStyle?: any
     handleRadioButtonClick: any
+
 }
 
 interface FormData {
@@ -29,30 +31,10 @@ export const ELRadio: React.FC<RadioProps> = ({ name, options, className, button
                         {option.label}
                     </div>
                     {option.addedValue}
+                    {option.iconRight  && <Image src={option.iconRight} alt="Right Icon" />}
                 </label>
             ))}
         </div>
     );
 };
 
-// const MyForm: React.FC = () => {
-//     const { handleSubmit } = useForm<FormData>();
-
-//     const onSubmit: SubmitHandler<FormData> = (data) => {
-//         console.log(data);
-//     };
-
-//     const radioOptions: RadioOption[] = [
-//         { label: 'Option 1', value: 'option1' },
-//         { label: 'Option 2', value: 'option2' },
-//     ];
-
-//     return (
-//         <form onSubmit={handleSubmit(onSubmit)}>
-//             <RadioGroup name="choice" options={radioOptions} />
-//             <button type="submit">Submit</button>
-//         </form>
-//     );
-// };
-
-// export default MyForm;

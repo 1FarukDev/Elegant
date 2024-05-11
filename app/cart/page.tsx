@@ -4,6 +4,7 @@ import ELText from "@/components/Atoms/ELText"
 import CartItems from "@/components/cartcomponent/items"
 import { useState } from "react"
 import TrayTable from '@/public/assets/images/Tray table.png'
+import DeliveryDetails from "@/components/cartcomponent/details"
 
 type steps = {
     tag: string
@@ -74,7 +75,8 @@ const CartPage = () => {
                         )
                     })}
                 </div>
-                <CartItems CartItem={cartItem} />
+                {/* <CartItems CartItem={cartItem} /> */}
+                <DeliveryDetails CartItem={cartItem}/>
 
             </section>
         </main>

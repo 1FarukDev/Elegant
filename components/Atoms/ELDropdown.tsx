@@ -12,9 +12,10 @@ interface DropDownItem {
     options: Array<DropDownOption>;
     title?: string;
     Label?: string;
+    labelClassName?:string
 }
 
-const ELDropdown: React.FC<DropDownItem> = ({ title, options, Label }) => {
+const ELDropdown: React.FC<DropDownItem> = ({ title, options, Label, labelClassName }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -23,7 +24,7 @@ const ELDropdown: React.FC<DropDownItem> = ({ title, options, Label }) => {
 
     return (
         <section className="">
-            <div className="font-bold text-[15px] text-primaryColor mb-2">
+            <div className={`${labelClassName} font-bold text-[12px] text-primaryColor mb-2`}>
                 {Label}
             </div>
             <div className="relative w-full border border-[#2525253b] rounded-[12px]">
