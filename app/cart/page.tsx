@@ -5,6 +5,7 @@ import CartItems from "@/components/cartcomponent/items"
 import { useState } from "react"
 import TrayTable from '@/public/assets/images/Tray table.png'
 import DeliveryDetails from "@/components/cartcomponent/details"
+import CheckoutComplete from "@/components/cartcomponent/checkoutcomplete"
 
 type steps = {
     tag: string
@@ -75,8 +76,9 @@ const CartPage = () => {
                         )
                     })}
                 </div>
-                <CartItems CartItem={cartItem} />
+                {/* <CartItems CartItem={cartItem} /> */}
                 {/* <DeliveryDetails CartItem={cartItem}/> */}
+                <CheckoutComplete />
 
             </section>
         </main>
