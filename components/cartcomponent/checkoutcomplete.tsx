@@ -15,9 +15,9 @@ const CheckoutComplete = () => {
             <ELText text='Thank you 🎉' className={'text-[25px] text-gray-400'} />
             <p className="text-[35px]">Your order has been <br /> received</p>
             <div className="flex justify-between md:gap-9 mt-10">
-                {itemDetail.map((item: any) => {
+                {itemDetail.map((item: any, index:number) => {
                     return (
-                        <main>
+                        <main key={index}>
                             <div className="w-[80px] bg-gray-200 relative">
                                 <Image src={item.image} alt="Image" />
                                 <ELText text={item.quantity} className={'absolute -top-2 -right-3 bg-black rounded-full px-2 text-white'} />
