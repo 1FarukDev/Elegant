@@ -11,9 +11,10 @@ interface InputProps {
     required?: boolean;
     errors?: any; // Adjust the type of errors according to your use case
     className?: any
+    labelClassName?:string
 }
 
-const ELInput: React.FC<InputProps> = ({ name, label, placeholder, type = 'text', register, required = false, errors, className }) => {
+const ELInput: React.FC<InputProps> = ({ name, label, placeholder, type = 'text', register, required = false, errors, className, labelClassName }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -22,7 +23,7 @@ const ELInput: React.FC<InputProps> = ({ name, label, placeholder, type = 'text'
 
     return (
         <div className='w-full '>
-            <label htmlFor={name} className="font-bold text-[15px] text-primaryColor mb-4">
+            <label htmlFor={name} className={`font-bold  text-primaryColor mb-4 ${labelClassName}`}>
                 {label}
             </label>
             <div className="relative">
