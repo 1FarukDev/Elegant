@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form"
 
 interface CartItemProps {
     CartItem: any
+    handleButtonClick:any
 }
 type deliveryType = {
     id: number, label: string, value: string
@@ -24,7 +25,7 @@ const CartItems = (props: CartItemProps) => {
         { id: 1, label: 'Express shipping', value: '+$15.00', addedValue: '+$15.00' },
         { id: 2, label: 'Pick Up', value: '%21.00', addedValue: '%21.00' }
     ]
-    const { CartItem } = props
+    const { CartItem, handleButtonClick } = props
     return (
         <>
             <div className="md:flex mt-[70px]  justify-between">
@@ -121,7 +122,7 @@ const CartItems = (props: CartItemProps) => {
                         </div>
                     </div>
                     <div className="mt-[35px]">
-                        <ELButton name="Checkout" className="text-white bg-black w-full py-[15px] rounded-lg " />
+                        <ELButton name="Checkout" className="text-white bg-black w-full py-[15px] rounded-lg " handleClick={handleButtonClick} />
                     </div>
                 </div>
             </div>
