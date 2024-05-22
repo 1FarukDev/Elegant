@@ -12,13 +12,13 @@ const Account = () => {
     return (
         <main className="container mx-auto py-20">
             <div className="flex justify-center">
-                <ELText text='My Account' className={'text-[35px] mb-20 font-extrabold'} />
+                <ELText text='My Account' className={'text-[35px] md:mb-20 mb-10 font-extrabold'} />
             </div>
-            <section className="flex gap-20 items-start">
-                <div className="w-[30%]">
+            <section className="md:flex gap-20 items-start px-8 md:px-0">
+                <div className="md:w-[35%]">
                     <AccountTab activeTab={(type: string) => setType(type)} />
                 </div>
-                <div className="w-full">
+                <div className="w-full mt-9 md:mt-0">
                     {type === 'Account' && <AccountDetails />}
                     {type === 'Address' && <AddressDetails />}
                     {type === 'Orders' && <OrderHistory />}

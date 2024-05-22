@@ -54,9 +54,22 @@ const CartPage = () => {
         setActiceSteps('3')
     }
     const cartStepsArray = [
-        <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />,
-        <DeliveryDetails CartItem={cartItem} handlePlaceOrderButton={handlePlaceOrderButton}/>,
-        <CheckoutComplete />
+        {
+            key:0,
+            component: <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />
+        },
+        {
+            key:1,
+            component: <DeliveryDetails CartItem={cartItem} handlePlaceOrderButton={handlePlaceOrderButton} />,
+        },
+        {
+            key:2,
+            component: <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />
+        },
+        {
+            key:3,
+            component: <CheckoutComplete />
+        },
     ]
 
 
@@ -105,7 +118,7 @@ const CartPage = () => {
                     })}
                 </div>
                 {
-                    cartStepsArray[currentIndex]
+                    cartStepsArray[currentIndex].component
                 }
 
             </section>

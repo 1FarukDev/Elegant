@@ -11,7 +11,6 @@ type TabName = {
 }
 interface AccountTabProps {
     activeTab: any
-    // handleChangeTab: any
 }
 
 const AccountTab = (props: AccountTabProps) => {
@@ -44,7 +43,7 @@ const AccountTab = (props: AccountTabProps) => {
         }
     ]
     return (
-        <main className="py-10 bg-gray-200">
+        <main className="py-10 bg-gray-200 rounded-lg">
             <div className="w-max relative  mx-auto">
                 <Image src={Avatar} alt="Avatar Image" className="w-[80px] h-[80px]" />
                 <Image src={Camera} alt="Camera icon" className="absolute bottom-0 right-0" />
