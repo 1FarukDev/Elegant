@@ -11,12 +11,15 @@ type TabName = {
 }
 interface AccountTabProps {
     activeTab: any
-    handleChangeTab: any
+    // handleChangeTab: any
 }
-const AccountTab = () => {
+
+const AccountTab = (props: AccountTabProps) => {
     const [activeAccountTab, setActiveAccountTab] = useState<any>('Account')
+    const { activeTab } = props
     const handleChangeAccountTab = (newAccountTab: string) => {
         setActiveAccountTab(newAccountTab)
+        activeTab(newAccountTab)
     }
     const AccountTab = [
         {
