@@ -13,12 +13,14 @@ import menuIcon from '@/public/assets/icons/menu-line-horizontal.svg'
 import React, { useState } from "react"
 import ELHeaderMobile from "./ELHeaderMobile"
 import Link from "next/link"
+import { useRouter } from 'next/navigation'
 interface HeaderMenu {
     id: number
     name: string
     to: string
 }
 const ELHeader = () => {
+    const router = useRouter()
     const [promo, setPromo] = useState<Boolean>(true)
     const [mobileHeader, setMobileHeader] = useState<Boolean>(false)
     const handleClosePromo = () => {
@@ -33,7 +35,7 @@ const ELHeader = () => {
         {
             id: 0,
             name: 'Shop',
-            to: '/shop'
+            to: '/shoppage'
         },
         {
             id: 0,
@@ -46,6 +48,12 @@ const ELHeader = () => {
             to: '/'
         },
     ]
+    const handleAccountRoute = () => {
+        router.push('/account', { scroll: false })
+    }
+    const handleCartRoute = () => {
+        router.push('/cart', { scroll: false })
+    }
     return (
         <main>
             {promo && <div className=" bg-gray-300 ">
@@ -85,10 +93,10 @@ const ELHeader = () => {
                 <div className="flex gap-4 ">
                     <div className="hidden md:flex gap-4">
                         <Image src={SearchIcon} alt="Search Icon" />
-                        <Image src={Profile} alt="Profile Icon" />
+                        <Image src={Profile} alt="Profile Icon" className="cursor-pointer" onClick={handleAccountRoute} />
                     </div>
                     <div className="flex gap-2">
-                        <Image src={BagIcon} alt="Bag Icon" />
+                        <Image src={BagIcon} alt="Bag Icon" className="cursor-pointer" onClick={handleCartRoute}/>
                         <ELText text='2' className={'bg-black text-white rounded-full px-2'} />
                     </div>
                 </div>
