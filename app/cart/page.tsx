@@ -13,12 +13,10 @@ type steps = {
 }
 const CartPage = () => {
     const [activeSteps, setActiceSteps] = useState('1')
+    const [currentIndex, setCurrentIndex] = useState(0);
     const handleSteps = (newStep: string) => {
         setActiceSteps(newStep)
-        console.log(activeSteps);
-
     }
-
     const cartItem = [
         {
             id: '0',
@@ -47,6 +45,21 @@ const CartPage = () => {
 
     ]
 
+    const handleButtonClick = () => {
+        setCurrentIndex(1)
+        setActiceSteps('2')
+    }
+    const handlePlaceOrderButton = () => {
+        setCurrentIndex(2)
+        setActiceSteps('3')
+    }
+    const cartStepsArray = [
+        <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />,
+        <DeliveryDetails CartItem={cartItem} handlePlaceOrderButton={handlePlaceOrderButton}/>,
+        <CheckoutComplete />
+    ]
+
+
     const steps = [
         {
             tag: '1',
@@ -69,16 +82,31 @@ const CartPage = () => {
                 <div className="md:flex justify-center gap-8 mt-10">
                     {steps.map((step: steps, index: number) => {
                         return (
-                            <ul key={index} className={`${activeSteps === step.tag ? 'border-black border-b-2' : 'border-gray-200 border-b-2'} flex justify-start items-center gap-4  pb-6 pr-[100px] cursor-pointer`} onClick={() => handleSteps(step.tag)}>
-                                <li className={`${activeSteps === step.tag ? 'bg-black' : 'bg-gray-200'}  text-white p-2 px-4 rounded-full`}>{step.tag}</li>
-                                <li className={`${activeSteps === step.tag ? 'text-black' : 'text-gray-200'}`}>{step.text}</li>
+                            <ul key={index} className={`
+                            ${activeSteps === step.tag ? 'border-black border-b-2' : 'border-gray-200 border-b-2'}
+                             ${activeSteps > step.tag ? 'border-green-500 border-b-2' : ''} 
+                             flex justify-start items-center gap-4  pb-6 pr-[100px] cursor-pointer`
+                            } onClick={() => handleSteps(step.tag)}>
+                                <li className={`
+                                ${activeSteps === step.tag ? 'bg-black' : 'bg-gray-200'}
+                                 ${activeSteps > step.tag ? 'bg-green-500' : ''} 
+                                  text-white p-2 px-4 rounded-full`
+                                }>
+                                    {step.tag}
+                                </li>
+                                <li className={`
+                                ${activeSteps === step.tag ? 'text-black' : 'text-gray-200'}
+                                 ${activeSteps > step.tag ? 'text-green-500' : ''}
+                                 `}>
+                                    {step.text}
+                                </li>
                             </ul>
                         )
                     })}
                 </div>
-                {/* <CartItems CartItem={cartItem} /> */}
-                {/* <DeliveryDetails CartItem={cartItem}/> */}
-                <CheckoutComplete />
+                {
+                    cartStepsArray[currentIndex]
+                }
 
             </section>
         </main>

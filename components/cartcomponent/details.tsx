@@ -14,10 +14,11 @@ import PromoIcon from '@/public/assets/icons/promoIcon.svg'
 
 interface CartItemProps {
     CartItem: any
+    handlePlaceOrderButton:any
 }
 
 const DeliveryDetails = (props: CartItemProps) => {
-    const { CartItem } = props
+    const { CartItem, handlePlaceOrderButton } = props
     const shopCategroy = [
         {
             id: '0',
@@ -109,7 +110,7 @@ const DeliveryDetails = (props: CartItemProps) => {
 
                 </div>
                 <div className="mt-[35px] hidden md:block">
-                    <ELButton name="Place Order" className="text-white bg-black w-full py-[15px] rounded-lg " />
+                    <ELButton name="Place Order" className="text-white bg-black w-full py-[15px] rounded-lg " handleClick={handlePlaceOrderButton}/>
                 </div>
                 <div>
 
