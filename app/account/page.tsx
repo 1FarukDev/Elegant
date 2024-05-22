@@ -1,6 +1,7 @@
 import ELText from "@/components/Atoms/ELText"
 import AccountDetails from "@/components/accountcomponents/AccountDetails"
 import AccountTab from "@/components/accountcomponents/AccountTab"
+import AddressDetails from "@/components/accountcomponents/AddressDetails"
 
 const Account = () => {
 
@@ -14,7 +15,8 @@ const Account = () => {
                     <AccountTab />
                 </div>
                <div className="w-full">
-                    <AccountDetails />
+                    {/* <AccountDetails /> */}
+                    <AddressDetails />
                </div>
             </section>
         </main>
