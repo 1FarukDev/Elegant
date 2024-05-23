@@ -25,7 +25,7 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
         {
             id: 0,
             name: 'Shop',
-            to: '/'
+            to: '/sshop'
         },
         {
             id: 0,
@@ -42,12 +42,12 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
         {
             id: 0,
             name: 'Cart',
-            to: '/'
+            to: '/cart'
         },
         {
             id: 1,
             name: 'Wishlist',
-            to: '/'
+            to: '/account'
         },
 
     ]
@@ -56,14 +56,14 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
         <main className=' fixed top-0 w-[90%] bg-white h-screen p-6 z-[100]'>
             <div className="flex w-full justify-between item-center ">
                 <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-[105px]" />
-                <Image src={CloseIcon} alt="Close Icon" className="w-[30px] md:w-[105px]" onClick={handleClose}/>
+                <Image src={CloseIcon} alt="Close Icon" className="w-[30px] md:w-[105px]" onClick={handleClose} />
             </div>
             <div className='border flex border-black rounded-lg pl-4 mt-5'>
                 <Image src={SearchIcon} alt="Close Icon" className="w-[30px] md:w-[105px]" />
                 <ELInput name='Hello' placeholder='Search' register={register} />
             </div>
             <div className='flex flex-col gap-3 mt-4'>
-                {headerMenu.map((menu: any, index:number) => {
+                {headerMenu.map((menu: any, index: number) => {
                     return (
                         <div key={index}>
                             <ul className='mb-4' >
@@ -76,7 +76,7 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
             </div>
             <div className='absolute bottom-[24px] w-full '>
                 <div className='flex flex-col gap-3 mt-4 w-[85%]'>
-                    {bottomMenu.map((menu: any, index:number) => {
+                    {bottomMenu.map((menu: any, index: number) => {
                         return (
                             <div key={index}>
                                 <ul>
