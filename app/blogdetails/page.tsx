@@ -40,18 +40,18 @@ const BlogDetails = () => {
     ]
     return (
         <section>
-            <main className='container mx-auto'>
-                <div className='flex gap-2 items-center'>
+            <main className='container mx-auto px-8 md:px-0'>
+                <div className='md:flex hidden gap-2 items-center'>
                     <ELText text='Home' className={'text-gray-400 cursor-pointer'} handleClick={() => router.push('/', { scroll: false })} />
                     <Image src={ArrorRight} alt='Arrow right' />
                     <ELText text='Blog' className={'text-gray-400 cursor-pointer'} handleClick={() => router.push('/blog', { scroll: false })} />
                     <Image src={ArrorRight} alt='Arrow right' />
                     <ELText text='How to make a busy bathroom a place to relax' className={'text-black font-semibold'} />
                 </div>
-                <div className='mt-14'>
+                <div className='md:mt-14 mt-10'>
                     <ELText text='Article' className={'text-[15px] font-semibold'} />
-                    <ELText text='How to make a busy bathroom a place to relax' className={'text-[35px] font-semibold my-4'} />
-                    <div className='flex gap-4'>
+                    <ELText text='How to make a busy bathroom a place to relax' className={'text-[20px] md:text-[35px] font-semibold my-4'} />
+                    <div className='flex gap-4 flex-col md:flex-row '>
                         <div className='flex gap-2'>
                             <Image src={ProfileIcon} alt='Profile Icon' />
                             <ELText text='Faruk Ajibade' className={'text-gray-400'} />
@@ -66,24 +66,24 @@ const BlogDetails = () => {
                     <Image src={DetailImage} alt='blog image' className='w-full' />
                 </div>
                 <div className='my-4'>
-                    <ELText text='A cleaning hub with built-in ventilation' className={'text-[25px] font-semibold'} />
+                    <ELText text='A cleaning hub with built-in ventilation' className={'text-[20px] md:text-[25px] font-semibold'} />
                     <ELText text='Your bathroom serves a string of busy functions on a daily basis. See how you can make all of them work, and still have room for comfort and relaxation.
 A cleaning hub with built-in ventilation
 Use a rod and a shower curtain to create a complement to your cleaning cupboard. Unsightly equipment is stored out of sight yet accessibly close – while the air flow helps dry any dampness. Storage with a calming effect
 Having a lot to store doesn’t mean it all has to go in a cupboard. Many bathroom items are better kept out in the open – either to be close at hand or are nice to look at. Add a plant or two to set a calm mood for the entire room (and they’ll thrive in the humid air).
 Kit your clutter for easy access
-Even if you have a cabinet ready to swallow the clutter, it’s worth resisting a little. Let containers hold kits for different activities – home spa, make-up, personal hygiene – to bring out or put back at a moment’s notice.' className={'text-[20px] font-medium'} />
+Even if you have a cabinet ready to swallow the clutter, it’s worth resisting a little. Let containers hold kits for different activities – home spa, make-up, personal hygiene – to bring out or put back at a moment’s notice.' className={'text-[15px] md:text-[20px] font-medium'} />
                 </div>
 
 
-                <div className='flex justify-between my-6 mt-56'>
-                    <ELText text='You might also like' className={'font-semibold text-[20px]'} />
-                    <div className="flex items-center gap-2 border-b w-max border-black cursor-pointer mb-3">
+                <div className='flex justify-between my-6 md:mt-56 mt-20'>
+                    <ELText text='You might also like' className={'font-semibold  md:text-[20px]'} />
+                    <div className="md:flex hidden items-center gap-2 border-b w-max border-black cursor-pointer mb-3">
                         <ELText text='Show more' className={'font-normal text-[15px]'} />
                         <Image src={ArrowRight} alt="Arrow Icon" />
                     </div>
                 </div>
-                <div className='grid grid-cols-3 gap-5 mb-7'>
+                <div className='grid md:grid-cols-3 gap-5 mb-7'>
                     {BLogPosts.map((blog: any, index: number) => {
                         return (
                             <div className=" gap-6 md:mb-0 mb-7" key={index}>
@@ -91,6 +91,10 @@ Even if you have a cabinet ready to swallow the clutter, it’s worth resisting 
                             </div>
                         )
                     })}
+                </div>
+                <div className="flex float-right items-center gap-2 border-b w-max border-black cursor-pointer mb-3">
+                    <ELText text='Show more' className={'font-normal text-[15px]'} />
+                    <Image src={ArrowRight} alt="Arrow Icon" />
                 </div>
             </main>
             <NewsLetter />
