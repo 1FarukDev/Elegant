@@ -9,12 +9,13 @@ import BlogCard from '@/components/card/BlogCard'
 import ArticleImage from '@/public/assets/images/article image.svg'
 import ELButton from '@/components/Atoms/ELButton'
 import NewsLetter from '@/components/screenComponent/HomePage/NewsLetter'
-
+import { useRouter } from 'next/navigation'
 type TabType = {
     id: string,
     name: string
 }
 const Blog = () => {
+    const router = useRouter()
     const [activeTab, setActiveTab] = useState('All Blog')
     const [layout, setLayout] = useState('twoBytwo')
     const BlogTab = [
@@ -39,63 +40,63 @@ const Blog = () => {
             image: ArticleImage,
             title: '7 ways to decor your home',
             handleClick: () => console.log('Hello'),
-            date:'October 16, 2023'
+            date: 'October 16, 2023'
         },
         {
             id: '1',
             image: ArticleImage,
             title: '7 ways to decor your home',
             handleClick: () => console.log('Hello'),
-            date:'October 16, 2023'
+            date: 'October 16, 2023'
         },
         {
             id: '2',
             image: ArticleImage,
             title: '7 ways to decor your home',
             handleClick: () => console.log('Hello'),
-            date:'October 16, 2023'
+            date: 'October 16, 2023'
         },
         {
             id: '2',
             image: ArticleImage,
             title: '7 ways to decor your home',
             handleClick: () => console.log('Hello'),
-            date:'October 16, 2023'
+            date: 'October 16, 2023'
         },
         {
             id: '2',
             image: ArticleImage,
             title: '7 ways to decor your home',
             handleClick: () => console.log('Hello'),
-            date:'October 16, 2023'
+            date: 'October 16, 2023'
         },
         {
             id: '2',
             image: ArticleImage,
             title: '7 ways to decor your home',
             handleClick: () => console.log('Hello'),
-            date:'October 16, 2023'
+            date: 'October 16, 2023'
         },
         {
             id: '2',
             image: ArticleImage,
             title: '7 ways to decor your home',
             handleClick: () => console.log('Hello'),
-            date:'October 16, 2023'
+            date: 'October 16, 2023'
         },
         {
             id: '2',
             image: ArticleImage,
             title: '7 ways to decor your home',
             handleClick: () => console.log('Hello'),
-            date:'October 16, 2023'
+            date: 'October 16, 2023'
         },
         {
             id: '2',
             image: ArticleImage,
             title: '7 ways to decor your home',
             handleClick: () => console.log('Hello'),
-            date:'October 16, 2023'
+            date: 'October 16, 2023'
         },
 
     ]
@@ -117,7 +118,7 @@ const Blog = () => {
                 </div>
 
                 <div className='flex justify-between items-center'>
-                    <div className='flex gap-6 text-[15px] my-8'>
+                    <div className='flex gap-6 text-[15px] my-8 ' >
                         {BlogTab.map((tab: TabType, index: number) => {
                             return (
                                 <main key={tab.id}
@@ -140,7 +141,7 @@ const Blog = () => {
                     {BLogPosts.map((blog: any, index: number) => {
                         return (
                             <div className=" gap-6 md:mb-0 mb-7" key={index}>
-                                <BlogCard title={blog.title} image={blog.image} handleClick={blog.handleClick} date={blog.date} />
+                                <BlogCard title={blog.title} image={blog.image} handleClick={() => router.push('/blogdetails', { scroll: false })} date={blog.date} />
                             </div>
                         )
                     })}

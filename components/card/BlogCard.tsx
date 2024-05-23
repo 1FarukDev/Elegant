@@ -21,7 +21,7 @@ const BlogCard: FC<BLogCardFieldProps> = ({
     readMore
 }) => {
     return (
-        <main className=" w-full" onClick={handleClick}>
+        <main className=" w-full cursor-pointer" onClick={handleClick}>
             <Image src={image} alt="Article Image" className="w-full" />
             <ELText text={title} className={'text-[20px] font-medium my-4'} />
             <div>
