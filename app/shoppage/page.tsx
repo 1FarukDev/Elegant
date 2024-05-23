@@ -243,7 +243,7 @@ const Shop = () => {
                                 })}
                             </div>
                             <div className='md:hidden'>
-                                <ELDropdown options={priceCategory} title={priceCategory[0].name} />
+                                {/* <ELDropdown options={priceCategory} title={priceCategory[0].name} /> */}
                             </div>
                         </div>
                     </div>
