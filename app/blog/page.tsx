@@ -10,6 +10,7 @@ import ArticleImage from '@/public/assets/images/article image.svg'
 import ELButton from '@/components/Atoms/ELButton'
 import NewsLetter from '@/components/screenComponent/HomePage/NewsLetter'
 import { useRouter } from 'next/navigation'
+import ELDropdown from '@/components/Atoms/ELDropdown'
 type TabType = {
     id: string,
     name: string
@@ -102,11 +103,11 @@ const Blog = () => {
     ]
     return (
         <section>
-            <main className="container mx-auto">
+            <main className="container mx-auto px-8 md:px-0">
                 <div className=' w-full  blog_header flex justify-center items-center px-4 '>
                     <div className='flex flex-col place-items-center '>
                         <div className='flex md:gap-3 gap-2'>
-                            <ELText text='Home' className={'text-[10px] text-gray-600'} />
+                            <ELText text='Home' className={'text-[10px] text-gray-600'} handleClick={() => router.push('/', { scroll: false })} />
                             <Image src={ArrorRight} alt='Arrow right' />
                             <ELText text='Blog' className={'text-[10px] font-semibold'} />
                         </div>
@@ -117,7 +118,7 @@ const Blog = () => {
                     </div>
                 </div>
 
-                <div className='flex justify-between items-center'>
+                <div className='md:flex justify-between items-center hidden'>
                     <div className='flex gap-6 text-[15px] my-8 ' >
                         {BlogTab.map((tab: TabType, index: number) => {
                             return (
@@ -135,8 +136,11 @@ const Blog = () => {
                         <Image src={twoBytwo} className='cursor-pointer' alt='2by2' onClick={() => handlayoutChange(twoBytwo)} />
                     </div>
                 </div>
+                <div className='my-8'>
+                    <ELDropdown options={BlogTab} title={BlogTab[0].name} borderClassName={'border-black border-2'}/>
+                </div>
                 <div
-                    className={layout === twoBytwo ? 'grid grid-cols-2 gap-6' : 'grid grid-cols-3 gap-6'}
+                    className={` md:${layout === twoBytwo ? 'grid grid-cols-2 gap-6' : 'grid grid-cols-3 gap-6'}`}
                 >
                     {BLogPosts.map((blog: any, index: number) => {
                         return (
