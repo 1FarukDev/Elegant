@@ -24,3 +24,10 @@
   background-size: cover;
   min-height: 360px;
 }
+.blog_header{
+   background: url("../public/assets/images/blog.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 360px;
+}

@@ -5,7 +5,9 @@ import BlogCard from "@/components/card/BlogCard"
 import ArrowRight from '@/public/assets/icons/arrowRightBlack.svg'
 import Image from "next/image"
 import ArticleImage from '@/public/assets/images/article image.svg'
+import { useRouter } from 'next/navigation'
 const ArticleSection = () => {
+    const router = useRouter()
     const BLogPosts = [
         {
             id: '0',
@@ -33,7 +35,7 @@ const ArticleSection = () => {
                 <div>
                     <ELText text='Articles' className={'font-medium text-[30px]'} />
                 </div>
-                <div className="flex items-center gap-2 border-b w-max border-black cursor-pointer mb-3">
+                <div className="flex items-center gap-2 border-b w-max border-black cursor-pointer mb-3" onClick={() => router.push('/blog', { scroll: false })}>
                     <ELText text='Show more' className={'font-normal text-[15px]'} />
                     <Image src={ArrowRight} alt="Arrow Icon" />
                 </div>
