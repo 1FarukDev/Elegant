@@ -35,7 +35,7 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
         {
             id: 0,
             name: 'Contact Us',
-            to: '/'
+            to: '/header'
         },
     ]
     const bottomMenu = [

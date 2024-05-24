@@ -45,7 +45,7 @@ const ELHeader = () => {
         {
             id: 0,
             name: 'Contact Us',
-            to: '/'
+            to: '/contact'
         },
     ]
     const handleAccountRoute = () => {
@@ -75,7 +75,7 @@ const ELHeader = () => {
             </div>
             }
             <div className="container mx-auto my-5 flex items-center justify-between px-8 md:px-0">
-                <div className="flex">
+                <div className="flex items-center">
                     <Image src={menuIcon} alt="Menu Icon" className="md:hidden mb-1 w-7" onClick={() => setMobileHeader(true)} />
                     <Image src={ElegantLogo} alt="Elegant logo" className="w-[70px] md:w-[105px]" />
                 </div>

@@ -10,6 +10,8 @@ import BlogCard from '@/components/card/BlogCard'
 import ArticleImage from '@/public/assets/images/article image.svg'
 import NewsLetter from '@/components/screenComponent/HomePage/NewsLetter'
 import { useRouter } from 'next/navigation'
+
+
 const BlogDetails = () => {
     const router = useRouter()
 

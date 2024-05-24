@@ -136,11 +136,11 @@ const Blog = () => {
                         <Image src={twoBytwo} className='cursor-pointer' alt='2by2' onClick={() => handlayoutChange(twoBytwo)} />
                     </div>
                 </div>
-                <div className='my-8'>
+                <div className='my-8 md:hidden'>
                     <ELDropdown options={BlogTab} title={BlogTab[0].name} borderClassName={'border-black border-2'}/>
                 </div>
                 <div
-                    className={` md:${layout === twoBytwo ? 'grid grid-cols-2 gap-6' : 'grid grid-cols-3 gap-6'}`}
+                    className={` ${layout === twoBytwo ? 'grid md:grid-cols-2 gap-6' : 'grid md:grid-cols-3 gap-6'}`}
                 >
                     {BLogPosts.map((blog: any, index: number) => {
                         return (
