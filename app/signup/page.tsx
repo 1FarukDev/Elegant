@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import ELCheckBox from "@/components/Atoms/ELCheckbox"
 import ELButton from "@/components/Atoms/ELButton"
 import { useRouter } from "next/navigation"
-const LoginPage = () => {
+const SignUpPage = () => {
     const router = useRouter()
     const { register } = useForm()
     return (
@@ -20,21 +20,22 @@ const LoginPage = () => {
                 </div>
             </div>
             <div className="md:w-1/2  flex flex-col gap-3 px-8 md:px-0 my-10">
-                <ELText text='Sign In' className={'font-semibold text-[30px]'} />
+                <ELText text='Sign Up' className={'font-semibold text-[30px]'} />
                 <div className="flex gap-3">
-                    <ELText text='Don’t have an accout yet? ' className={'font-normal text-gray-400'} />
-                    <ELText text='Sign Up' className={'font-normal text-green-500 cursor-pointer'} handleClick={() => router.push('/signup', { scroll: false })} />
+                    <ELText text='Already have an account? ' className={'font-normal text-gray-400'} />
+                    <ELText text='Sign in' className={'font-normal text-green-500 cursor-pointer'} handleClick={() => router.push('/login', { scroll: false })} />
                 </div>
                 <div className="md:w-[80%]">
                     <div >
-                        <ELInput name="usernameOrEmail" register={register} placeholder="Your username or email address" className={'border-b border-bottom-left-radius'} />
+                        <ELInput name="name" register={register} placeholder="Your name" className={'border-b border-bottom-left-radius'} />
+                        <ELInput name="username" register={register} placeholder="Username" className={'border-b border-bottom-left-radius'} />
+                        <ELInput name="email" register={register} placeholder="Email"  className={'border-b border-bottom-left-radius'} />
                         <ELInput name="password" register={register} placeholder="Password" type="password" className={'border-b border-bottom-left-radius'} />
                     </div>
                     <div className="flex justify-between  mt-7 items-center">
-                        <ELCheckBox name='remember' rightLabel='Remeber me' rightLabelClassName={'text-gray-500 text-[15px]'} className='flex gap-2 cursor-pointer' />
-                        <ELText text='Forgot Password?' className={'font-semibold cursor-pointer'} />
+                        <ELCheckBox name='remember' rightLabel='I agree with Privacy Policy and Terms of Use' rightLabelClassName={'text-gray-500 text-[15px]'} className='flex gap-2 cursor-pointer' />
                     </div>
-                    <ELButton name='Sign In' className="bg-black text-white rounded-lg py-3 w-full mt-7" />
+                    <ELButton name='Sign Up' className="bg-black text-white rounded-lg py-3 w-full mt-7" />
                 </div>
             </div>
 
@@ -42,4 +43,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default SignUpPage
