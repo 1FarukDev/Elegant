@@ -33,9 +33,11 @@ const ELInput: React.FC<InputProps> = ({
 
     return (
         <div className="w-full">
-            <label htmlFor={name} className={`font-bold text-primaryColor mb-4 ${labelClassName}`}>
-                {label}
-            </label>
+            {label && (
+                <label htmlFor={name} className={`font-bold text-primaryColor mb-4 ${labelClassName}`}>
+                    {label}
+                </label>
+            )}
             <div className="relative">
                 {type === 'textarea' ? (
                     <textarea
@@ -45,7 +47,7 @@ const ELInput: React.FC<InputProps> = ({
                     />
                 ) : (
                     <input
-                        type={type === 'password' && !showPassword ? 'password' : type}
+                        type={type === 'password' && !showPassword ? 'password' : 'text'}
                         placeholder={placeholder}
                         {...register(name, { required })}
                         className={`${className} mt-1 outline-none w-full px-6 py-4 h-[100%] rounded-l-[12px] rounded-r-[12px] font-normal text-[14px] text-primaryColor`}

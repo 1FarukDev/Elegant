@@ -17,17 +17,23 @@
   background-size: cover;
   min-height: 360px;
 }
-.shop_header{
-   background: url("../public/assets/images/shop\ header.svg");
+.shop_header {
+  background: url("../public/assets/images/shop\ header.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 360px;
 }
-.blog_header{
-   background: url("../public/assets/images/blog.svg");
+.blog_header {
+  background: url("../public/assets/images/blog.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 360px;
+}
+
+.border-bottom-left-radius {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-left: 0px;
 }
