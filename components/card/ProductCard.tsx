@@ -19,11 +19,12 @@ interface CardInputFieldProps {
     name?:string
     price?:string
     discountPrice:string
+    handleDetailsClick?:any
 }
 
-const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButton = false, onMouseEnter, onMouseLeave, starRating, name, price, discountPrice }) => {
+const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButton = false, onMouseEnter, onMouseLeave, starRating, name, price, discountPrice, handleDetailsClick }) => {
     return (
-        <main>
+        <Link href={`/shoppage/${id}`}>
             <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer w-100% rounded-lg flex justify-center" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <div >
                     <Image src={image} alt="Image" className="" />
@@ -38,9 +39,9 @@ const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButt
                     </div>
                 </div>
                 {showButton && (
-                    <Link href={'/productpage'} className="absolute w-full bottom-0 bg-gray-100 md:p-4 p-2 rounded-lg">
+                    <div  className="absolute w-full bottom-0 bg-gray-100 md:p-4 p-2 rounded-lg">
                         <ELButton name="Add to cart" className="bg-black text-white w-full md:p-2 p-1 md:text-[20px] text-[15px] rounded-lg" handleClick={handleClick} />
-                    </Link>
+                    </div>
                 )}
 
             </div>
@@ -55,7 +56,7 @@ const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButt
                     </div>
               </div>
             </div>
-        </main>
+        </Link>
     )
 }
 

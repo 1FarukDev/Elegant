@@ -33,7 +33,7 @@ type productTab = {
     name: string
 }
 
-const Productpage = () => {
+const Productpage = ({ params }: any) => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [activeTab, setActiveTab] = useState('Reviews')
 
@@ -140,6 +140,9 @@ const Productpage = () => {
     return (
         <section>
             <main className="container mx-auto px-8 md:px-0" >
+                <div>
+                    <ELText text={params.productId} />
+                </div>
                 <div className="flex gap-4">
                     {Menu.map((menu: menu, index: number) => {
                         return (
