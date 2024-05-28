@@ -33,7 +33,7 @@ type productTab = {
     name: string
 }
 
-const Productpage = ({ params }: any) => {
+const Productpage = ({ params }: { params: { productId: string } }) => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [activeTab, setActiveTab] = useState('Reviews')
 

@@ -3,13 +3,14 @@ import ELText from '@/components/Atoms/ELText'
 import FilterIcon from '@/public/assets/icons/filter.svg'
 import ArrorRight from '@/public/assets/icons/arrow right 3.svg'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ELCheckBox from '@/components/Atoms/ELCheckbox'
 import Star from '@/public/assets/icons/Rating Group.svg'
 import ProductImage from '@/public/assets/images/product.png'
 import ProductCard from '@/components/card/ProductCard'
 import ELDropdown from '@/components/Atoms/ELDropdown'
 import ELButton from '@/components/Atoms/ELButton'
+import { GET } from '@/api/users/user'
 
 const Shop = () => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
@@ -191,93 +192,112 @@ const Shop = () => {
             [id]: false
         }));
     }
-    return (
-        <main>
-            <section className='container mx-auto  '>
-                <section className='px-8 md:px-0'>
-                    <div className=' w-full  shop_header flex justify-center items-center px-4 '>
-                        <div className='flex flex-col place-items-center '>
-                            <div className='flex md:gap-3 gap-2'>
-                                <ELText text='Home' className={'text-[10px] text-gray-600'} />
-                                <Image src={ArrorRight} alt='Arrow right' />
-                                <ELText text='Shop' className={'text-[10px]'} />
-                            </div>
-                            <div className='flex flex-col place-items-center text-center'>
-                                <ELText text='Shop Page' className={'text-[30px] my-4'} />
-                                <ELText text='Let’s design the place you always imagined.' className={'text-[15px] '} />
-                            </div>
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await GET();
+                const data = await res.json();
+                // Log the status from the response
+                console.log(res.status);
+
+                // Check if the status is 200 and log the data
+                if (res.status === 200) {
+                    console.log(res.status, data);
+                }
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        };
+
+        fetchData();
+    }, []);
+return (
+    <main>
+        <section className='container mx-auto  '>
+            <section className='px-8 md:px-0'>
+                <div className=' w-full  shop_header flex justify-center items-center px-4 '>
+                    <div className='flex flex-col place-items-center '>
+                        <div className='flex md:gap-3 gap-2'>
+                            <ELText text='Home' className={'text-[10px] text-gray-600'} />
+                            <Image src={ArrorRight} alt='Arrow right' />
+                            <ELText text='Shop' className={'text-[10px]'} />
+                        </div>
+                        <div className='flex flex-col place-items-center text-center'>
+                            <ELText text='Shop Page' className={'text-[30px] my-4'} />
+                            <ELText text='Let’s design the place you always imagined.' className={'text-[15px] '} />
                         </div>
                     </div>
-                </section>
-                <div className='md:flex md:my-16 mb-16 md:mb-0 justify-between px-8 md:px-0'>
-                    <div className='md:w-[15%] w-[100%]'>
-                        <div className='hidden md::flex gap-2'>
-                            <Image src={FilterIcon} alt='FilterIcon' className='w-[15px]' />
-                            <ELText text='Filter' className={'font-semibold text-[15px]'} />
-                        </div>
-                        <div className='md:mt-0 mt-0'>
-                            <ELText text='CATEGORIES' className={'font-semibold text-[15px]'} />
-                            <div className='mt-3 hidden md:block'>
-                                {shopCategroy.map((category: any) => {
-                                    return (
-                                        <main key={category.id} onClick={() => handleChangeCategory(category.name)} className='w-max'>
-                                            <ELText text={category.name} className={`${activeCategory === category.name ? 'text-black border-b border-black' : 'text-gray-500'}  text-[15px] md:text-[10px] mb-2 hover:text-black cursor-pointer`} />
-                                        </main>
-                                    )
-                                })}
-                            </div>
-                            <div className='md:hidden'>
-                                <ELDropdown options={shopCategroy} title={category} />
-                            </div>
-                        </div>
-                        <div className='md:mt-0 mt-0'>
-                            <ELText text='PRICE' className={'font-semibold text-[15px]'} />
-                            <div className='mt-3 hidden md:block'>
-                                {priceCategory.map((category: any) => {
-                                    return (
-                                        <main key={category.id} className='flex justify-between'>
-                                            <ELText text={category.name} className={'text-gray-500 text-[15px] md:text-[10px] mb-2 hover:text-black cursor-pointer'} />
-                                            <ELCheckBox name={category.name} label='' />
-                                        </main>
-                                    )
-                                })}
-                            </div>
-                            <div className='md:hidden'>
-                                {/* <ELDropdown options={priceCategory} title={priceCategory[0].name} /> */}
-                            </div>
-                        </div>
+                </div>
+            </section>
+            <div className='md:flex md:my-16 mb-16 md:mb-0 justify-between px-8 md:px-0'>
+                <div className='md:w-[15%] w-[100%]'>
+                    <div className='hidden md::flex gap-2'>
+                        <Image src={FilterIcon} alt='FilterIcon' className='w-[15px]' />
+                        <ELText text='Filter' className={'font-semibold text-[15px]'} />
                     </div>
-                    <div className='md:w-[80%] w-[100%] mt-8 md:mt-0'>
-                        {category}
-                        <div className='grid md:grid-cols-3 gap-6 md:mt-10 mt-4 grid-cols-2'>
-                            {productDetails.map((product: any, index: number) => {
-                                const id = product.id;
+                    <div className='md:mt-0 mt-0'>
+                        <ELText text='CATEGORIES' className={'font-semibold text-[15px]'} />
+                        <div className='mt-3 hidden md:block'>
+                            {shopCategroy.map((category: any) => {
                                 return (
-                                    <div className=" cursor-pointer" key={index}>
-                                        <ProductCard
-                                            image={product.image}
-                                            handleClick={() => console.log('Hello')}
-                                            onMouseEnter={() => handleShowDetails(id)}
-                                            onMouseLeave={() => handleHideDetails(id)}
-                                            showButton={showButtonMap[id]}
-                                            discountPrice={product.discountPrice}
-                                            price={product.price}
-                                            name={product.name}
-                                            starRating={product.rating}
-                                            id={product.id}
-                                        />
-                                    </div>
+                                    <main key={category.id} onClick={() => handleChangeCategory(category.name)} className='w-max'>
+                                        <ELText text={category.name} className={`${activeCategory === category.name ? 'text-black border-b border-black' : 'text-gray-500'}  text-[15px] md:text-[10px] mb-2 hover:text-black cursor-pointer`} />
+                                    </main>
                                 )
                             })}
                         </div>
+                        <div className='md:hidden'>
+                            <ELDropdown options={shopCategroy} title={category} />
+                        </div>
+                    </div>
+                    <div className='md:mt-0 mt-0'>
+                        <ELText text='PRICE' className={'font-semibold text-[15px]'} />
+                        <div className='mt-3 hidden md:block'>
+                            {priceCategory.map((category: any) => {
+                                return (
+                                    <main key={category.id} className='flex justify-between'>
+                                        <ELText text={category.name} className={'text-gray-500 text-[15px] md:text-[10px] mb-2 hover:text-black cursor-pointer'} />
+                                        <ELCheckBox name={category.name} label='' />
+                                    </main>
+                                )
+                            })}
+                        </div>
+                        <div className='md:hidden'>
+                            {/* <ELDropdown options={priceCategory} title={priceCategory[0].name} /> */}
+                        </div>
                     </div>
                 </div>
-                <div className='flex justify-center my-8'>
-                    <ELButton name='Show more' className='px-4 py-2 border border-black text-black rounded-full'/>
+                <div className='md:w-[80%] w-[100%] mt-8 md:mt-0'>
+                    {category}
+                    <div className='grid md:grid-cols-3 gap-6 md:mt-10 mt-4 grid-cols-2'>
+                        {productDetails.map((product: any, index: number) => {
+                            const id = product.id;
+                            return (
+                                <div className=" cursor-pointer" key={index}>
+                                    <ProductCard
+                                        image={product.image}
+                                        handleClick={() => console.log('Hello')}
+                                        onMouseEnter={() => handleShowDetails(id)}
+                                        onMouseLeave={() => handleHideDetails(id)}
+                                        showButton={showButtonMap[id]}
+                                        discountPrice={product.discountPrice}
+                                        price={product.price}
+                                        name={product.name}
+                                        starRating={product.rating}
+                                        id={product.id}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
-            </section>
-        </main>
-    )
+            </div>
+            <div className='flex justify-center my-8'>
+                <ELButton name='Show more' className='px-4 py-2 border border-black text-black rounded-full' />
+            </div>
+        </section>
+    </main>
+)
 }
 
 export default Shop 
