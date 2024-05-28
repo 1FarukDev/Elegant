@@ -197,10 +197,6 @@ const Shop = () => {
             try {
                 const res = await GET();
                 const data = await res.json();
-                // Log the status from the response
-                console.log(res.status);
-
-                // Check if the status is 200 and log the data
                 if (res.status === 200) {
                     console.log(res.status, data);
                 }
