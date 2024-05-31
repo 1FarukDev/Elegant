@@ -12,16 +12,22 @@ import { useRouter } from "next/navigation";
 import { login } from "./action";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { useState } from "react";
+
 
 const LoginPage = () => {
     const router = useRouter();
+    const [loading, setLoading] = useState(false)
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async (formData: any) => {
+        setLoading(true)
         try {
             await login(formData);
+            setLoading(false)
             router.push("/");
         } catch (error) {
+            setLoading(false)
             console.error(error);
             console.log(error);
             router.push("/error");
@@ -53,7 +59,7 @@ const LoginPage = () => {
                             <ELCheckBox name='remember' rightLabel='Remeber me' rightLabelClassName={'text-gray-500 text-[15px]'} className='flex gap-2 cursor-pointer' />
                             <ELText text='Forgot Password?' className={'font-semibold cursor-pointer'} />
                         </div>
-                        <ELButton name='Sign In' className="bg-black text-white rounded-lg py-3 w-full mt-7" />
+                        <ELButton name='Sign In' className="bg-black text-white rounded-lg py-3 w-full mt-7" loading={loading} disabled={loading}/>
                     </div>
                 </form>
             </main>

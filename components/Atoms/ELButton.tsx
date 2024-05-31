@@ -23,7 +23,8 @@ const ELButton: React.FC<ELButtonProps> = ({
     icon,
     rightIcon,
     className,
-    formAction
+    formAction,
+    loading
 }) => {
 
     return (
@@ -31,12 +32,22 @@ const ELButton: React.FC<ELButtonProps> = ({
             className={className}
             type={type}
             onClick={handleClick}
-            disabled={disabled}
-            formAction={formAction}
+            disabled={disabled || loading}
         >
-            {icon && <span className="mr-[20px]">{icon}</span>}
-            {name}
-            {rightIcon && <span className="mr-[20px]">{rightIcon}</span>}
+            {loading ? (
+                <span className="flex items-center gap-2 justify-center">
+                    <div className="preloader-container">
+                        <div className="preloader"></div>
+                    </div>
+                    Loading...
+                </span> // You can replace this with a spinner component or icon if you have one
+            ) : (
+                <>
+                    {icon && <span className="mr-[20px]">{icon}</span>}
+                    {name}
+                    {rightIcon && <span className="ml-[20px]">{rightIcon}</span>}
+                </>
+            )}
         </button>
     );
 };

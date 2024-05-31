@@ -1,7 +1,15 @@
-import { createClient } from "@/utils/supabase/server";
+// api/users/getUserProfile.ts
+import { supabase } from "@/utils/supabase/client";
 
-export default async function getUserProfile(userId: any) {
-  const supabase = createClient();
+interface UserProfile {
+  id: string;
+  email: string;
+  // Add other fields from your `user_profile` table here
+}
+
+export default async function getUserProfile(
+  userId: string
+): Promise<UserProfile | null> {
   const { data, error } = await supabase
     .from("user_profile")
     .select("*")
@@ -12,7 +20,7 @@ export default async function getUserProfile(userId: any) {
     console.error("Error fetching user profile:", error);
     return null;
   }
+  
   console.log(data);
-
-  return data;
+  return data as UserProfile;
 }

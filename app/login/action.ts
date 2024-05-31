@@ -1,6 +1,7 @@
 // action.ts
 import { supabase } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import getUserProfile from "@/api/users/user";
 
 interface FormData {
   email: string;
@@ -20,9 +21,8 @@ export async function login(formData: FormData): Promise<void> {
     throw new Error(error.message);
   }
 
-  console.log(data);
   const { id } = data.user;
-  console.log(id, "id");
+  getUserProfile(id)
 }
 
 export async function signup(formData: any) {
@@ -37,9 +37,9 @@ export async function signup(formData: any) {
 
   if (error) {
     console.error(error.message);
-    router.push("/error");
+    // router.push("/error");
     return;
   }
 
-  router.push("/");
+  // router.push("/");
 }
