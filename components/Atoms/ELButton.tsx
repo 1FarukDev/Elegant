@@ -12,6 +12,7 @@ type ELButtonProps = {
     loading?: boolean;
     loadValue?: boolean;
     onKeyPress?: Function;
+    formAction?:any
 };
 
 const ELButton: React.FC<ELButtonProps> = ({
@@ -22,6 +23,7 @@ const ELButton: React.FC<ELButtonProps> = ({
     icon,
     rightIcon,
     className,
+    formAction
 }) => {
 
     return (
@@ -30,6 +32,7 @@ const ELButton: React.FC<ELButtonProps> = ({
             type={type}
             onClick={handleClick}
             disabled={disabled}
+            formAction={formAction}
         >
             {icon && <span className="mr-[20px]">{icon}</span>}
             {name}

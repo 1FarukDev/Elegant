@@ -1,12 +1,18 @@
-const API_URL = "https://jsonplaceholder.typicode.com/";
+import { createClient } from "@/utils/supabase/server";
 
-export async function GET() {
-  const res = await fetch(`${API_URL}/posts`, {
-    headers: {
-      "Content-Type": "application/json",
-      //   "API-Key": process.env.DATA_API_KEY,
-    },
-  });
-  const data = await res.json();
-  return Response.json({ data });
+export default async function getUserProfile(userId: any) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("user_profile")
+    .select("*")
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    console.error("Error fetching user profile:", error);
+    return null;
+  }
+  console.log(data);
+
+  return data;
 }

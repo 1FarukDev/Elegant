@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
+import getUserProfile from "@/api/users/user";
 
 export async function login(formData: FormData) {
   const supabase = createClient();
@@ -17,9 +18,14 @@ export async function login(formData: FormData) {
   const { data, error } = await supabase.auth.signInWithPassword(form);
 
   if (error) {
+    console.log(error.message);
     redirect("/error");
   }
   console.log(data);
+  const { id } = data.user;
+  console.log(id, "id");
+
+  getUserProfile(id);
   revalidatePath("/", "layout");
   redirect("/");
 }
