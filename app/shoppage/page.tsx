@@ -10,7 +10,6 @@ import ProductImage from '@/public/assets/images/product.png'
 import ProductCard from '@/components/card/ProductCard'
 import ELDropdown from '@/components/Atoms/ELDropdown'
 import ELButton from '@/components/Atoms/ELButton'
-import { GET } from '@/api/users/user'
 
 const Shop = () => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
