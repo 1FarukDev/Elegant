@@ -213,7 +213,7 @@ return (
                 <div className=' w-full  shop_header flex justify-center items-center px-4 '>
                     <div className='flex flex-col place-items-center '>
                         <div className='flex md:gap-3 gap-2'>
-                            <ELText text='Home' className={'text-[10px] text-gray-600'} />
+                            <ELText text='Homedsd' className={'text-[10px] text-gray-600'} />
                             <Image src={ArrorRight} alt='Arrow right' />
                             <ELText text='Shop' className={'text-[10px]'} />
                         </div>
