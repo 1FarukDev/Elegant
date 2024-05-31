@@ -44,7 +44,6 @@ const LoginPage = () => {
                         <Image src={AuthLogo} alt="Chair Image" className="absolute top-7 left-[290px]" />
                     </div>
                 </div>
-                iajdiaidi
                 <form onSubmit={handleSubmit(onSubmit)} className="md:w-1/2  flex flex-col gap-3 px-8 md:px-0 my-10">
                     <ELText text='Sign In' className={'font-semibold text-[30px]'} />
                     <div className="flex gap-3">
