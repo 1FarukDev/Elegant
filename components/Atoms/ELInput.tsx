@@ -7,7 +7,7 @@ interface InputProps {
     label?: string;
     placeholder: string;
     type?: string;
-    register?: any;
+    register: any;
     required?: boolean;
     errors?: any;
     className?: any;
@@ -42,7 +42,7 @@ const ELInput: React.FC<InputProps> = ({
                 {type === 'textarea' ? (
                     <textarea
                         placeholder={placeholder}
-                        // {...register(name, { required })}
+                        {...register(name, { required })}
                         className={`${className} mt-1 outline-none w-full px-6 py-4 h-[100%] rounded-l-[12px] rounded-r-[12px] font-normal text-[14px] text-primaryColor`}
                     />
                 ) : (

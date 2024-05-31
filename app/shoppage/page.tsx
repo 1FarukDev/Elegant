@@ -10,6 +10,7 @@ import ProductImage from '@/public/assets/images/product.png'
 import ProductCard from '@/components/card/ProductCard'
 import ELDropdown from '@/components/Atoms/ELDropdown'
 import ELButton from '@/components/Atoms/ELButton'
+import { GET } from '@/api/users/user'
 
 const Shop = () => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
@@ -191,21 +192,25 @@ const Shop = () => {
             [id]: false
         }));
     }
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const res = await GET();
-    //             const data = await res.json();
-    //             if (res.status === 200) {
-    //                 console.log(res.status, data);
-    //             }
-    //         } catch (err) {
-    //             console.error('Error:', err);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await GET();
+                const data = await res.json();
+                // Log the status from the response
+                console.log(res.status);
 
-    //     fetchData();
-    // }, []);
+                // Check if the status is 200 and log the data
+                if (res.status === 200) {
+                    console.log(res.status, data);
+                }
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        };
+
+        fetchData();
+    }, []);
 return (
     <main>
         <section className='container mx-auto  '>
