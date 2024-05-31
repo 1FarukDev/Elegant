@@ -26,7 +26,6 @@ export async function login(formData: FormData): Promise<void> {
 }
 
 export async function signup(formData: any) {
-  const router = useRouter();
 
   const data = {
     email: formData.get("email"),
