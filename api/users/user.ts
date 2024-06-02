@@ -15,12 +15,10 @@ export default async function getUserProfile(
     .select("*")
     .eq("user_id", userId)
     .single();
-
   if (error) {
     console.error("Error fetching user profile:", error);
     return null;
   }
 
-  console.log(data);
   return data as UserProfile;
 }

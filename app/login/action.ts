@@ -7,7 +7,7 @@ interface FormData {
   password: string;
 }
 
-export async function login(formData: FormData): Promise<void> {
+export async function login(formData: FormData): Promise<any> {
   const { email, password } = formData;
 
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -17,13 +17,15 @@ export async function login(formData: FormData): Promise<void> {
 
   if (error) {
     console.error(error.message);
-    throw new Error(error.message);
-
+    throw error; // Re-throw for upper level handling
   }
 
   const { id } = data.user;
   getUserProfile(id);
+
+  return data; // Assuming you want to return the user data
 }
+
 
 export async function signup(formData: any) {
   const data = {

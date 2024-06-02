@@ -12,6 +12,7 @@ import ELButton from "@/components/Atoms/ELButton";
 import { useRouter } from "next/navigation";
 import { login } from "./action";
 import { useState } from "react";
+import getUserProfile from "@/api/users/user";
 
 const LoginPage = () => {
     const router = useRouter();
@@ -22,15 +23,42 @@ const LoginPage = () => {
         console.log(formData);
         setLoading(true);
         try {
-            await login(formData);
+            await login(formData)
+                .then((response: any) => {
+                    console.log(response);
+                    const { user, session } = response
+                    const { id } = user
+                    FetchUserProfile(id)
+                    console.log(id, 'user');
+                    // fetchUserProfile(userId)
+                })
+
             setLoading(false);
-            router.push("/");
+            // router.push("/");
         } catch (error) {
             setLoading(false);
             console.error(error);
             router.push("/error");
         }
     };
+
+
+    const FetchUserProfile = async (id:any) => {
+        console.log('HI');
+        try {
+            const profile = await getUserProfile(id);
+            console.log(profile); // Access user profile data here
+            // You can perform actions based on the profile data
+            router.push("/");
+        } catch (error) {
+            setLoading(false);
+            console.error(error);
+            router.push("/error");
+        }
+        
+    }
+        
+    // }
 
     return (
         <main className="container mx-auto md:flex items-center gap-24">
