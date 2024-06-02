@@ -13,9 +13,12 @@ import { useRouter } from "next/navigation";
 import { login } from "./action";
 import { useState } from "react";
 import getUserProfile from "@/api/users/user";
+import { useAppDispatch } from "@/lib/hook";
+import { loginSuccess, saveUserProfile } from "@/lib/features/authentication/user_slice";
 
 const LoginPage = () => {
     const router = useRouter();
+    const dispatch = useAppDispatch()
     const [loading, setLoading] = useState(false);
     const { register, handleSubmit } = useForm();
 
@@ -27,7 +30,10 @@ const LoginPage = () => {
                 .then((response: any) => {
                     console.log(response);
                     const { user, session } = response
-                    const { id } = user
+                    const { id, email: userEmail, phone } = user;
+                    const token = session.access_token;
+                    dispatch(loginSuccess({ user: { id, email: userEmail, phone }, token }));
+                    // const { id } = user
                     FetchUserProfile(id)
                     console.log(id, 'user');
                     // fetchUserProfile(userId)
