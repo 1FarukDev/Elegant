@@ -17,7 +17,7 @@ interface AccountTabProps {
 
 const AccountTab: React.FC<AccountTabProps> = ({ activeTab }) => {
     const user = useSelector((state: any) => state.user);
-    console.log(user.userOtherProfile);
+    
     const [activeAccountTab, setActiveAccountTab] = useState<string>('Account');
 
     const handleChangeAccountTab = (newAccountTab: string) => {
