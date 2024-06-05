@@ -5,7 +5,7 @@ import Avatar from '@/public/assets/images/avatar_placeholder.svg';
 import Camera from '@/public/assets/icons/camera.svg';
 import ELText from "../Atoms/ELText";
 import ELDropdown from "../Atoms/ELDropdown";
-
+import { useSelector } from 'react-redux';
 interface TabName {
     id: number;
     name: string;
@@ -16,6 +16,8 @@ interface AccountTabProps {
 }
 
 const AccountTab: React.FC<AccountTabProps> = ({ activeTab }) => {
+    const user = useSelector((state: any) => state.user);
+    
     const [activeAccountTab, setActiveAccountTab] = useState<string>('Account');
 
     const handleChangeAccountTab = (newAccountTab: string) => {
@@ -43,8 +45,9 @@ const AccountTab: React.FC<AccountTabProps> = ({ activeTab }) => {
                 <Image src={Avatar} alt="Avatar Image" className="w-[80px] h-[80px]" />
                 <Image src={Camera} alt="Camera icon" className="absolute bottom-0 right-0" />
             </div>
-            <div className="text-center mt-2 mx-auto">
-                <ELText text="Sofia Havertz" className="font-semibold text-[25px]" />
+            <div className="text-center mt-2 mx-auto flex gap-2 justify-center">
+                <ELText text={user.userOtherProfile.first_name} className="font-semibold text-[25px]" />
+                <ELText text={user.userOtherProfile.last_name} className="font-semibold text-[25px]" />
             </div>
 
             <div className="mt-10 hidden md:flex flex-col gap-4 px-4 ">

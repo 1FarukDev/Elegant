@@ -9,10 +9,10 @@ interface User {
 }
 
 // Define an interface for the user profile object
-interface UserProfile {
+interface UserOtherProfile {
   email: string;
   address?: string;
-  phone: string | null;
+  phone?: string | null;
   // Add more properties as needed
 }
 
@@ -21,7 +21,7 @@ export interface UserState {
   isAuthenticated: boolean;
   user: User | null;
   token: string | null;
-  userProfile: UserProfile | null; // Add userProfile to the state
+  userOtherProfile: UserOtherProfile | null; // Add userOtherProfile to the state
 }
 
 // Define the initial state for the user slice
@@ -29,7 +29,7 @@ const initialState: UserState = {
   isAuthenticated: false,
   user: null,
   token: null,
-  userProfile: null, // Initialize userProfile as null
+  userOtherProfile: null, // Initialize userOtherProfile as null
 };
 
 // Create a user slice
@@ -49,16 +49,16 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.token = null;
-      state.userProfile = null; // Clear userProfile on logout
+      state.userOtherProfile = null; // Clear userOtherProfile on logout
     },
-    saveUserProfile: (state, action: PayloadAction<UserProfile>) => {
-      state.userProfile = action.payload;
+    saveUserOtherProfile: (state, action: PayloadAction<UserOtherProfile>) => {
+      state.userOtherProfile = action.payload;
     },
   },
 });
 
 // Export actions
-export const { loginSuccess, logout, saveUserProfile } = userSlice.actions;
+export const { loginSuccess, logout, saveUserOtherProfile } = userSlice.actions;
 
 // Export reducer
 export default userSlice.reducer;
