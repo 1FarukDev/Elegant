@@ -40,17 +40,16 @@ const LoginPage = () => {
                 })
 
             setLoading(false);
-            // router.push("/");
+            router.push("/");
         } catch (error) {
             setLoading(false);
             console.error(error);
-            router.push("/error");
+            // router.push("/error");/
         }
     };
 
-
     const FetchUserProfile = async (id:any) => {
-        console.log('HI');
+
         try {
             const profile = await getUserProfile(id);
             console.log(profile); // Access user profile data here
