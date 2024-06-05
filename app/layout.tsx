@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import PageLayout from "./pageLayout";
 import StoreProvider from "./StoreProvide";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +25,7 @@ export default function RootLayout({
           <PageLayout>
             {children}
           </PageLayout>
+          <ToastContainer />
         </StoreProvider>
       </body>
     </html>
