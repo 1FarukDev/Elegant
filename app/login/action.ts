@@ -42,9 +42,6 @@ export async function signup(formData: any) {
 
   if (error) {
     console.error(error.message);
-    // router.push("/error");
     return;
   }
-
-  // router.push("/");
 }

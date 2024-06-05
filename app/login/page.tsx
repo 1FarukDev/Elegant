@@ -14,7 +14,7 @@ import { login } from "./action";
 import { useState } from "react";
 import getUserProfile from "@/api/users/user";
 import { useAppDispatch } from "@/lib/hook";
-import { loginSuccess, saveUserProfile } from "@/lib/features/authentication/user_slice";
+import { loginSuccess, saveUserOtherProfile, logout } from "@/lib/features/authentication/user_slice";
 
 const LoginPage = () => {
     const router = useRouter();
@@ -40,7 +40,7 @@ const LoginPage = () => {
                 })
 
             setLoading(false);
-            router.push("/");
+            // router.push("/");
         } catch (error) {
             setLoading(false);
             console.error(error);
@@ -52,21 +52,31 @@ const LoginPage = () => {
 
         try {
             const profile = await getUserProfile(id);
+             if (profile) {
+                dispatch(saveUserOtherProfile(profile));
+                console.log(profile); // Access user profile data here
+            } else {
+                console.error('Profile is null');
+                // Handle the case when profile is null
+            }
             console.log(profile); // Access user profile data here
             // You can perform actions based on the profile data
             router.push("/");
         } catch (error) {
             setLoading(false);
             console.error(error);
-            router.push("/error");
+            // router.push("/error");
         }
         
     }
         
-    // }
+    const handleLogout = () => {
+        dispatch(logout())
+        // router.refresh()
+    }
 
     return (
-        <main className="container mx-auto md:flex items-center gap-24">
+        <><main className="container mx-auto md:flex items-center gap-24">
             <div className="md:w-1/2 relative">
                 <div className="overflow-hidden">
                     <Image src={AuthImage} alt="Chair Image" className="w-full" />
@@ -89,9 +99,11 @@ const LoginPage = () => {
                         <ELText text='Forgot Password?' className="font-semibold cursor-pointer" />
                     </div>
                     <ELButton name='Sign In' className="bg-black text-white rounded-lg py-3 w-full mt-7" loading={loading} disabled={loading} />
+
                 </div>
             </form>
-        </main>
+
+        </main><ELButton name='Sign out' className="bg-black text-white rounded-lg py-3 w-full mt-7" handleClick={handleLogout} /></>
     );
 };
 

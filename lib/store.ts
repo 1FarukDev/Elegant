@@ -1,28 +1,37 @@
-import { configureStore, Middleware } from "@reduxjs/toolkit";
-import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "@/lib/features/authentication/user_slice";
-// import thunk from "redux-thunk";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
+// Persist configuration
 const persistConfig = {
-  key: "root",
+  key: "elegant",
   storage,
 };
 
-const persistedReducer = persistReducer<any, any>(persistConfig, userReducer);
+// Persisted reducer
+const persistedReducer = persistReducer(persistConfig, userReducer);
 
+// Create and configure the store
 export const makeStore = () => {
   const store = configureStore({
     reducer: {
       user: persistedReducer,
     },
-    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk as any),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
   });
-  const persistor = persistStore(store);
-  return { store, persistor };
+
+  return store;
 };
 
-export type AppStore = ReturnType<typeof makeStore>["store"];
+// Infer the type of the store
+export type AppStore = ReturnType<typeof makeStore>;
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
+
+// Create a persistor
+export const persistor = (store: AppStore) => persistStore(store);

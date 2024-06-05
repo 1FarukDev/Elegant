@@ -8,6 +8,8 @@ import Wishist from "@/components/accountcomponents/Wishlist"
 import { useState } from "react"
 
 const Account = () => {
+
+    
     const [type, setType] = useState('Account')
     return (
         <main className="container mx-auto py-20">
