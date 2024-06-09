@@ -31,17 +31,3 @@ export async function login(formData: FormData): Promise<any> {
 
   return data; // Assuming you want to return the user data
 }
-
-export async function signup(formData: any) {
-  const data = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-
-  const { error } = await supabase.auth.signUp(data);
-
-  if (error) {
-    console.error(error.message);
-    return;
-  }
-}
