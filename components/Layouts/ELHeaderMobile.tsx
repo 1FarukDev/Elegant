@@ -9,6 +9,7 @@ import youtube from '@/public/assets/icons/instagram black.svg'
 import ELInput from '../Atoms/ELInput'
 import { useForm } from 'react-hook-form'
 import ELButton from '../Atoms/ELButton'
+import Link from 'next/link'
 
 interface MobileMenuProps {
     handleClose: any
@@ -25,7 +26,7 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
         {
             id: 0,
             name: 'Shop',
-            to: '/sshop'
+            to: '/shop'
         },
         {
             id: 0,
@@ -65,12 +66,12 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
             <div className='flex flex-col gap-3 mt-4'>
                 {headerMenu.map((menu: any, index: number) => {
                     return (
-                        <div key={index}>
+                        <Link href={menu.to} key={index}>
                             <ul className='mb-4' >
                                 <li>{menu.name}</li>
                             </ul>
                             <hr className='bg-gray-400' />
-                        </div>
+                        </Link>
                     )
                 })}
             </div>
@@ -78,14 +79,14 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
                 <div className='flex flex-col gap-3 mt-4 w-[85%]'>
                     {bottomMenu.map((menu: any, index: number) => {
                         return (
-                            <div key={index}>
+                            <Link href={menu.to} key={index}>
                                 <ul>
                                     <li className='mb-4' >
                                         {menu.name}
                                     </li>
                                 </ul>
                                 <hr className='bg-gray-400' />
-                            </div>
+                            </Link>
 
                         )
                     })}

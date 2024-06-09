@@ -7,7 +7,6 @@ import ELText from "@/components/Atoms/ELText";
 import ELInput from "@/components/Atoms/ELInput";
 import { useForm } from 'react-hook-form';
 import ELCheckBox from "@/components/Atoms/ELCheckbox";
-// import ELButton from "@/components/Atoms/ELButton';
 import ELButton from "@/components/Atoms/ELButton";
 import { useRouter } from "next/navigation";
 import { login } from "./action";
@@ -28,7 +27,6 @@ const LoginPage = () => {
         try {
             await login(formData)
                 .then((response: any) => {
-                    console.log(response);
                     const { user, session } = response
                     const { id, email: userEmail, phone } = user;
                     const token = session.access_token;
