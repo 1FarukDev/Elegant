@@ -14,13 +14,13 @@ const AccountDetails = () => {
         <main >
             <div className="flex flex-col gap-6">
                 <ELText text='Account Details' className={'text-[20px]'} />
-                <ELInput name="fname" placeholder={user.userOtherProfile.first_name} register={register} label="FIRST NAME *" className={' border border-[#6C7275]'} labelClassName=" text-[#6C7275]" />
-                <ELInput name="lname" placeholder={user.userOtherProfile.last_name} register={register} label="LAST NAME *" className={' border border-[#6C7275]'} labelClassName=" text-[#6C7275]" />
+                <ELInput name="fname" placeholder={user?.userOtherProfile?.first_name || "First name"} register={register} label="FIRST NAME *" className={' border border-[#6C7275]'} labelClassName=" text-[#6C7275]" />
+                <ELInput name="lname" placeholder={user?.userOtherProfile?.last_name || "Last name"} register={register} label="LAST NAME *" className={' border border-[#6C7275]'} labelClassName=" text-[#6C7275]" />
                 <div>
-                    <ELInput name="dname" placeholder={user.userOtherProfile.display_name} register={register} label="DISPLAY NAME *" className={' border border-[#6C7275]'} labelClassName=" text-[#6C7275]" />
+                    <ELInput name="dname" placeholder={user?.userOtherProfile?.username || 'Display name'} register={register} label="DISPLAY NAME *" className={' border border-[#6C7275]'} labelClassName=" text-[#6C7275]" />
                     <i className="text-gray-400 text-[10px]">This will be how your name will be displayed in the account section and in reviews</i>
                 </div>
-                <ELInput name='email' placeholder={user.userOtherProfile.email} register={register} label="EMAIL *" className={' border border-[#6C7275]'} labelClassName=" text-[#6C7275]" />
+                <ELInput name='email' placeholder={user?.userOtherProfile?.email} register={register} label="EMAIL *" className={' border border-[#6C7275]'} labelClassName=" text-[#6C7275]" />
 
          </div>
             <div className="flex flex-col gap-6 mt-10">

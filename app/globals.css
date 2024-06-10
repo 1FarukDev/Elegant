@@ -52,6 +52,7 @@
   border-radius: 50%;
   border-top: 4px solid transparent;
   animation: spin 1s linear infinite;
+
 }
 
 @keyframes spin {
