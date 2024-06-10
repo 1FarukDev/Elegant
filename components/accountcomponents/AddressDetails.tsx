@@ -16,11 +16,11 @@ const AddressDetails = () => {
                         <Image src={EditIcon} alt="Edit icon" />
                    </div>
                     <div className="flex gap-2">
-                        <ELText text={user.userOtherProfile.first_name} />
-                        <ELText text={user.userOtherProfile.last_name} />
+                        <ELText text={user?.userOtherProfile?.first_name || 'e.g First name'} />
+                        <ELText text={user?.userOtherProfile?.last_name || "e.g Last name"} />
                     </div>
-                    <ELText text={user.userOtherProfile.phone_number} />
-                    <ELText text={user.userOtherProfile.billing_address} />
+                    <ELText text={user?.userOtherProfile?.phone_number || 'e.g +23412345678'} />
+                    <ELText text={user?.userOtherProfile?.billing_address || 'Your adress'} />
                 </div>
                 <div className="flex flex-col gap-2 md:w-[370px] border mt-5 md:mt-0 border-black py-4 px-6 rounded-lg ">
                     <div className="flex justify-between items-center">
@@ -28,11 +28,11 @@ const AddressDetails = () => {
                         <Image src={EditIcon} alt="Edit icon" />
                     </div>
                     <div className="flex gap-2">
-                        <ELText text={user.userOtherProfile.first_name} />
-                        <ELText text={user.userOtherProfile.last_name} />
+                        <ELText text={user?.userOtherProfile?.first_name || 'e.g First name'} />
+                        <ELText text={user?.userOtherProfile?.last_name || "e.g Last name"} />
                     </div>
-                    <ELText text={user.userOtherProfile.phone_number} />
-                    <ELText text={user.userOtherProfile.shipping_address} />
+                    <ELText text={user?.userOtherProfile?.phone_number || 'e.g +23412345678'} />
+                    <ELText text={user?.userOtherProfile?.billing_address || 'Your adress'} />
                 </div>
             </div>
         </main>

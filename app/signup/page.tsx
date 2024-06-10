@@ -13,9 +13,11 @@ import { supabase } from "@/utils/supabase/client"
 import { toast } from "react-toastify";
 import { useState } from "react"
 import { loginSuccess, saveUserOtherProfile, logout } from "@/lib/features/authentication/user_slice";
+import { useAppDispatch } from "@/lib/hook";
 
 const SignUpPage = () => {
     const router = useRouter()
+    const dispatch = useAppDispatch()
     const { register, handleSubmit } = useForm()
     const [loading, setLoading] = useState(false)
 
@@ -24,9 +26,15 @@ const SignUpPage = () => {
         setLoading(true);
         try {
             const response = await signup(formData);
+            console.log(response)
             setLoading(false);
             if (response && response.user) {
-                const { id } = response.user; // Access user id correctly
+                // const { id } = response.user; // Access user id correctly
+                const { user, session } = response
+                const { id, email: userEmail = "", phone = "" } = user;
+                const token = session?.access_token ?? "";
+                dispatch(loginSuccess({ user: { id, email: userEmail, phone }, token }));
+                
                 console.log(id);
                 const { password, ...additionalData } = formData;
                 additionalData.user_id = id; // Ensure user_id is correctly set
@@ -40,6 +48,7 @@ const SignUpPage = () => {
                     return;
                 }
                 setLoading(false);
+                dispatch(saveUserOtherProfile(additionalData));
                 toast.success("You are logged in");
                 router.push("/");
 

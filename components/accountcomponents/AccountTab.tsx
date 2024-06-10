@@ -42,12 +42,12 @@ const AccountTab: React.FC<AccountTabProps> = ({ activeTab }) => {
     return (
         <main className="py-10 bg-gray-200 rounded-lg">
             <div className="w-max relative mx-auto">
-                <Image src={user.userOtherProfile.profile_image} alt="Avatar Image" width={150} height={150} className="w-[80px] h-[80px] rounded-full" />
+                <Image src={user?.userOtherProfile?.profile_image || Avatar} alt="Avatar Image" width={150} height={150} className="w-[80px] h-[80px] rounded-full" />
                 <Image src={Camera} alt="Camera icon" className="absolute bottom-0 right-0" />
             </div>
             <div className="text-center mt-2 mx-auto flex gap-2 justify-center">
-                <ELText text={user.userOtherProfile.first_name} className="font-semibold text-[25px]" />
-                <ELText text={user.userOtherProfile.last_name} className="font-semibold text-[25px]" />
+                <ELText text={user?.userOtherProfile?.first_name} className="font-semibold text-[25px]" />
+                <ELText text={user?.userOtherProfile?.last_name} className="font-semibold text-[25px]" />
             </div>
 
             <div className="mt-10 hidden md:flex flex-col gap-4 px-4 ">
