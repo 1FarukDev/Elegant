@@ -26,7 +26,7 @@ const ELHeaderMobile = (props: MobileMenuProps) => {
         {
             id: 0,
             name: 'Shop',
-            to: '/shop'
+            to: '/shoppage'
         },
         {
             id: 0,
