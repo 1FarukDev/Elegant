@@ -10,9 +10,12 @@ interface User {
 
 // Define an interface for the user profile object
 interface UserOtherProfile {
-  email: string;
+  email?: string;
   address?: string;
   phone?: string | null;
+  first_name?: string | null;
+  last_name?: string | null;
+  display_name?: string | null;
   // Add more properties as needed
 }
 
