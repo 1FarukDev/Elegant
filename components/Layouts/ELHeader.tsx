@@ -96,6 +96,7 @@ const ELHeader = () => {
                         <Image src={Profile} alt="Profile Icon" className="cursor-pointer" onClick={handleAccountRoute} />
                     </div>
                     <div className="flex gap-2">
+                        <Image src={Profile} alt="Profile Icon" className="cursor-pointer md:hidden" onClick={handleAccountRoute} />
                         <Image src={BagIcon} alt="Bag Icon" className="cursor-pointer" onClick={handleCartRoute}/>
                         <ELText text='2' className={'bg-black text-white rounded-full px-2'} />
                     </div>

@@ -50,6 +50,7 @@ const LoginPage = () => {
 
         try {
             const profile = await getUserProfile(id);
+            console.log(profile)
              if (profile) {
                 dispatch(saveUserOtherProfile(profile));
                 console.log(profile); // Access user profile data here
