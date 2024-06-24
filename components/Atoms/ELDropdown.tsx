@@ -37,7 +37,7 @@ const ELDropdown: React.FC<DropDownItem> = ({ title, options, Label, labelClassN
                 {Label}
             </div>
             <div className={`${borderClassName} relative w-full border border-[#2525253b] rounded-[12px]`}>
-                <buttonin
+                <button
                     onClick={toggleDropdown}
                     className="text-black font-semibold h-[52px] px-3 rounded w-full flex gap-4 justify-between items-center"
                 >
