@@ -31,14 +31,10 @@ const LoginPage = () => {
                     const { id, email: userEmail, phone } = user;
                     const token = session.access_token;
                     dispatch(loginSuccess({ user: { id, email: userEmail, phone }, token }));
-                    // const { id } = user
                     FetchUserProfile(id)
-                    console.log(id, 'user');
-                    // fetchUserProfile(userId)
                 })
 
             setLoading(false);
-            // router.push("/");
         } catch (error) {
             setLoading(false);
             console.error(error);
@@ -58,8 +54,6 @@ const LoginPage = () => {
                 console.error('Profile is null');
                 // Handle the case when profile is null
             }
-            console.log(profile); // Access user profile data here
-            // You can perform actions based on the profile data
             router.push("/");
         } catch (error) {
             setLoading(false);
