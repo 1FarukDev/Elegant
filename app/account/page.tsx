@@ -30,65 +30,11 @@ const Account = () => {
         }
     }, [user.isAuthenticated, router]);
 
-    // console.log(user.user.id)
 
     if (!user.isAuthenticated) {
-        return null; // Return null or a loading spinner to avoid rendering the page while redirecting
+        return null;
     }
 
-    // const handleSaveForm = async (data: any, imageFile: any) => {
-    //     console.log(imageFile);
-
-    //     setLoading(true);
-    //     // Create an object to hold the fields to update
-    //     const fieldsToUpdate: any = {};
-    //     // Add fields to the update object only if they are not empty
-    //     if (data.first_name) {
-    //         fieldsToUpdate.first_name = data.first_name;
-    //     }
-    //     if (data.last_name) {
-    //         fieldsToUpdate.last_name = data.last_name;
-    //     }
-    //     if (data.username) {
-    //         fieldsToUpdate.username = data.username;
-    //     }
-    //     if (profileImage) {
-    //         fieldsToUpdate.profile_image = profileImage;
-    //     }
-    //     // Check if there's anything to update
-    //     if (Object.keys(fieldsToUpdate).length === 0) {
-    //         console.log("No fields to update");
-    //         setLoading(false);
-    //         return;
-    //     }
-
-
-    //     // try {
-    //     //     const { data: updatedData, error } = await supabase
-    //     //         .from("user_profile")
-    //     //         .update(fieldsToUpdate)
-    //     //         .eq("user_id", user.userOtherProfile.user_id);
-
-    //     //     if (error) throw error;
-
-    //     //     console.log("User updated successfully:", updatedData);
-
-    //     //     // Update the Redux store with the new values, keeping other fields unchanged
-    //     //     dispatch(
-    //     //         saveUserOtherProfile({
-    //     //             ...user.userOtherProfile,
-    //     //             ...fieldsToUpdate,
-    //     //         })
-    //     //     );
-    //     //     toast.success("Profile has been successfully updated");
-    //     //     setLoading(false);
-    //     //     // Refresh the user list after update if needed
-    //     // } catch (error) {
-    //     //     setLoading(false);
-    //     //     toast.error("Error updating");
-    //     //     console.error("Error updating user:", error);
-    //     // }
-    // };
     const handleSaveForm = async (data: any, imageFile: any) => {
         console.log(imageFile);
 

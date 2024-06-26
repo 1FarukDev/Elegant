@@ -3,14 +3,14 @@
 import ELText from "@/components/Atoms/ELText"
 import Image from "next/image"
 import ArrowRight from '@/public/assets/icons/arrowRightBlack.svg'
-import Star from '@/public/assets/icons/Rating Group.svg'
-import ProductImage from '@/public/assets/images/product.png'
+
 import React, { useState } from "react"
 import shipping from '@/public/assets/icons/fast delivery.svg'
 import money from '@/public/assets/icons/money.svg'
 import lock from '@/public/assets/icons/lock 01.svg'
 import call from '@/public/assets/icons/call.svg'
 import ProductCard from "@/components/card/ProductCard"
+import calculateDiscountedPrice from "@/utils/helpers/DiscountCalculator"
 
 interface ProductDetail {
     id: string
@@ -22,111 +22,14 @@ interface ProductDetail {
     rating: string
     image: string
 }
-const NewArrival = () => {
-    const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
-    const productDetails = [
-        {
-            id: '0',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
-        {
-            id: '1',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
-        {
-            id: '2',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
-        {
-            id: '3',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
-        {
-            id: '4',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
-        {
-            id: '5',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
-        {
-            id: '6',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
-        {
-            id: '7',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
-        {
-            id: '8',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
-        {
-            id: '9',
-            name: 'Loveseat Sofa',
-            discountPrice: '$199.00',
-            price: '$400.00',
-            new: true,
-            discount: '-50%',
-            rating: Star,
-            image: ProductImage
-        },
 
-    ]
+interface NewArrivalProps {
+    newArrival: any
+}
+const NewArrival = (props: NewArrivalProps) => {
+    const { newArrival } = props
+    const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
+   
     const Options = [
         {
             id: '0',
@@ -183,20 +86,22 @@ const NewArrival = () => {
             </section>
 
             <section className="flex gap-6 w-full overflow-x-scroll overflow-hidden scrollbar">
-                {productDetails.map((product: any, index: number) => {
-                    const id = product.id; 
+                {newArrival.map((product: any, index: number) => {
+                    const id = product.id;
                     return (
                         <div className=" flex-shrink-0 relative cursor-pointer" key={index}>
                             <ProductCard
-                                image={product.image}
+                                image={product.product_image}
                                 handleClick={() => console.log('Hello')}
                                 onMouseEnter={() => handleShowDetails(id)}
                                 onMouseLeave={() => handleHideDetails(id)}
-                                showButton={showButtonMap[id]} 
-                                discountPrice={product.discountPrice}
-                                price={product.price}
-                                name={product.name}
-                                starRating={product.rating}
+                                showButton={showButtonMap[id]}
+                                discountPrice={calculateDiscountedPrice(product.product_price, product.product_discount)}
+                                discountPercentage={product.product_discount}
+                                productCondition={product.product_condition}
+                                price={product.product_price}
+                                name={product.product_name}
+                                starRating={product.product_rating}
                             />
                         </div>
                     )
