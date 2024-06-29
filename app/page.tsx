@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 export default function Home() {
   const user = useSelector((state: any) => state.user);
   const [product, setProduct] = useState([])
-  // console.log(user);
+  
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -23,8 +23,6 @@ export default function Home() {
             console.log(response)
             const filteredProducts = response.data.filter((product: { product_condition: boolean }) => product.product_condition === true).slice(0, 10);
             setProduct(filteredProducts);
-
-            // setProduct(response.data.slice(0, 10))
           })
       } catch (error) {
         // setLoading(false);

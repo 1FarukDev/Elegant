@@ -1,10 +1,10 @@
 import { supabase } from "@/utils/supabase/client";
 
-
-export async function fetchProducts() {
+export async function fetchProducts(limit: number = 10, offset: number = 0) {
     let { data, error } = await supabase
         .from('Products')
-        .select('*'); // Select all columns, or specify particular columns e.g., .select('id, name, price')
+        .select('*')
+        .range(offset, offset + limit - 1); // Fetches items based on limit and offset
 
     if (error) {
         console.error('Error fetching data:', error);
@@ -13,5 +13,3 @@ export async function fetchProducts() {
         return { data, error: null };
     }
 }
-
-
