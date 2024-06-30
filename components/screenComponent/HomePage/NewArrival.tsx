@@ -29,7 +29,7 @@ interface NewArrivalProps {
 const NewArrival = (props: NewArrivalProps) => {
     const { newArrival } = props
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
-   
+
     const Options = [
         {
             id: '0',
@@ -93,6 +93,7 @@ const NewArrival = (props: NewArrivalProps) => {
                             <ProductCard
                                 image={product.product_image}
                                 handleClick={() => console.log('Hello')}
+                                id={product.id}
                                 onMouseEnter={() => handleShowDetails(id)}
                                 onMouseLeave={() => handleHideDetails(id)}
                                 showButton={showButtonMap[id]}

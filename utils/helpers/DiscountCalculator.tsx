@@ -1,4 +1,4 @@
-export default function calculateDiscountedPrice(actualPrice: string, discountPercentage: string | undefined): string {
+export default function calculateDiscountedPrice(actualPrice: string | any, discountPercentage: string | undefined): string {
     // Ensure actualPrice is a valid number
     const parsedActualPrice = parseFloat(actualPrice);
     if (isNaN(parsedActualPrice) || parsedActualPrice <= 0) {
