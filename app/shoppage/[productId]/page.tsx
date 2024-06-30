@@ -9,7 +9,7 @@ import firstImage from '@/public/assets/images/Paste Image 1.svg'
 import secondImage from '@/public/assets/images/Paste Image 2.svg'
 import thirdImage from '@/public/assets/images/Paste Image 3.svg'
 import Arrow from '@/public/assets/icons/Previous Button.svg'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import star from '@/public/assets/icons/Rating Group.svg'
 import Minus from '@/public/assets/icons/minu sign.svg'
 import Add from '@/public/assets/icons/add icon.svg'
@@ -17,6 +17,10 @@ import Love from '@/public/assets/icons/love icon.svg'
 import Avatar from '@/public/assets/images/avatar_placeholder.svg'
 import ReviewCard from "@/components/card/ReviewCard"
 import NewsLetter from "@/components/screenComponent/HomePage/NewsLetter"
+import { fetchProductDetail } from "@/lib/actions/product"
+import calculateDiscountedPrice from "@/utils/helpers/DiscountCalculator"
+import StarRating from "@/components/Atoms/ELStarRating"
+import Countdown from "@/components/Atoms/ELCountdown"
 
 type menu = {
     name: string
@@ -33,9 +37,24 @@ type productTab = {
     name: string
 }
 
+interface Product {
+    id: number;
+    name: string;
+    price: number;
+    product_name: string
+    note: string
+    product_price: string
+    product_discount: string
+    product_image: string[]
+    offer_ends: string
+    product_category: string
+    product_rating: number
+    // Add more properties as per your actual product structure
+}
 const Productpage = ({ params }: { params: { productId: string } }) => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [activeTab, setActiveTab] = useState('Reviews')
+    const [product, setProduct] = useState<Product | null>(null);
 
     const Menu = [
         {
@@ -46,12 +65,12 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
         {
             id: '1',
             name: 'Shop',
-            to: '/'
+            to: '/shoppage'
         },
         {
             id: '2',
             name: 'Product',
-            to: '/'
+            to: `${`/shoppage/${params.productId}`}`
         },
     ]
     const ProductImage = [
@@ -101,6 +120,19 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
         console.log(tabName);
     };
 
+    useEffect(() => {
+        const fetchProductDetailById = async () => {
+            try {
+                const response = await fetchProductDetail(params.productId);
+                console.log(response, 'product details')
+                setProduct(response)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchProductDetailById();
+    }, []);
+
     const ReviewDetails = {
         numberOfReviews: '11',
         itemName: 'Table Tray',
@@ -137,6 +169,11 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
             },
         ]
     }
+
+    if (!product) {
+        return <div>Loading...</div>; // Handle loading state
+    }
+
     return (
         <section>
             <main className="container mx-auto px-8 md:px-0" >
@@ -156,41 +193,55 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
                     })}
                 </div>
                 <section className="md:flex gap-16 mt-5">
-                    <div className=" md:w-1/2 relative">
-                        <Image src={ProductImage[currentIndex].image} alt="Image" className="bg-gray-200 w-full" />
+                    <div className="md:w-1/2 relative">
+                        <div className="w-[100%] h-[600px] relative overflow-hidden">
+                            <Image
+                                src={product?.product_image[currentIndex]}
+                                alt="Product Image"
+                                layout="fill"
+                                objectFit="cover"
+                                className="bg-gray-200"
+                            />
+                        </div>
                         <div className="absolute top-8 left-8">
-                            <ELText text='NEW' className={'bg-white py-1 px-5 rounded-lg mb-2'} />
-                            <ELText text='-50%' className={'bg-green-400 py-1 px-5 rounded-lg'} />
+                            <ELText text="NEW" className="bg-white py-1 px-5 rounded-lg mb-2" />
+                            <ELText text="-50%" className="bg-green-400 py-1 px-5 rounded-lg" />
                         </div>
                         <div className="flex items-center justify-between absolute md:top-[30%] top-[45%] w-full">
                             <Image src={Arrow} alt="Arrow Back" className="cursor-pointer" onClick={handlePrevForm} />
-                            <Image src={Arrow} alt="Arrow Back" className="rotate-180 -mt-5 cursor-pointer" onClick={handleNextImage} />
+                            <Image
+                                src={Arrow}
+                                alt="Arrow Forward"
+                                className="rotate-180 -mt-5 cursor-pointer"
+                                onClick={handleNextImage}
+                            />
                         </div>
-                        <div className="md:flex gap-6 justify-between mt-6 hidden">
-                            {ProductImage.slice(1).map((image: productImage) => {
+                        <div className="md:flex gap-2 justify-between mt-6 absolute hidden bottom-0 left-0 right-0 pt-4 bg-white">
+                            {product.product_image.map((image: string) => {
                                 return (
-                                    <main key={image.image} className="w-1/3 border">
-                                        <Image src={image.image} alt={`${image.id} image`} className="w-full" />
+                                    <main key={image} className="w-1/3 border">
+                                        <Image src={image} alt={`${image} image`} className="w-full" width={500} height={500} />
                                     </main>
                                 )
                             })}
                         </div>
                     </div>
+
                     <div className="md:w-1/2">
                         <div className="flex gap-3 mt-4 md:mt-0">
-                            <Image src={star} alt="Rating" />
+                            <StarRating totalStars={5} starRating={product.product_rating} />
                             <ELText text='11 Reviews' />
                         </div>
                         <div>
-                            <ELText text='Tray Table' className={'font-medium text-[35px] my-4'} />
+                            <ELText text={product?.product_name} className={'font-medium text-[35px] my-4'} />
                         </div>
                         <div>
-                            <ELText text='Buy one or buy a few and make every space where you sit more convenient. Light and easy to move around with removable tray top, handy for serving snacks. ' className={'text-[20px] text-gray-500'} />
+                            <ELText text={product?.note} className={'text-[20px] text-gray-500'} />
                         </div>
                         <div className="flex gap-3 my-4 items-end">
-                            <ELText text='$199.00' className={'text-[25px] font-medium'} />
+                            <ELText text={calculateDiscountedPrice(product?.product_price || 1, product?.product_discount)} className={'text-[25px] font-medium'} />
                             <div className="relative">
-                                <ELText text='$400.00' className={'text-[22px] font-medium text-gray-500'} />
+                                <ELText text={`$${product?.product_price}`} className={'text-[22px] font-medium text-gray-500'} />
                                 <hr className="absolute top-4 text-gray-500 border w-full font-medium" />
                             </div>
                         </div>
@@ -198,22 +249,7 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
                         <div className="my-4">
                             <ELText text='Offer expires in:' className={'text-[15px] font-normal '} />
                             <div className="flex gap-6 mt-3">
-                                <div className="flex flex-col text-center w-max">
-                                    <ELText text='02' className={'font-medium bg-gray-200 p-3 px-4 w-max text-[30px]'} />
-                                    <ELText text='Days' className={'text-gray-500 font-normal'} />
-                                </div>
-                                <div className="flex flex-col text-center w-max">
-                                    <ELText text='02' className={'font-medium bg-gray-200 p-3 px-4 w-max text-[30px]'} />
-                                    <ELText text='Days' className={'text-gray-500 font-normal'} />
-                                </div>
-                                <div className="flex flex-col text-center w-max">
-                                    <ELText text='02' className={'font-medium bg-gray-200 p-3 px-4 w-max text-[30px]'} />
-                                    <ELText text='Days' className={'text-gray-500 font-normal'} />
-                                </div>
-                                <div className="flex flex-col text-center w-max">
-                                    <ELText text='02' className={'font-medium bg-gray-200 p-3 px-4 w-max text-[30px]'} />
-                                    <ELText text='Days' className={'text-gray-500 font-normal'} />
-                                </div>
+                                <Countdown targetDate={product.offer_ends} />
                             </div>
                         </div>
                         <hr />
@@ -244,7 +280,7 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
                             </div>
                             <div className="">
                                 <ELText text='1117' className={'font-normal text-[15px] text-gray-400'} />
-                                <ELText text='Living Room, Bedroom' className={'font-normal text-[15px] text-black'} />
+                                <ELText text={product.product_category} className={'font-normal text-[15px] text-black'} />
                             </div>
                         </div>
                     </div>
@@ -264,9 +300,11 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
                         {activeTab === 'Reviews' && (
                             <div>
                                 <ReviewCard
+                                    starRating={product.product_rating}
+                                    totalStars={5}
                                     Review={ReviewDetails.Review}
                                     numberOfReviews={ReviewDetails.numberOfReviews}
-                                    itemName={ReviewDetails.itemName}
+                                    itemName={product.product_name}
                                 />
                             </div>
                         )}

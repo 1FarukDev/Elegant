@@ -5,8 +5,6 @@ import ArrorRight from '@/public/assets/icons/arrow right 3.svg'
 import Image from 'next/image'
 import { useEffect, useState, useMemo } from 'react'
 import ELCheckBox from '@/components/Atoms/ELCheckbox'
-import Star from '@/public/assets/icons/Rating Group.svg'
-import ProductImage from '@/public/assets/images/product.png'
 import ProductCard from '@/components/card/ProductCard'
 import ELDropdown from '@/components/Atoms/ELDropdown'
 import ELButton from '@/components/Atoms/ELButton'
@@ -40,7 +38,7 @@ const Shop = () => {
         console.log(category)
     }
 
-    const shopCategory = useMemo(() => [
+    const shopCategory: Category[] = useMemo(() => [
         { id: '0', name: 'All Rooms' },
         { id: '1', name: 'Living Room' },
         { id: '2', name: 'Bedroom' },
@@ -50,7 +48,7 @@ const Shop = () => {
         { id: '6', name: 'Outdoors' },
     ], []);
 
-    const priceCategory = useMemo(() => [
+    const priceCategory: Category[] = useMemo(() => [
         { id: '0', name: 'All Price' },
         { id: '1', name: '$0.00 - 99.99' },
         { id: '2', name: '$100.00 - 199.99' },
@@ -95,7 +93,7 @@ const Shop = () => {
             return (
                 <div className="cursor-pointer" key={index}>
                     <ProductCard
-                        image={product.product_image}
+                        image={product.product_image[0]}
                         handleClick={() => console.log('Hello')}
                         id={product.id}
                         onMouseEnter={() => handleShowDetails(id)}

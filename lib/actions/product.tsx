@@ -19,3 +19,18 @@ export async function fetchProducts(limit: number = 10, offset: number = 0, cate
         return { data, error: null };
     }
 }
+
+export async function fetchProductDetail(productId: string | number) {
+    const { data, error } = await supabase
+        .from('Products') 
+        .select('*')
+        .eq('id', productId)
+        .single()
+
+    if (error) {
+        console.error('Error fetching product details:', error)
+        return null
+    }
+
+    return data
+}

@@ -8,16 +8,18 @@ import { useForm } from "react-hook-form"
 import ELButton from "@/components/Atoms/ELButton"
 import ArrowRight from '@/public/assets/icons/arrow right 2.svg'
 import ELDropdown from "@/components/Atoms/ELDropdown"
+import StarRating from "../Atoms/ELStarRating"
 
 
 
 interface ReviewDetailsProps {
     numberOfReviews: string
-    itemName:string
-    Review:any
+    itemName: string
+    Review: any
+    totalStars:number
+    starRating:number
 }
-const ReviewCard = (props:ReviewDetailsProps) => {
-    const { numberOfReviews, itemName, Review } = props
+const ReviewCard: React.FC<ReviewDetailsProps> = ({ numberOfReviews, itemName, Review, totalStars, starRating }) => {
     const { register, handleSubmit } = useForm()
     const dropdownItems = [
         {
@@ -34,7 +36,8 @@ const ReviewCard = (props:ReviewDetailsProps) => {
         <main>
             <ELText text='Customer Review ' className={'font-medium text-[20px] md:text-[28px]'} />
             <div className="flex gap-6 mt-4 md:mt-0">
-                <Image src={Star} alt="Review card" />
+                {/* <Image src={Star} alt="Review card" /> */}
+                <StarRating totalStars={totalStars} starRating={starRating}/>
                 <ELText text={`${numberOfReviews} Reviews`} className={'font-normal text-[15px]'} />
             </div>
             <ELText text={itemName} className={'font-medium text-[15px] mt-8 text-center md:text-start'} />
@@ -45,38 +48,38 @@ const ReviewCard = (props:ReviewDetailsProps) => {
             </div>
             <div className="mt-10 md:flex justify-between items-center mb-8">
                 <ELText text={`${numberOfReviews} Reviews`} className={'font-medium text-[] md:text-[20px]'} />
-               <div className="md:w-[15%] w-[100%]"> 
+                <div className="md:w-[15%] w-[100%]">
                     <ELDropdown options={dropdownItems} title="Latest Review" />
-               </div>
+                </div>
             </div>
-           {Review.map((comment:any, index:number) => {
-            return(
-                <div key={index}>
-                    <div className="md:flex gap-6 items-start" >
-                      <div className="flex gap-4 items-start mb-6">
-                            <Image src={comment.imageOfReview} alt="Avatar Image" />
-                            <div className="md:hidden block">
-                                <ELText text={comment.nameOfReviewer} className={'font-medium'} />
-                                <Image src={Star} alt="Rating" className="my-4" />
+            {Review.map((comment: any, index: number) => {
+                return (
+                    <div key={index}>
+                        <div className="md:flex gap-6 items-start" >
+                            <div className="flex gap-4 items-start mb-6">
+                                <Image src={comment.imageOfReview} alt="Avatar Image" />
+                                <div className="md:hidden block">
+                                    <ELText text={comment.nameOfReviewer} className={'font-medium'} />
+                                    <Image src={Star} alt="Rating" className="my-4" />
+                                </div>
                             </div>
-                      </div>
-                        <div >
-                            <ELText text={comment.nameOfReviewer} className={'font-medium hidden md:block'} />
-                            <Image src={Star} alt="Rating" className="my-4 hidden md:block" />
-                            <ELText text={comment.reviewerComment} className={'font-normal text-[15px] text-gray-600'} />
-                            <div className="flex gap-6 mt-4">
-                                <ELText text='Like' />
-                                <ELText text='Reply' />
+                            <div >
+                                <ELText text={comment.nameOfReviewer} className={'font-medium hidden md:block'} />
+                                <Image src={Star} alt="Rating" className="my-4 hidden md:block" />
+                                <ELText text={comment.reviewerComment} className={'font-normal text-[15px] text-gray-600'} />
+                                <div className="flex gap-6 mt-4">
+                                    <ELText text='Like' />
+                                    <ELText text='Reply' />
+                                </div>
                             </div>
                         </div>
+                        <hr className="my-6" />
                     </div>
-                    <hr className="my-6" />
-                </div>
-            )
-           })}
-           <div className="flex justify-center ">
-            <ELButton name="Load More" className="border py-2 px-8 border-black rounded-full"/>
-           </div>
+                )
+            })}
+            <div className="flex justify-center ">
+                <ELButton name="Load More" className="border py-2 px-8 border-black rounded-full" />
+            </div>
 
         </main>
     )
