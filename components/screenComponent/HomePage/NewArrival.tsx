@@ -11,6 +11,7 @@ import lock from '@/public/assets/icons/lock 01.svg'
 import call from '@/public/assets/icons/call.svg'
 import ProductCard from "@/components/card/ProductCard"
 import calculateDiscountedPrice from "@/utils/helpers/DiscountCalculator"
+import ProductCardSkeleton from "@/components/card/ProductCardSkeleton"
 
 interface ProductDetail {
     id: string
@@ -25,9 +26,9 @@ interface ProductDetail {
 
 interface NewArrivalProps {
     newArrival: any
+    loading: boolean
 }
-const NewArrival = (props: NewArrivalProps) => {
-    const { newArrival } = props
+const NewArrival: React.FC<NewArrivalProps> = ({ newArrival, loading }) => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
 
     const Options = [
@@ -86,27 +87,34 @@ const NewArrival = (props: NewArrivalProps) => {
             </section>
 
             <section className="flex gap-6 w-full overflow-x-scroll overflow-hidden scrollbar">
-                {newArrival.map((product: any, index: number) => {
-                    const id = product.id;
-                    return (
-                        <div className=" flex-shrink-0 relative cursor-pointer" key={index}>
-                            <ProductCard
-                                image={product.product_image}
-                                handleClick={() => console.log('Hello')}
-                                id={product.id}
-                                onMouseEnter={() => handleShowDetails(id)}
-                                onMouseLeave={() => handleHideDetails(id)}
-                                showButton={showButtonMap[id]}
-                                discountPrice={calculateDiscountedPrice(product.product_price, product.product_discount)}
-                                discountPercentage={product.product_discount}
-                                productCondition={product.product_condition}
-                                price={product.product_price}
-                                name={product.product_name}
-                                starRating={product.product_rating}
-                            />
-                        </div>
-                    )
-                })}
+                {loading ? <section className="flex gap-6 w-full overflow-x-scroll overflow-hidden scrollbar">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                        <ProductCardSkeleton key={index} />
+                    ))}
+                </section> : <section className="flex gap-6 w-full overflow-x-scroll overflow-hidden scrollbar">
+                    {newArrival.map((product: any, index: number) => {
+                        const id = product.id;
+                        return (
+                            <div className=" flex-shrink-0 relative cursor-pointer" key={index}>
+                                <ProductCard
+                                    image={product.product_image[0]}
+                                    handleClick={() => console.log('Hello')}
+                                    id={product.id}
+                                    onMouseEnter={() => handleShowDetails(id)}
+                                    onMouseLeave={() => handleHideDetails(id)}
+                                    showButton={showButtonMap[id]}
+                                    discountPrice={calculateDiscountedPrice(product.product_price, product.product_discount)}
+                                    discountPercentage={product.product_discount}
+                                    productCondition={product.product_condition}
+                                    price={product.product_price}
+                                    name={product.product_name}
+                                    starRating={product.product_rating}
+                                />
+                            </div>
+                        )
+                    })}
+                </section>}
+
             </section>
             <div className="flex items-center md:hidden gap-2 border-b w-max border-black cursor-pointer my-3 ">
                 <ELText text='More product' className={'font-normal text-[15px]'} />
@@ -128,4 +136,6 @@ const NewArrival = (props: NewArrivalProps) => {
     )
 }
 
-export default NewArrival 
+export default NewArrival
+
+
