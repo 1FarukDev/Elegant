@@ -21,6 +21,7 @@ import { fetchProductDetail } from "@/lib/actions/product"
 import calculateDiscountedPrice from "@/utils/helpers/DiscountCalculator"
 import StarRating from "@/components/Atoms/ELStarRating"
 import Countdown from "@/components/Atoms/ELCountdown"
+import LoadingScreen from "@/components/Atoms/ELLoadingScreen"
 
 type menu = {
     name: string
@@ -55,6 +56,7 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [activeTab, setActiveTab] = useState('Reviews')
     const [product, setProduct] = useState<Product | null>(null);
+    const [detailsLoading, setDetailsLoading] = useState<boolean>(false)
 
     const Menu = [
         {
@@ -122,11 +124,13 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
 
     useEffect(() => {
         const fetchProductDetailById = async () => {
+            setDetailsLoading(true)
             try {
                 const response = await fetchProductDetail(params.productId);
-                console.log(response, 'product details')
+                setDetailsLoading(false)
                 setProduct(response)
             } catch (error) {
+                setDetailsLoading(false)
                 console.error(error);
             }
         }
@@ -171,7 +175,7 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
     }
 
     if (!product) {
-        return <div>Loading...</div>; // Handle loading state
+        return <div className="h-screen flex items-center justify-center"><LoadingScreen /></div>; // Handle loading state
     }
 
     return (
