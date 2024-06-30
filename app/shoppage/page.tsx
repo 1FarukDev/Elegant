@@ -37,6 +37,7 @@ const Shop = () => {
     const handleChangeCategory = (tabName: string) => {
         setActiveCategory(tabName)
         setCategory(tabName)
+        console.log(category)
     }
 
     const shopCategory = useMemo(() => [
@@ -58,22 +59,21 @@ const Shop = () => {
         { id: '5', name: '$400.00+' },
     ], []);
 
-  const handleShowMore = () => {
-        console.log('Hello');
+    const handleShowMore = () => {
         setLimit(prevLimit => prevLimit + 10); // Increase limit by 10
     }
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetchProducts(limit, 9);
+                const response = await fetchProducts(limit, 0, activeCategory === 'All Rooms' ? undefined : activeCategory);
                 setProduct(response.data || []);
             } catch (error) {
                 console.error(error);
             }
         }
         fetchProduct();
-    }, [[product, handleShowMore]]);
+    }, [limit, activeCategory]);
 
     const handleShowDetails = (id: string) => {
         setShowButtonMap(prevState => ({
@@ -87,7 +87,7 @@ const Shop = () => {
             [id]: false
         }));
     }
-  
+
 
     const memoizedProducts = useMemo(() => {
         return product.map((product: any, index: number) => {
