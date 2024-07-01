@@ -10,6 +10,7 @@ import ELDropdown from '@/components/Atoms/ELDropdown'
 import ELButton from '@/components/Atoms/ELButton'
 import { fetchProducts } from "@/lib/actions/product"
 import calculateDiscountedPrice from '@/utils/helpers/DiscountCalculator'
+import ProductCardSkeleton from '@/components/card/ProductCardSkeleton'
 
 
 interface Product {
@@ -31,7 +32,7 @@ const Shop = () => {
     const [category, setCategory] = useState<string>(activeCategory)
     const [product, setProduct] = useState<Product[]>([])
     const [limit, setLimit] = useState<number>(9)
-
+    const [productLoading, setProductLoading] = useState<boolean>(false)
     const handleChangeCategory = (tabName: string) => {
         setActiveCategory(tabName)
         setCategory(tabName)
@@ -63,10 +64,13 @@ const Shop = () => {
 
     useEffect(() => {
         const fetchProduct = async () => {
+            setProductLoading(true)
             try {
                 const response = await fetchProducts(limit, 0, activeCategory === 'All Rooms' ? undefined : activeCategory);
+                setProductLoading(false)
                 setProduct(response.data || []);
             } catch (error) {
+                setProductLoading(false)
                 console.error(error);
             }
         }
@@ -163,12 +167,18 @@ const Shop = () => {
                     <div className='md:w-[80%] w-[100%] mt-8 md:mt-0'>
                         {category}
                         <div className='grid md:grid-cols-3 gap-6 md:mt-10 mt-4 grid-cols-2'>
-                            {memoizedProducts}
+                            {productLoading ?
+                                Array.from({ length: 9 }).map((_, index) => (
+                                    <ProductCardSkeleton key={index} />
+                                )) :
+                                memoizedProducts
+                            }
                         </div>
+
                     </div>
                 </div>
                 <div className='flex justify-center my-8'>
-                    <ELButton name='Show more' className='px-4 py-2 border border-black text-black rounded-full' handleClick={handleShowMore} />
+                    <ELButton name='Show more' className='px-4 py-2 border border-black text-black rounded-full' handleClick={handleShowMore} loading={productLoading}/>
                 </div>
             </section>
         </main>

@@ -16,13 +16,13 @@ interface CardInputFieldProps {
     showButton?: any
     onMouseEnter?: any
     onMouseLeave?: any
-    starRating?:any
-    name?:string
-    price?:string
-    discountPrice:string
-    handleDetailsClick?:any
-    discountPercentage?:any
-    productCondition?:boolean
+    starRating?: any
+    name?: string
+    price?: string
+    discountPrice: string
+    handleDetailsClick?: any
+    discountPercentage?: any
+    productCondition?: boolean
 }
 
 const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButton = false, onMouseEnter, onMouseLeave, starRating, name, price, discountPrice, handleDetailsClick, discountPercentage, productCondition }) => {
@@ -38,16 +38,16 @@ const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButt
                     <div className="">
                         {productCondition && <ELText text='NEW' className={'bg-white text-[10px] md:text-[20px]  py-1 px-5 rounded-lg mb-2'} />}
                         {discountPercentage && <ELText text={`-${discountPercentage}`} className={'bg-green-400 text-[10px] md:text-[20px] py-1 px-5 rounded-lg'} />}
-                        
+
                     </div>
                     <div className="flex justify-end  w-full ">
                         <Image src={LoveIcon} alt="Icon for add to wishlist" />
                     </div>
                 </div>
-                
-                    <div  className="absolute w-full bottom-0 bg-gray-100 md:p-4 p-2 ">
-                        <ELButton name="Add to cart" className="bg-black text-white w-full md:p-2 p-[2px]  text-[15px] rounded-lg" handleClick={handleClick} />
-                    </div>
+
+                <div className="absolute w-full bottom-0 bg-gray-100 md:p-4 p-2 ">
+                    <ELButton name="Add to cart" className="bg-black text-white w-full md:p-2 p-[2px]  text-[15px] rounded-lg" handleClick={handleClick} />
+                </div>
 
             </div>
             <div className="mt-4">
@@ -72,7 +72,7 @@ const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButt
                         <ELText text={`$${price}`} className={'text-[15px] font-medium text-gray-500'} />
                     </div>
                 </div>}
-             
+
             </div>
         </Link>
     )
