@@ -86,7 +86,7 @@ const SignUpPage = () => {
                         <ELInput name="password" register={register} placeholder="Password" type="password" className={'border-b border-bottom-left-radius'} />
                     </div>
                     <div className="flex justify-between  mt-7 items-center">
-                        <ELCheckBox name='remember' rightLabel='I agree with Privacy Policy and Terms of Use' rightLabelClassName={'text-gray-500 text-[15px]'} className='flex gap-2 cursor-pointer' />
+                        <ELCheckBox name='remember' rightLabel='I agree with Privacy Policy and Terms of Use' rightLabelClassName={'text-gray-500 text-[15px]'} className='flex gap-2 cursor-pointer' register={register}/>
                     </div>
                     <ELButton name='Sign Up' className="bg-black text-white rounded-lg py-3 w-full mt-7" loading={loading} />
                 </form>
