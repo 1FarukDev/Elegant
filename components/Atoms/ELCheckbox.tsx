@@ -1,8 +1,17 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { UseFormRegister, useForm } from 'react-hook-form';
 
-function ELCheckBox({ name, label, rightLabel, rightLabelClassName, className }:any) {
-    const { register } = useForm();
+interface checkboxProps {
+    name: string
+    label?: string
+    rightLabel?: string
+    rightLabelClassName?: string
+    className?: string
+    register: UseFormRegister<any>;
+}
+
+const ELCheckBox: React.FC<checkboxProps> = ({ name, label, rightLabel, rightLabelClassName, className, register }) => {
+    
 
     return (
         <div className='cursor-pointer'>
