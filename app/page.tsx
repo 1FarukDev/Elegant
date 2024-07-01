@@ -31,114 +31,12 @@ export default function Home() {
         setProductLoading(false)
         // setLoading(false);
         console.error(error);
-        // router.push("/error");/
+        // router.push("/error");
       }
     }
     fetchProduct()
   }, [])
-  const productDetails = [
-    {
-      id: '0',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-    {
-      id: '1',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-    {
-      id: '2',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-    {
-      id: '3',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-    {
-      id: '4',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-    {
-      id: '5',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-    {
-      id: '6',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-    {
-      id: '7',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-    {
-      id: '8',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-    {
-      id: '9',
-      name: 'Loveseat Sofa',
-      discountPrice: '$199.00',
-      price: '$400.00',
-      new: true,
-      discount: '-50%',
-      rating: Star,
-      image: ProductImage
-    },
-
-  ]
+ 
   return (
     <section className="z-0">
       <main className="container mx-auto px-8 md:px-0">

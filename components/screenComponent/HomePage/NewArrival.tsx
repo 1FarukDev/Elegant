@@ -98,7 +98,7 @@ const NewArrival: React.FC<NewArrivalProps> = ({ newArrival, loading }) => {
                             <div className=" flex-shrink-0 relative cursor-pointer" key={index}>
                                 <ProductCard
                                     image={product.product_image[0]}
-                                    handleClick={() => console.log('Hello')}
+                                    handleClick={() => console.log(id)}
                                     id={product.id}
                                     onMouseEnter={() => handleShowDetails(id)}
                                     onMouseLeave={() => handleHideDetails(id)}

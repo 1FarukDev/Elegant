@@ -50,7 +50,6 @@ interface Product {
     offer_ends: string
     product_category: string
     product_rating: number
-    // Add more properties as per your actual product structure
 }
 const Productpage = ({ params }: { params: { productId: string } }) => {
     const [currentIndex, setCurrentIndex] = useState(0)

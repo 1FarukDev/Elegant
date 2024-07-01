@@ -88,7 +88,7 @@ const LoginPage = () => {
                         <ELInput name="password" register={register} placeholder="Password" type="password" className="border-b border-bottom-left-radius" />
                     </div>
                     <div className="flex justify-between mt-7 items-center">
-                        <ELCheckBox name='remember' rightLabel='Remember me' rightLabelClassName="text-gray-500 text-[15px]" className="flex gap-2 cursor-pointer" />
+                        <ELCheckBox name='remember' rightLabel='Remember me' rightLabelClassName="text-gray-500 text-[15px]" className="flex gap-2 cursor-pointer" register={register}/>
                         <ELText text='Forgot Password?' className="font-semibold cursor-pointer" />
                     </div>
                     <ELButton name='Sign In' className="bg-black text-white rounded-lg py-3 w-full mt-7" loading={loading} disabled={loading} />

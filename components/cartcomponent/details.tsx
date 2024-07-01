@@ -87,7 +87,7 @@ const DeliveryDetails = (props: CartItemProps) => {
                         <ELInput name="zipcode" placeholder="Zip Code" register={register} label="ZIP CODE" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
                     </div>
                     <div className="flex gap-4 items-center mt-6">
-                        <ELCheckBox name='different address' />
+                        <ELCheckBox name='different address' register={register}/>
                         <ELText text='Use a different billing address (optional)' className={'font-semibold text-gray-500 text-[15px]'} />
                     </div>
                 </div>

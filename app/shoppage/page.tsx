@@ -11,6 +11,7 @@ import ELButton from '@/components/Atoms/ELButton'
 import { fetchProducts } from "@/lib/actions/product"
 import calculateDiscountedPrice from '@/utils/helpers/DiscountCalculator'
 import ProductCardSkeleton from '@/components/card/ProductCardSkeleton'
+import { useForm } from 'react-hook-form'
 
 
 interface Product {
@@ -33,6 +34,9 @@ const Shop = () => {
     const [product, setProduct] = useState<Product[]>([])
     const [limit, setLimit] = useState<number>(9)
     const [productLoading, setProductLoading] = useState<boolean>(false)
+    const [checkedValues, setCheckedValues] = useState<string[]>([]);
+    const { register, handleSubmit, watch } = useForm();
+
     const handleChangeCategory = (tabName: string) => {
         setActiveCategory(tabName)
         setCategory(tabName)
@@ -58,6 +62,22 @@ const Shop = () => {
         { id: '5', name: '$400.00+' },
     ], []);
 
+    const watchAll = watch(priceCategory.map(category => category.name));
+
+    useEffect(() => {
+        const updatedCheckedValues = priceCategory
+            .filter((category, index) => watchAll[index])
+            .map(category => category.name);
+
+        if (JSON.stringify(updatedCheckedValues) !== JSON.stringify(checkedValues)) {
+            setCheckedValues(updatedCheckedValues);
+        }
+    }, [watchAll, priceCategory, checkedValues]);
+
+    useEffect(() => {
+        // Handle checkbox value changes here
+        console.log("Checked values: ", checkedValues);
+    }, [checkedValues]);
     const handleShowMore = () => {
         setLimit(prevLimit => prevLimit + 10); // Increase limit by 10
     }
@@ -66,7 +86,7 @@ const Shop = () => {
         const fetchProduct = async () => {
             setProductLoading(true)
             try {
-                const response = await fetchProducts(limit, 0, activeCategory === 'All Rooms' ? undefined : activeCategory);
+                const response = await fetchProducts(limit, 0, activeCategory === 'All Rooms' ? undefined : activeCategory, checkedValues);
                 setProductLoading(false)
                 setProduct(response.data || []);
             } catch (error) {
@@ -75,7 +95,7 @@ const Shop = () => {
             }
         }
         fetchProduct();
-    }, [limit, activeCategory]);
+    }, [limit, activeCategory, checkedValues]);
 
     const handleShowDetails = (id: string) => {
         setShowButtonMap(prevState => ({
@@ -98,7 +118,7 @@ const Shop = () => {
                 <div className="cursor-pointer" key={index}>
                     <ProductCard
                         image={product.product_image[0]}
-                        handleClick={() => console.log('Hello')}
+                        handleClick={() => console.log(id)}
                         id={product.id}
                         onMouseEnter={() => handleShowDetails(id)}
                         onMouseLeave={() => handleHideDetails(id)}
@@ -158,7 +178,7 @@ const Shop = () => {
                                 {priceCategory.map((category: any) => (
                                     <main key={category.id} className='flex justify-between'>
                                         <ELText text={category.name} className={'text-gray-500 text-[15px] md:text-[10px] mb-2 hover:text-black cursor-pointer'} />
-                                        <ELCheckBox name={category.name} label='' />
+                                        <ELCheckBox name={category.name} label='' register={register} />
                                     </main>
                                 ))}
                             </div>
@@ -178,7 +198,7 @@ const Shop = () => {
                     </div>
                 </div>
                 <div className='flex justify-center my-8'>
-                    <ELButton name='Show more' className='px-4 py-2 border border-black text-black rounded-full' handleClick={handleShowMore} loading={productLoading}/>
+                    <ELButton name='Show more' className='px-4 py-2 border border-black text-black rounded-full' handleClick={handleShowMore} loading={productLoading} />
                 </div>
             </section>
         </main>
