@@ -31,13 +31,20 @@ interface Category {
     name: string
 }
 interface CartItem {
-    id: number;
-    name: string;
+    id: string | any;
     price: number;
     quantity: number;
     totalPrice: number;
+    product_name: string;
+    product_image: string;
+    product_price: string;
+
 }
-const Shop = () => {
+
+interface ProductProps {
+    item: CartItem
+}
+const Shop: React.FC<ProductProps> = () => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
     const [activeCategory, setActiveCategory] = useState<string>('All Rooms')
     const [category, setCategory] = useState<string>(activeCategory)
@@ -48,6 +55,7 @@ const Shop = () => {
     const { register, handleSubmit, watch } = useForm();
     const dispatch: AppDispatch = useDispatch();
     const cart = useSelector((state: any) => state.cart);
+
     console.log(cart);
 
     const handleChangeCategory = (tabName: string) => {
@@ -94,17 +102,17 @@ const Shop = () => {
         setLimit(prevLimit => prevLimit + 10); // Increase limit by 10
     }
 
-
-    const addItem = (id: string) => {
-        console.log(id)
-        // const newItem = {
-        //     id: 1,
-        //     price: 19.99,
-        //     quantity: 1,
-        //     totalPrice: 19.99,
-        //     name: 'Example Item',
-        // };
-        // dispatch(addItemToCart(newItem));
+    const handleAddToCart = (product: Product) => {
+        const cartItem: CartItem = {
+            id: product.id,
+            price: product.product_price,
+            quantity: 1,
+            totalPrice: product.product_price,
+            product_name: product.product_name,
+            product_image: product.product_image,
+            product_price: product.product_price.toString(),
+        };
+        dispatch(addItemToCart(cartItem));
     };
 
     useEffect(() => {
@@ -143,7 +151,7 @@ const Shop = () => {
                 <div className="cursor-pointer" key={index}>
                     <ProductCard
                         image={product.product_image[0]}
-                        handleClick={addItem}
+                        handleClick={() => handleAddToCart(product)}
                         id={product.id}
                         onMouseEnter={() => handleShowDetails(id)}
                         onMouseLeave={() => handleHideDetails(id)}
