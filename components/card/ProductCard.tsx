@@ -31,11 +31,11 @@ const ProductCard: FC<CardInputFieldProps> = ({ id, image, handleClick, showButt
         <main>
             <div className="bg-gray-200 flex-shrink-0 relative cursor-pointer w-100% rounded-lg flex justify-center">
                 <Link  href={`/shoppage/${id}`}>
-                <div className="h-[349px] w-[262px] rounded-md">
+                <div className="h-[349px] min-w-[262px] rounded-md">
                     <Image src={image} alt={`${name} image`} className="absolute top-0 left-0 object-cover rounded-md"
                         layout="fill" />
                 </div>
-                <div className="flex justify-between items-start absolute top-3 w-full md:px-4 px-2" >
+                <div className="flex justify-between items-start left-0 absolute top-3 w-full md:px-4 px-2" >
                     <div className="">
                         {productCondition && <ELText text='NEW' className={'bg-white text-[10px] md:text-[20px]  py-1 px-5 rounded-lg mb-2'} />}
                         {discountPercentage && <ELText text={`-${discountPercentage}`} className={'bg-green-400 text-[10px] md:text-[20px] py-1 px-5 rounded-lg'} />}

@@ -12,7 +12,10 @@ import { fetchProducts } from "@/lib/actions/product"
 import calculateDiscountedPrice from '@/utils/helpers/DiscountCalculator'
 import ProductCardSkeleton from '@/components/card/ProductCardSkeleton'
 import { useForm } from 'react-hook-form'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '@/lib/store'
+import { addItemToCart } from '@/lib/features/cart/cartSlice'
+import { toast } from 'react-toastify'
 
 interface Product {
     id: string
@@ -27,6 +30,18 @@ interface Category {
     id: string
     name: string
 }
+interface CartItem {
+    id: string | any;
+    price: number;
+    quantity: number;
+    totalPrice: number;
+    product_name: string;
+    product_image: string;
+    product_price: string;
+
+}
+
+
 const Shop = () => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
     const [activeCategory, setActiveCategory] = useState<string>('All Rooms')
@@ -36,6 +51,10 @@ const Shop = () => {
     const [productLoading, setProductLoading] = useState<boolean>(false)
     const [checkedValues, setCheckedValues] = useState<string[]>([]);
     const { register, handleSubmit, watch } = useForm();
+    const dispatch: AppDispatch = useDispatch();
+    const cart = useSelector((state: any) => state.cart);
+
+    console.log(cart);
 
     const handleChangeCategory = (tabName: string) => {
         setActiveCategory(tabName)
@@ -52,7 +71,6 @@ const Shop = () => {
         { id: '5', name: 'Dining' },
         { id: '6', name: 'Outdoors' },
     ], []);
-
     const priceCategory: Category[] = useMemo(() => [
         { id: '0', name: 'All Price' },
         { id: '1', name: '$0.00 - 99.99' },
@@ -81,6 +99,20 @@ const Shop = () => {
     const handleShowMore = () => {
         setLimit(prevLimit => prevLimit + 10); // Increase limit by 10
     }
+
+    const handleAddToCart = (product: Product) => {
+        const cartItem: CartItem = {
+            id: product.id,
+            price: product.product_price,
+            quantity: 1,
+            totalPrice: product.product_price,
+            product_name: product.product_name,
+            product_image: product.product_image,
+            product_price: product.product_price.toString(),
+        };
+        dispatch(addItemToCart(cartItem));
+        toast.success('You just added this item to cart')
+    };
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -118,7 +150,7 @@ const Shop = () => {
                 <div className="cursor-pointer" key={index}>
                     <ProductCard
                         image={product.product_image[0]}
-                        handleClick={() => console.log(id)}
+                        handleClick={() => handleAddToCart(product)}
                         id={product.id}
                         onMouseEnter={() => handleShowDetails(id)}
                         onMouseLeave={() => handleHideDetails(id)}
@@ -154,7 +186,7 @@ const Shop = () => {
                     </div>
                 </section>
                 <div className='md:flex md:my-16 mb-16 md:mb-0 justify-between px-8 md:px-0'>
-                    <div className='md:w-[15%] w-[100%]'>
+                    <div className='md:w-[20%] w-[100%]'>
                         <div className='hidden md:flex gap-2'>
                             <Image src={FilterIcon} alt='FilterIcon' className='w-[15px]' />
                             <ELText text='Filter' className={'font-semibold text-[15px]'} />
@@ -184,7 +216,8 @@ const Shop = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='md:w-[80%] w-[100%] mt-8 md:mt-0'>
+                    <div className='md:w-[75%] w-[100%] mt-8 md:mt-0'>
+                        {/* { md:w-[80%] w-[100%] mt-8 md:mt-0} */}
                         {category}
                         <div className='grid md:grid-cols-3 gap-6 md:mt-10 mt-4 grid-cols-2'>
                             {productLoading ?

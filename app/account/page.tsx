@@ -13,9 +13,10 @@ import { supabase } from "@/utils/supabase/client";
 import { saveUserOtherProfile } from "@/lib/features/authentication/user_slice";
 import { toast } from "react-toastify";
 import Avatar from "@/public/assets/images/avatar_placeholder.svg";
+import { RootState } from "@/lib/store";
 
 const Account = () => {
-    const user = useSelector((state: any) => state.user);
+    const user = useSelector((state: RootState) => state.user);
     const router = useRouter();
     const [type, setType] = useState("Account");
     const dispatch = useDispatch();
@@ -25,13 +26,13 @@ const Account = () => {
     );
     const [imageFile, setImageFile] = useState(null)
     useEffect(() => {
-        if (!user.isAuthenticated) {
+        if (!user?.isAuthenticated) {
             router.push("/login");
         }
-    }, [user.isAuthenticated, router]);
+    }, [user?.isAuthenticated, router]);
 
 
-    if (!user.isAuthenticated) {
+    if (!user?.isAuthenticated) {
         return null;
     }
 
@@ -73,7 +74,7 @@ const Account = () => {
             const { data: updatedData, error: updateError } = await supabase
                 .from("user_profile")
                 .update(fieldsToUpdate)
-                .eq("user_id", user.userOtherProfile.user_id);
+                .eq("user_id", user.userOtherProfile?.user_id);
 
             if (updateError) throw updateError;
 

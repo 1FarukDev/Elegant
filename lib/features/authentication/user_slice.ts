@@ -16,6 +16,8 @@ interface UserOtherProfile {
   first_name?: string | null;
   last_name?: string | null;
   display_name?: string | null;
+  profile_image?: string | null;
+  user_id?: string | null;
   // Add more properties as needed
 }
 
