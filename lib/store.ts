@@ -1,7 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "@/lib/features/authentication/user_slice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import cartReducer from "./features/cart/cartSlice";
 
 // Persist configuration
 const persistConfig = {
@@ -9,15 +10,19 @@ const persistConfig = {
   storage,
 };
 
-// Persisted reducer
-const persistedReducer = persistReducer(persistConfig, userReducer);
+// Combine reducers
+const rootReducer = combineReducers({
+  user: userReducer,
+  cart: cartReducer,
+});
+
+// Persisted root reducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // Create and configure the store
 export const makeStore = () => {
   const store = configureStore({
-    reducer: {
-      user: persistedReducer,
-    },
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false,

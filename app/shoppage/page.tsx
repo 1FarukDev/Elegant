@@ -12,6 +12,9 @@ import { fetchProducts } from "@/lib/actions/product"
 import calculateDiscountedPrice from '@/utils/helpers/DiscountCalculator'
 import ProductCardSkeleton from '@/components/card/ProductCardSkeleton'
 import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '@/lib/store'
+import { addItemToCart } from '@/lib/features/cart/cartSlice'
 
 
 interface Product {
@@ -27,6 +30,13 @@ interface Category {
     id: string
     name: string
 }
+interface CartItem {
+    id: number;
+    name: string;
+    price: number;
+    quantity: number;
+    totalPrice: number;
+}
 const Shop = () => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
     const [activeCategory, setActiveCategory] = useState<string>('All Rooms')
@@ -36,6 +46,9 @@ const Shop = () => {
     const [productLoading, setProductLoading] = useState<boolean>(false)
     const [checkedValues, setCheckedValues] = useState<string[]>([]);
     const { register, handleSubmit, watch } = useForm();
+    const dispatch: AppDispatch = useDispatch();
+    const cart = useSelector((state: any) => state.cart);
+    console.log(cart);
 
     const handleChangeCategory = (tabName: string) => {
         setActiveCategory(tabName)
@@ -52,7 +65,6 @@ const Shop = () => {
         { id: '5', name: 'Dining' },
         { id: '6', name: 'Outdoors' },
     ], []);
-
     const priceCategory: Category[] = useMemo(() => [
         { id: '0', name: 'All Price' },
         { id: '1', name: '$0.00 - 99.99' },
@@ -81,6 +93,19 @@ const Shop = () => {
     const handleShowMore = () => {
         setLimit(prevLimit => prevLimit + 10); // Increase limit by 10
     }
+
+
+    const addItem = (id: string) => {
+        console.log(id)
+        // const newItem = {
+        //     id: 1,
+        //     price: 19.99,
+        //     quantity: 1,
+        //     totalPrice: 19.99,
+        //     name: 'Example Item',
+        // };
+        // dispatch(addItemToCart(newItem));
+    };
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -118,7 +143,7 @@ const Shop = () => {
                 <div className="cursor-pointer" key={index}>
                     <ProductCard
                         image={product.product_image[0]}
-                        handleClick={() => console.log(id)}
+                        handleClick={addItem}
                         id={product.id}
                         onMouseEnter={() => handleShowDetails(id)}
                         onMouseLeave={() => handleHideDetails(id)}

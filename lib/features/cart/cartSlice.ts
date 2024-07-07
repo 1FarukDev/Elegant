@@ -5,7 +5,9 @@ export interface CartItem {
   price: number;
   quantity: number;
   totalPrice: number;
-  name: string;
+  product_name: string;
+  product_image: string;
+  product_price: string;
 }
 
 export interface CartState {
@@ -27,34 +29,43 @@ const cartSlice = createSlice({
     addItemToCart(state, action: PayloadAction<CartItem>) {
       const newItem = action.payload;
       const existingItem = state.items.find((item) => item.id === newItem.id);
-      state.totalQuantity++;
-      state.totalAmount += newItem.price;
-      if (!existingItem) {
-        state.items.push({
-          id: newItem.id,
-          price: newItem.price,
-          quantity: 1,
-          totalPrice: newItem.price,
-          name: newItem.name,
-        });
-      } else {
+
+      if (existingItem) {
         existingItem.quantity++;
         existingItem.totalPrice += newItem.price;
+      } else {
+        state.items.push({
+          ...newItem,
+          quantity: 1,
+          totalPrice: newItem.price,
+        });
       }
+
+      state.totalQuantity++;
+      state.totalAmount = parseFloat(
+        (state.totalAmount + newItem.price).toFixed(2)
+      );
     },
     removeItemFromCart(state, action: PayloadAction<number>) {
       const id = action.payload;
       const existingItem = state.items.find((item) => item.id === id);
+
       if (!existingItem) {
         return;
       }
-      state.totalQuantity--;
-      state.totalAmount -= existingItem.price;
+
+      state.totalQuantity = Math.max(state.totalQuantity - 1, 0);
+      state.totalAmount = parseFloat(
+        (state.totalAmount - existingItem.price).toFixed(2)
+      );
+
       if (existingItem.quantity === 1) {
         state.items = state.items.filter((item) => item.id !== id);
       } else {
         existingItem.quantity--;
-        existingItem.totalPrice -= existingItem.price;
+        existingItem.totalPrice = parseFloat(
+          (existingItem.totalPrice - existingItem.price).toFixed(2)
+        );
       }
     },
   },
