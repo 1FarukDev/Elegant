@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '@/lib/store'
 import { addItemToCart } from '@/lib/features/cart/cartSlice'
-
+import { toast } from 'react-toastify'
 
 interface Product {
     id: string
@@ -113,6 +113,7 @@ const Shop: React.FC<ProductProps> = () => {
             product_price: product.product_price.toString(),
         };
         dispatch(addItemToCart(cartItem));
+        toast.success('You just added this item to cart')
     };
 
     useEffect(() => {
@@ -187,7 +188,7 @@ const Shop: React.FC<ProductProps> = () => {
                     </div>
                 </section>
                 <div className='md:flex md:my-16 mb-16 md:mb-0 justify-between px-8 md:px-0'>
-                    <div className='md:w-[15%] w-[100%]'>
+                    <div className='md:w-[20%] w-[100%]'>
                         <div className='hidden md:flex gap-2'>
                             <Image src={FilterIcon} alt='FilterIcon' className='w-[15px]' />
                             <ELText text='Filter' className={'font-semibold text-[15px]'} />
@@ -217,7 +218,8 @@ const Shop: React.FC<ProductProps> = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='md:w-[80%] w-[100%] mt-8 md:mt-0'>
+                    <div className='md:w-[75%] w-[100%] mt-8 md:mt-0'>
+                        {/* { md:w-[80%] w-[100%] mt-8 md:mt-0} */}
                         {category}
                         <div className='grid md:grid-cols-3 gap-6 md:mt-10 mt-4 grid-cols-2'>
                             {productLoading ?
