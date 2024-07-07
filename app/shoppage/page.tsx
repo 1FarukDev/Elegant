@@ -41,10 +41,8 @@ interface CartItem {
 
 }
 
-interface ProductProps {
-    item: CartItem
-}
-const Shop: React.FC<ProductProps> = () => {
+
+const Shop = () => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
     const [activeCategory, setActiveCategory] = useState<string>('All Rooms')
     const [category, setCategory] = useState<string>(activeCategory)
