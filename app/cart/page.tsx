@@ -73,7 +73,7 @@ const CartPage = () => {
         },
         {
             key: 2,
-            // component: <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />
+            component: <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />
         },
         {
             key: 3,
