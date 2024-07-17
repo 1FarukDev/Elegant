@@ -4,7 +4,7 @@ import Image from 'next/image';
 interface RadioOption {
     label: string;
     value: number;  // Update value type to number
-    addedValue: string;
+    addedValue?: string;
     iconRight?: any;
 }
 
@@ -13,7 +13,7 @@ interface RadioProps {
     options: RadioOption[];
     className?: string;
     buttonStyle?: string;
-    handleRadioButtonClick: (value: number) => void;  // Update type to number
+    handleRadioButtonClick: (value: number) => void;  
 }
 
 export const ELRadio: React.FC<RadioProps> = ({

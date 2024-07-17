@@ -14,7 +14,7 @@ import PromoIcon from '@/public/assets/icons/promoIcon.svg'
 
 interface CartItemProps {
     CartItem: any
-    handlePlaceOrderButton:any
+    handlePlaceOrderButton: any
 }
 
 const DeliveryDetails = (props: CartItemProps) => {
@@ -50,8 +50,8 @@ const DeliveryDetails = (props: CartItemProps) => {
         }
     ]
     const deliveryType = [
-        { id: 0, label: 'Pay by credit card', value: '$0.00', iconRight: Card },
-        { id: 1, label: 'Paypal', value: '+$15.00' },
+        { id: 0, label: 'Pay by credit card', value: 0.00, iconRight: Card },
+        { id: 1, label: 'Paypal', value: 15.00 },
     ]
     const { register, handleSubmit } = useForm()
     return (
@@ -87,7 +87,7 @@ const DeliveryDetails = (props: CartItemProps) => {
                         <ELInput name="zipcode" placeholder="Zip Code" register={register} label="ZIP CODE" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
                     </div>
                     <div className="flex gap-4 items-center mt-6">
-                        <ELCheckBox name='different address' register={register}/>
+                        <ELCheckBox name='different address' register={register} />
                         <ELText text='Use a different billing address (optional)' className={'font-semibold text-gray-500 text-[15px]'} />
                     </div>
                 </div>
@@ -110,7 +110,7 @@ const DeliveryDetails = (props: CartItemProps) => {
 
                 </div>
                 <div className="mt-[35px] hidden md:block">
-                    <ELButton name="Place Order" className="text-white bg-black w-full py-[15px] rounded-lg " handleClick={handlePlaceOrderButton}/>
+                    <ELButton name="Place Order" className="text-white bg-black w-full py-[15px] rounded-lg " handleClick={handlePlaceOrderButton} />
                 </div>
                 <div>
 

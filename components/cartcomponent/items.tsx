@@ -82,7 +82,7 @@ const CartItems = (props: CartItemProps) => {
                                     <>
                                         <main className="flex justify-between w-full items-start md:items-center mb-8" key={index}>
                                             <div className="w-[45%]">
-                                                <div className="flex gap-2 items-center">
+                                                <div className="flex gap-2">
                                                     <div className="w-[80px] h-[100px]">
                                                         <Image
                                                             src={item.product_image[0]}
