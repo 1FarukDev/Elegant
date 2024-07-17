@@ -2,18 +2,26 @@
 
 import ELText from "@/components/Atoms/ELText"
 import CartItems from "@/components/cartcomponent/items"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import TrayTable from '@/public/assets/images/Tray table.png'
 import DeliveryDetails from "@/components/cartcomponent/details"
 import CheckoutComplete from "@/components/cartcomponent/checkoutcomplete"
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from "@/lib/store";
+import { useRouter } from "next/navigation"
+
 
 type steps = {
     tag: string
     text: string
 }
 const CartPage = () => {
-    const [activeSteps, setActiceSteps] = useState('1')
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [activeSteps, setActiceSteps] = useState<string>('1')
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const { push } = useRouter()
+    const cart = useSelector((state: RootState) => state.cart);
+    const user = useSelector((state: RootState) => state.user);
+    console.log(cart)
     const handleSteps = (newStep: string) => {
         setActiceSteps(newStep)
     }
@@ -53,21 +61,22 @@ const CartPage = () => {
         setCurrentIndex(2)
         setActiceSteps('3')
     }
+  
     const cartStepsArray = [
         {
-            key:0,
-            component: <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />
+            key: 0,
+            component: <CartItems CartItem={cart.items} handleButtonClick={handleButtonClick} />
         },
         {
-            key:1,
+            key: 1,
             component: <DeliveryDetails CartItem={cartItem} handlePlaceOrderButton={handlePlaceOrderButton} />,
         },
         {
-            key:2,
-            component: <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />
+            key: 2,
+            // component: <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />
         },
         {
-            key:3,
+            key: 3,
             component: <CheckoutComplete />
         },
     ]
@@ -87,6 +96,20 @@ const CartPage = () => {
             text: "Order complete"
         },
     ]
+
+ 
+
+    useEffect(() => {
+        if (!user?.isAuthenticated) {
+            push("/login");
+        }
+    }, [user?.isAuthenticated, push]);
+
+
+    if (!user?.isAuthenticated) {
+        return null;
+    }
+    console.log(cart)
     return (
         <main className="container mx-auto px-8 md:px-0">
             <section className="my-[70px]">

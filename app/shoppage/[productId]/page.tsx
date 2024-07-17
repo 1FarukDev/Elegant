@@ -174,7 +174,7 @@ const Productpage = ({ params }: { params: { productId: string } }) => {
     }
 
     if (!product) {
-        return <div className="h-screen flex items-center justify-center"><LoadingScreen /></div>; // Handle loading state
+        return <div className="h-screen flex items-center justify-center"><LoadingScreen /></div>; 
     }
 
     return (

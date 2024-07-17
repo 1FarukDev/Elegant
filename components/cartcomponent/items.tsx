@@ -9,10 +9,12 @@ import ELButton from "../Atoms/ELButton"
 import PromoIcon from '@/public/assets/icons/promoIcon.svg'
 import ELInput from "../Atoms/ELInput"
 import { useForm } from "react-hook-form"
-
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '@/lib/store'
+import { decreaseQuantity, increaseQuantity } from "@/lib/features/cart/cartSlice"
 interface CartItemProps {
     CartItem: any
-    handleButtonClick:any
+    handleButtonClick: any
 }
 type deliveryType = {
     id: number, label: string, value: string
@@ -20,12 +22,20 @@ type deliveryType = {
 
 const CartItems = (props: CartItemProps) => {
     const { register } = useForm();
+    const dispatch = useDispatch()
     const deliveryType = [
         { id: 0, label: 'Free shipping', value: '$0.00', addedValue: '$0.00' },
         { id: 1, label: 'Express shipping', value: '+$15.00', addedValue: '+$15.00' },
         { id: 2, label: 'Pick Up', value: '%21.00', addedValue: '%21.00' }
     ]
     const { CartItem, handleButtonClick } = props
+
+    const handleIncreaseQuantity = (id: number) => {
+        dispatch(increaseQuantity(id));
+    };
+    const handleDecreaseQuantity = (id: number) => {
+        dispatch(decreaseQuantity(id));
+    };
     return (
         <>
             <div className="md:flex mt-[70px]  justify-between">
@@ -50,43 +60,48 @@ const CartItems = (props: CartItemProps) => {
                                     <>
                                         <main className="flex justify-between w-full items-start md:items-center mb-8" key={index}>
                                             <div className="w-[45%]">
-                                                <div className="flex gap-2 items-center">
-                                                    <div className="w-[80px] h-[96px]">
-                                                        <Image src={item.image} alt="Cart Item" className="bg-gray-200" />
-
+                                                <div className="flex gap-2 items-">
+                                                    <div className="w-[80px] h-[100px]">
+                                                        <Image
+                                                            src={item.product_image[0]}
+                                                            alt={`${item.product_name} image`}
+                                                            className="bg-gray-200 object-cover h-full w-full"
+                                                            width={80}
+                                                            height={100}
+                                                        />
                                                     </div>
                                                     <div className="md:mt-0 mt-3">
-                                                        <ELText text='Tray Table' className={'font-semibold'} />
+                                                        <ELText text={item.product_name} className={'font-semibold'} />
                                                         <div className="md:my-1 my-3">
-                                                            <ELText text={`Color: ${item.color}`} className={'text-[15px] text-gray-400'} />
+
                                                         </div>
                                                         <div className="md:flex gap-2 hidden">
-                                                            <Image src={AddIcon} alt="Add Icon" className="rotate-45" />
+                                                            <Image src={AddIcon} alt="Add Icon" className="rotate-45" onClick={() => handleIncreaseQuantity(item.id)} />
                                                             <ELText text='Remove' className={'text-gray-500'} />
 
                                                         </div>
-                                                        <div className=" flex justify-around border-2 rounded-lg py-2">
-                                                            <Image src={SubIcon} alt="Sub Icon" className="cursor-pointer" />
+                                                        <div className=" flex justify-around border-2 rounded-lg py-2 md:hidden">
+                                                            <Image src={SubIcon} onClick={() => handleDecreaseQuantity(item.id)} alt="Sub Icon" className="cursor-pointer" />
                                                             <ELText text={item.quantity} />
-                                                            <Image src={AddIcon} alt="Add Icon" className="cursor-pointer" />
+                                                            <Image src={AddIcon} alt="Add Icon" className="cursor-pointer" onClick={() => handleIncreaseQuantity(item.id)} />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="w-[15%] hidden md:flex  justify-around border-2 rounded-lg py-2">
-                                                <Image src={SubIcon} alt="Sub Icon" className="cursor-pointer" />
+                                                <Image src={SubIcon} onClick={() => handleDecreaseQuantity(item.id)} alt="Sub Icon" className="cursor-pointer" />
                                                 <ELText text={item.quantity} />
-                                                <Image src={AddIcon} alt="Add Icon" className="cursor-pointer" />
+                                                <Image src={AddIcon} alt="Add Icon" className="cursor-pointer" onClick={() => handleIncreaseQuantity(item.id)} />
                                             </div>
                                             <div className="md:flex hidden">
-                                                <ELText text={item.size} className={'font-normal'} />
+                                                <ELText text={`$${item.price}`} className={'font-normal'} />
                                             </div>
                                             <div className="flex flex-col items-end mt-3 md:mt-0">
-                                                <ELText text={item.subtotal} className={'font-semibold'} />
-                                                <Image src={AddIcon} alt="Add Icon" className="rotate-45 md:hidden block" width={30} />
+                                                <ELText text={`$${item.price * item.quantity}`} className={'font-semibold'} />
+                                                <Image src={AddIcon} alt="Add Icon" className="rotate-45 md:hidden block" width={30} onClick={() => handleIncreaseQuantity(item.id)} />
                                             </div>
                                         </main>
-                                        <hr className="my-3"/>
+                                        <hr className="my-3" />
                                     </>
                                 )
                             })}
