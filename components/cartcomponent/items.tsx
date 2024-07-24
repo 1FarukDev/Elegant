@@ -17,6 +17,9 @@ import { useState } from "react"
 interface CartItemProps {
     CartItem: any
     handleButtonClick: any
+    subTotal: number
+    totalAmount:number
+    handleDeliveryChange: (value: number) => void
 }
 
 type DeliveryType = {
@@ -24,10 +27,11 @@ type DeliveryType = {
 }
 
 const CartItems = (props: CartItemProps) => {
+    const { CartItem, subTotal, totalAmount, handleDeliveryChange } = props
     const { register } = useForm();
     const dispatch = useDispatch<AppDispatch>()
 
-    const cartItems = useSelector((state: RootState) => state.cart.items)
+
 
     const deliveryType: DeliveryType[] = [
         { id: 0, label: 'Free shipping', value: 0.00, addedValue: '$0.00' },
@@ -35,20 +39,7 @@ const CartItems = (props: CartItemProps) => {
         { id: 2, label: 'Pick Up', value: 21.00, addedValue: '$21.00' }
     ]
 
-    const [selectedDelivery, setSelectedDelivery] = useState<number>(deliveryType[0].value);
 
-    const handleDeliveryChange = (value: number) => {
-        setSelectedDelivery(value);
-        console.log(selectedDelivery)
-    };
-
-
-    // Calculate subtotal and total amount
-    const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const deliveryCharge = selectedDelivery;
-    const totalAmount = subtotal + deliveryCharge;
-
-    // const totalAmount = subtotal; // You can add delivery charges based on selected option here
 
     const handleIncreaseQuantity = (id: number) => {
         dispatch(increaseQuantity(id));
@@ -77,7 +68,7 @@ const CartItems = (props: CartItemProps) => {
                     </div>
                     <div>
                         <div>
-                            {cartItems.map((item: any, index: number) => {
+                            {CartItem.map((item: any, index: number) => {
                                 return (
                                     <>
                                         <main className="flex justify-between w-full items-start md:items-center mb-8" key={index}>
@@ -153,7 +144,7 @@ const CartItems = (props: CartItemProps) => {
                     <div className="mt-[16px]">
                         <div className="flex justify-between">
                             <ELText text='Subtotal' className={'text-[18px]'} />
-                            <ELText text={`$${subtotal.toFixed(2)}`} className={'font-semibold'} />
+                            <ELText text={`$${subTotal.toFixed(2)}`} className={'font-semibold'} />
                         </div>
                         <hr className="my-[13px]" />
                         <div className="flex justify-between">

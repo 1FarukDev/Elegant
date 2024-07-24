@@ -9,6 +9,7 @@ import CheckoutComplete from "@/components/cartcomponent/checkoutcomplete"
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "@/lib/store";
 import { useRouter } from "next/navigation"
+import { useForm } from "react-hook-form"
 
 
 type steps = {
@@ -16,67 +17,64 @@ type steps = {
     text: string
 }
 const CartPage = () => {
+    const cartItems = useSelector((state: RootState) => state.cart.items)
+    const { register } = useForm();
     const [activeSteps, setActiceSteps] = useState<string>('1')
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+
     const { push } = useRouter()
     const cart = useSelector((state: RootState) => state.cart);
     const user = useSelector((state: RootState) => state.user);
+
+    const [selectedDelivery, setSelectedDelivery] = useState<number>(0);
+
+
+    const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const deliveryCharge = selectedDelivery;
+    const totalAmount = subtotal + deliveryCharge;
     console.log(cart)
-    const handleSteps = (newStep: string) => {
-        setActiceSteps(newStep)
-    }
-    const cartItem = [
-        {
-            id: '0',
-            image: TrayTable,
-            color: 'black',
-            quantity: '2',
-            size: '$19.00',
-            subtotal: '$39.00'
-        },
-        {
-            id: '1',
-            image: TrayTable,
-            color: 'black',
-            quantity: '2',
-            size: '$19.00',
-            subtotal: '$39.00'
-        },
-        {
-            id: '2',
-            image: TrayTable,
-            color: 'black',
-            quantity: '2',
-            size: '$19.00',
-            subtotal: '$39.00'
-        },
 
-    ]
+    const handleDeliveryChange = (value: number) => {
+        setSelectedDelivery(value);
+    };
 
+ 
     const handleButtonClick = () => {
         setCurrentIndex(1)
         setActiceSteps('2')
     }
-    const handlePlaceOrderButton = () => {
+    const handlePlaceOrderButton = (data:any) => {
+
         setCurrentIndex(2)
         setActiceSteps('3')
     }
-  
+
     const cartStepsArray = [
         {
             key: 0,
-            component: <CartItems CartItem={cart.items} handleButtonClick={handleButtonClick} />
+            component:
+                <CartItems
+                    handleDeliveryChange={handleDeliveryChange}
+                    subTotal={subtotal}
+                    totalAmount={totalAmount}
+                    CartItem={cartItems}
+                    handleButtonClick={handleButtonClick}
+
+                />
         },
         {
             key: 1,
-            component: <DeliveryDetails CartItem={cartItem} handlePlaceOrderButton={handlePlaceOrderButton} />,
+            component:
+                <DeliveryDetails
+                    CartItem={cartItems}
+                    handlePlaceOrderButton={handlePlaceOrderButton}
+                    shippingAmount={selectedDelivery}
+                    subTotal={subtotal}
+                    totalAmount={totalAmount}
+                />,
         },
         {
             key: 2,
-            component: <CartItems CartItem={cartItem} handleButtonClick={handleButtonClick} />
-        },
-        {
-            key: 3,
             component: <CheckoutComplete />
         },
     ]
@@ -97,7 +95,7 @@ const CartPage = () => {
         },
     ]
 
- 
+
 
     useEffect(() => {
         if (!user?.isAuthenticated) {
@@ -122,7 +120,7 @@ const CartPage = () => {
                             ${activeSteps === step.tag ? 'border-black border-b-2' : 'border-gray-200 border-b-2'}
                              ${activeSteps > step.tag ? 'border-green-500 border-b-2' : ''} 
                              flex justify-start items-center gap-4  pb-6 pr-[100px] cursor-pointer`
-                            } onClick={() => handleSteps(step.tag)}>
+                            } >
                                 <li className={`
                                 ${activeSteps === step.tag ? 'bg-black' : 'bg-gray-200'}
                                  ${activeSteps > step.tag ? 'bg-green-500' : ''} 

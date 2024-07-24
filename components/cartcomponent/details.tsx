@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ELText from "../Atoms/ELText";
 import ELInput from "../Atoms/ELInput";
 import { useForm } from "react-hook-form"
@@ -11,14 +11,24 @@ import Image from "next/image";
 import AddIcon from '@/public/assets/icons/add icon.svg'
 import SubIcon from '@/public/assets/icons/minu sign.svg'
 import PromoIcon from '@/public/assets/icons/promoIcon.svg'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/lib/store'
+import { decreaseQuantity, increaseQuantity } from "@/lib/features/cart/cartSlice"
 
 interface CartItemProps {
     CartItem: any
     handlePlaceOrderButton: any
+    shippingAmount: number
+    subTotal: number
+    totalAmount: number
+
 }
 
+
 const DeliveryDetails = (props: CartItemProps) => {
-    const { CartItem, handlePlaceOrderButton } = props
+    const cartItems = useSelector((state: RootState) => state.cart.items)
+    const dispatch = useDispatch()
+    const { CartItem, handlePlaceOrderButton, shippingAmount, subTotal, totalAmount } = props
     const shopCategroy = [
         {
             id: '0',
@@ -53,7 +63,15 @@ const DeliveryDetails = (props: CartItemProps) => {
         { id: 0, label: 'Pay by credit card', value: 0.00, iconRight: Card },
         { id: 1, label: 'Paypal', value: 15.00 },
     ]
-    const { register, handleSubmit } = useForm()
+    const { register, control, handleSubmit, watch, formState: { touchedFields, errors } } = useForm()
+
+    const handleIncreaseQuantity = (id: number) => {
+        dispatch(increaseQuantity(id));
+    };
+
+    const handleDecreaseQuantity = (id: number) => {
+        dispatch(decreaseQuantity(id));
+    };
     return (
         <main className="md:flex items-start justify-between mt-[70px]">
             <div className="md:w-[60%] ">
@@ -125,23 +143,26 @@ const DeliveryDetails = (props: CartItemProps) => {
                                     <div className="md:w-[45%]">
                                         <div className="flex gap-2 items-start">
                                             <div className="w-[80px] h-[96px]">
-                                                <Image src={item.image} alt="Cart Item" className="bg-gray-200" />
+                                                <Image
+                                                    src={item.product_image[0]}
+                                                    alt="Cart Item"
+                                                    className="bg-gray-200 object-cover h-full w-full"
+                                                    width={80}
+                                                    height={100}
+                                                />
                                             </div>
                                             <div>
-                                                <ELText text='Tray Table' className={'font-semibold'} />
-                                                <div className="my-1">
-                                                    <ELText text={`Color: ${item.color}`} className={'text-[15px] text-gray-400'} />
-                                                </div>
+                                                <ELText text={item.product_name} className={'font-semibold'} />
                                                 <div className=" flex justify-around border-2 rounded-lg py-2">
-                                                    <Image src={SubIcon} alt="Sub Icon" className="cursor-pointer" />
+                                                    <Image src={SubIcon} alt="Sub Icon" className="cursor-pointer" onClick={() => handleDecreaseQuantity(item.id)} />
                                                     <ELText text={item.quantity} />
-                                                    <Image src={AddIcon} alt="Add Icon" className="cursor-pointer" />
+                                                    <Image src={AddIcon} alt="Add Icon" className="cursor-pointer" onClick={() => handleIncreaseQuantity(item.id)} />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex flex-col items-end  md:mt-0">
-                                        <ELText text={item.subtotal} className={'font-semibold'} />
+                                        <ELText text={`$${item.product_price * item.quantity}`} className={'font-semibold'} />
                                         <Image src={AddIcon} alt="Add Icon" className="rotate-45 md:hidden block" width={30} />
                                     </div>
                                 </main>
@@ -151,7 +172,7 @@ const DeliveryDetails = (props: CartItemProps) => {
                     })}
                 </div>
                 <div className="flex gap-4 ">
-                    <ELInput name="coupon" placeholder="Input" register={register} className={'border w-[90%]'} />
+                \    <ELInput name="coupon" placeholder="Input" register={register} className={'border w-[90%]'} />
                     <div className="md:w-[30%] w-[50%]">
                         <ELButton name="Appy" className="text-white bg-black w-full  py-[15px] rounded-xl  " />
                     </div>
@@ -167,17 +188,17 @@ const DeliveryDetails = (props: CartItemProps) => {
                     <hr className="my-[13px]" />
                     <div className="flex justify-between">
                         <ELText text='Shipping' className={'text-[18px]'} />
-                        <ELText text='Free' className={'font-normal'} />
+                        <ELText text={`$${shippingAmount.toFixed(2)}`} className={'font-normal'} />
                     </div>
                     <hr className="my-[13px]" />
                     <div className="flex justify-between">
                         <ELText text='Subtotal' className={'text-[18px]'} />
-                        <ELText text='$1234.00' className={'font-semibold'} />
+                        <ELText text={`$${subTotal.toFixed(2)}`} className={'font-semibold'} />
                     </div>
                     <hr className="my-[13px]" />
                     <div className="flex justify-between">
                         <ELText text='Total' className={'font-semibold text-[20px]'} />
-                        <ELText text='$1234.00' className={'font-semibold text-[20px]'} />
+                        <ELText text={`$${totalAmount.toFixed(2)}`} className={'font-semibold text-[20px]'} />
                     </div>
                 </div>
             </div>
