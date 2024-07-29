@@ -5,6 +5,7 @@ import CartItems from "@/components/cartcomponent/items"
 import { useEffect, useState } from "react"
 import TrayTable from '@/public/assets/images/Tray table.png'
 import DeliveryDetails from "@/components/cartcomponent/details"
+import { usePaystackPayment } from 'react-paystack';
 import CheckoutComplete from "@/components/cartcomponent/checkoutcomplete"
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "@/lib/store";
@@ -26,13 +27,14 @@ const CartPage = () => {
     const cart = useSelector((state: RootState) => state.cart);
     const user = useSelector((state: RootState) => state.user);
 
+
+
     const [selectedDelivery, setSelectedDelivery] = useState<number>(0);
 
 
     const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const deliveryCharge = selectedDelivery;
     const totalAmount = subtotal + deliveryCharge;
-    console.log(cart)
 
     const handleDeliveryChange = (value: number) => {
         setSelectedDelivery(value);
@@ -43,14 +45,35 @@ const CartPage = () => {
         setCurrentIndex(1)
         setActiceSteps('2')
     }
-    const handlePlaceOrderButton = (data: any) => {
-        console.log(data);
+
+
+
+    const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!;
+    const amount = totalAmount; // Amount in kobo
+    const email = 'ajibadefarukyoungprof02@gmail.com';
+
+    const onSuccess = (reference: any) => {
+        console.log(reference);
         setCurrentIndex(2)
         setActiceSteps('3')
-    }
-    const handleFormSubmit = (data: any) => {
-        console.log("Form Data Submitted: ", data);
     };
+
+    const onClose = () => {
+        console.log('Payment closed');
+        
+    };
+    const config = {
+        email,
+        amount,
+        publicKey,
+    };
+    const initializePayment = usePaystackPayment(config);
+
+    const handlePlaceOrderButton = (data: any) => {
+        initializePayment({ onSuccess, onClose });
+        console.log(data);
+     
+    }
 
     const cartStepsArray = [
         {
