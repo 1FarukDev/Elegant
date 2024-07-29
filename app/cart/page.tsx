@@ -38,16 +38,19 @@ const CartPage = () => {
         setSelectedDelivery(value);
     };
 
- 
+
     const handleButtonClick = () => {
         setCurrentIndex(1)
         setActiceSteps('2')
     }
-    const handlePlaceOrderButton = (data:any) => {
-
+    const handlePlaceOrderButton = (data: any) => {
+        console.log(data);
         setCurrentIndex(2)
         setActiceSteps('3')
     }
+    const handleFormSubmit = (data: any) => {
+        console.log("Form Data Submitted: ", data);
+    };
 
     const cartStepsArray = [
         {
@@ -75,7 +78,11 @@ const CartPage = () => {
         },
         {
             key: 2,
-            component: <CheckoutComplete />
+            component:
+                <CheckoutComplete
+                    total={totalAmount}
+                    items={cartItems}
+                />
         },
     ]
 

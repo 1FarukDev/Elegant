@@ -14,18 +14,23 @@ import React, { useState } from "react"
 import ELHeaderMobile from "./ELHeaderMobile"
 import Link from "next/link"
 import { useRouter } from 'next/navigation'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from "@/lib/store";
+
 interface HeaderMenu {
     id: number
     name: string
     to: string
 }
 const ELHeader = () => {
+    const cart = useSelector((state: RootState) => state.cart);
     const router = useRouter()
     const [promo, setPromo] = useState<Boolean>(true)
     const [mobileHeader, setMobileHeader] = useState<Boolean>(false)
     const handleClosePromo = () => {
         setPromo(false)
     }
+    console.log(cart.items.length)
     const headerMenu = [
         {
             id: 0,
@@ -98,7 +103,7 @@ const ELHeader = () => {
                     <div className="flex gap-2">
                         <Image src={Profile} alt="Profile Icon" className="cursor-pointer md:hidden" onClick={handleAccountRoute} />
                         <Image src={BagIcon} alt="Bag Icon" className="cursor-pointer" onClick={handleCartRoute}/>
-                        <ELText text='2' className={'bg-black text-white rounded-full px-2'} />
+                        <ELText text={cart.items.length} className={'bg-black text-white rounded-full px-2'} />
                     </div>
                 </div>
 

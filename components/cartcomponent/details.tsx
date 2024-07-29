@@ -72,64 +72,66 @@ const DeliveryDetails = (props: CartItemProps) => {
     const handleDecreaseQuantity = (id: number) => {
         dispatch(decreaseQuantity(id));
     };
+    const submitCardDetails = (data:any) => {
+        handlePlaceOrderButton(data)
+    }
     return (
         <main className="md:flex items-start justify-between mt-[70px]">
             <div className="md:w-[60%] ">
-                <div className=" border-2 border-gray-400 rounded-lg px-[24px] py-[40px]">
-                    <ELText text='Contact Information' className={'text-[20px] font-medium mb-6'} />
-                    <div className="flex  gap-6">
-                        <ELInput name="fname" placeholder="First name" register={register} label="FIRST NAME" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
-                        <ELInput name="lname" placeholder="Last name" register={register} label="LAST NAME" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
+                <form onSubmit={handleSubmit(submitCardDetails)}>
+                    <div className="border-2 border-gray-400 rounded-lg px-[24px] py-[40px]">
+                        <ELText text='Contact Information' className='text-[20px] font-medium mb-6' />
+                        <div className="flex gap-6">
+                            <ELInput name="fname" placeholder="First name" register={register} required={'first name address is needed'} errors={errors} label="FIRST NAME" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                            <ELInput name="lname" placeholder="Last name" register={register} required={'last name address is needed'} errors={errors} label="LAST NAME" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                        </div>
+                        <div className="mt-6">
+                            <ELInput name="number" placeholder="Phone number" type="number" register={register} required={'phone number address is needed'} errors={errors} label="PHONE NUMBER" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                        </div>
+                        <div className="mt-6">
+                            <ELInput name="address" placeholder="Email Address" register={register} required={'email address address is needed'} errors={errors} label="EMAIL ADDRESS" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                        </div>
                     </div>
-                    <div className="mt-6">
-                        <ELInput name="number" placeholder="Phone number" type="number" register={register} label="PHONE NUMBER" labelClassName=" font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
-                    </div>
-                    <div className="mt-6">
-                        <ELInput name="address" placeholder="Email Address" register={register} label="EMAIL ADDRESS" labelClassName=" font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
-                    </div>
-                </div>
-                <div className="mt-6 border-2 border-gray-400 rounded-lg px-[24px] py-[40px]">
-                    <ELText text='Shipping Address' className={'text-[20px] font-medium mb-6'} />
+                    <div className="mt-6 border-2 border-gray-400 rounded-lg px-[24px] py-[40px]">
+                        <ELText text='Shipping Address' className='text-[20px] font-medium mb-6' />
+                        <div className="mt-6">
+                            <ELInput name="streetaddress" placeholder="Street Address" register={register} required={'address address is needed'} errors={errors} label="STREET ADDRESS *" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                        </div>
 
-                    <div className="mt-6">
-                        <ELInput name="streetaddress" placeholder="Street Address" register={register} label="STREET ADDRESS *" required={true} labelClassName=" font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
+                        <div className="mt-6">
+                            <ELInput name="Country" placeholder="Country" register={register} required={'country address is needed'} errors={errors} label="COUNTRY*" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                        </div>
+                        <div className="mt-6">
+                            <ELInput name="town" placeholder="Town / City" register={register} required={'city address is needed'} errors={errors} label="TOWN / CITY *" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                        </div>
+                        <div className="flex mt-6 gap-6">
+                            <ELInput name="state" placeholder="State" register={register} required={'state address is needed'} errors={errors} label="STATE" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                            <ELInput name="zipcode" placeholder="Zip Code" register={register} required={'zip code is needed'} errors={errors} label="ZIP CODE" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                        </div>
+                        <div className="flex gap-4 items-center mt-6">
+                            <ELCheckBox name='different address' register={register} />
+                            <ELText text='Use a different billing address (optional)' className='font-semibold text-gray-500 text-[15px]' />
+                        </div>
                     </div>
-                    <div className="mt-6">
-                        <ELDropdown options={shopCategroy} title={'Country'} Label="COUNTRY *" labelClassName="font-semibold text-gray-500 text-[12px]" />
+                    <div className="mt-6 border-2 border-gray-400 rounded-lg px-[24px] py-[40px]">
+                        <ELText text='Payment Method' className='text-[20px] font-medium mb-6' />
+                        <div>
+                            <ELRadio name='' options={deliveryType} className='flex flex-col gap-4' buttonStyle='flex gap-4 justify-between border-[2px] rounded-md p-[17px] border-black' handleRadioButtonClick={() => console.log(deliveryType)} />
+                        </div>
+                        <hr className="border border-black my-8" />
+                        <div className="flex gap-6">
+                            <ELInput name="cardNumber" placeholder="1234 1234 1234" register={register} required={'card number is needed'} errors={errors} label="CARD NUMBER *" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                            <ELInput name="zipcode" placeholder="Zip Code" register={register} required={'zip code is needed'} errors={errors} label="ZIP CODE" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                        </div>
+                        <div className="flex mt-6 gap-6">
+                            <ELInput name="date" placeholder="MM/YY" register={register} required={'date is needed'} errors={errors} label="EXPIRATION DATE" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                            <ELInput name="cvv" placeholder="CVV code" register={register} required={'cvv is needed'} errors={errors} label="CVV" labelClassName="font-semibold text-gray-500 text-[12px]" className='border rounded-md' />
+                        </div>
                     </div>
-                    <div className="mt-6">
-                        <ELInput name="town" placeholder="Town / City" register={register} label="TOWN / CITY *" required={true} labelClassName=" font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
+                    <div className="mt-[35px] hidden md:block">
+                        <ELButton name="Place Order" className="text-white bg-black w-full py-[15px] rounded-lg" type="submit" />
                     </div>
-                    <div className="flex mt-6 gap-6">
-                        <ELInput name="state" placeholder="State" register={register} label="STATE" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
-                        <ELInput name="zipcode" placeholder="Zip Code" register={register} label="ZIP CODE" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
-                    </div>
-                    <div className="flex gap-4 items-center mt-6">
-                        <ELCheckBox name='different address' register={register} />
-                        <ELText text='Use a different billing address (optional)' className={'font-semibold text-gray-500 text-[15px]'} />
-                    </div>
-                </div>
-                <div className="mt-6 border-2 border-gray-400 rounded-lg px-[24px] py-[40px]">
-                    <ELText text='Payment Method' className={'text-[20px] font-medium mb-6'} />
-                    <div className="">
-                        <ELRadio name='' options={deliveryType} className={'flex flex-col gap-4 '} buttonStyle={'flex gap-4 justify-between border-[2px] rounded-md p-[17px] border-black '}
-                            handleRadioButtonClick={() => console.log(deliveryType)}
-                        />
-                    </div>
-                    <hr className="border border-black my-8" />
-                    <div className="flex  gap-6">
-                        <ELInput name="cardNumber" placeholder="1234 1234 1234" register={register} label="CARD NUMBER *" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
-                        <ELInput name="zipcode" placeholder="Zip Code" register={register} label="ZIP CODE" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
-                    </div>
-                    <div className="flex mt-6 gap-6">
-                        <ELInput name="date" placeholder="MM/YY" register={register} label="EXPIRATION DATE" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
-                        <ELInput name="cvv" placeholder="CVV code" register={register} label="CVV" labelClassName="font-semibold text-gray-500 text-[12px]" className={'border rounded-md'} />
-                    </div>
-
-                </div>
-                <div className="mt-[35px] hidden md:block">
-                    <ELButton name="Place Order" className="text-white bg-black w-full py-[15px] rounded-lg " handleClick={handlePlaceOrderButton} />
-                </div>
+                </form>
                 <div>
 
                 </div>
@@ -172,7 +174,7 @@ const DeliveryDetails = (props: CartItemProps) => {
                     })}
                 </div>
                 <div className="flex gap-4 ">
-                \    <ELInput name="coupon" placeholder="Input" register={register} className={'border w-[90%]'} />
+ <ELInput name="coupon" placeholder="Input" register={register} className={'border w-[90%]'} />
                     <div className="md:w-[30%] w-[50%]">
                         <ELButton name="Appy" className="text-white bg-black w-full  py-[15px] rounded-xl  " />
                     </div>

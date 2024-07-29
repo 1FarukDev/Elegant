@@ -12,6 +12,10 @@ import call from '@/public/assets/icons/call.svg'
 import ProductCard from "@/components/card/ProductCard"
 import calculateDiscountedPrice from "@/utils/helpers/DiscountCalculator"
 import ProductCardSkeleton from "@/components/card/ProductCardSkeleton"
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '@/lib/store'
+import { addItemToCart } from '@/lib/features/cart/cartSlice'
+import { toast } from 'react-toastify'
 
 interface ProductDetail {
     id: string
@@ -23,6 +27,25 @@ interface ProductDetail {
     rating: string
     image: string
 }
+interface CartItem {
+    id: string | any;
+    price: number;
+    quantity: number;
+    totalPrice: number;
+    product_name: string;
+    product_image: string;
+    product_price: string;
+
+}
+interface Product {
+    id: string
+    product_name: string
+    product_image: string
+    product_price: number
+    product_discount: number
+    product_condition: string
+    product_rating: number
+}
 
 interface NewArrivalProps {
     newArrival: any
@@ -31,6 +54,7 @@ interface NewArrivalProps {
 const NewArrival: React.FC<NewArrivalProps> = ({ newArrival, loading }) => {
     const [showButtonMap, setShowButtonMap] = useState<{ [id: string]: boolean }>({});
 
+    const dispatch: AppDispatch = useDispatch();
     const Options = [
         {
             id: '0',
@@ -70,9 +94,19 @@ const NewArrival: React.FC<NewArrivalProps> = ({ newArrival, loading }) => {
             [id]: false
         }));
     }
-    const handleNavigateToDetailsPage = () => {
-
-    }
+    const handleAddToCart = (product: Product) => {
+        const cartItem: CartItem = {
+            id: product.id,
+            price: product.product_price,
+            quantity: 1,
+            totalPrice: product.product_price,
+            product_name: product.product_name,
+            product_image: product.product_image,
+            product_price: product.product_price.toString(),
+        };
+        dispatch(addItemToCart(cartItem));
+        toast.success('You just added this item to cart')
+    };
     return (
         <main>
             <section className="flex justify-between items-end">
@@ -98,7 +132,7 @@ const NewArrival: React.FC<NewArrivalProps> = ({ newArrival, loading }) => {
                             <div className=" flex-shrink-0 relative cursor-pointer" key={index}>
                                 <ProductCard
                                     image={product.product_image[0]}
-                                    handleClick={() => console.log(id)}
+                                    handleClick={() => handleAddToCart(product)}
                                     id={product.id}
                                     onMouseEnter={() => handleShowDetails(id)}
                                     onMouseLeave={() => handleHideDetails(id)}
