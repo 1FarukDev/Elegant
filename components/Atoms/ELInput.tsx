@@ -7,8 +7,8 @@ interface InputProps {
     label?: string;
     placeholder: string;
     type?: string;
-    register: any;
-    required?: boolean;
+    register: (name: string, options: { required: boolean | string }) => UseFormRegisterReturn;
+    required?: boolean | string;
     errors?: any;
     className?: any;
     labelClassName?: string;
@@ -63,7 +63,7 @@ const ELInput: React.FC<InputProps> = ({
                     </button>
                 )}
             </div>
-            {errors && errors[name] && <span className="text-red-500">{errors[name].message}</span>}
+            {errors && errors[name] && <span className="text-red-500 text-[10px] italic">{errors[name].message}</span>}
         </div>
     );
 };

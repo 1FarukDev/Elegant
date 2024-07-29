@@ -54,7 +54,6 @@ const Shop = () => {
     const dispatch: AppDispatch = useDispatch();
     const cart = useSelector((state: any) => state.cart);
 
-    console.log(cart);
 
     const handleChangeCategory = (tabName: string) => {
         setActiveCategory(tabName)
