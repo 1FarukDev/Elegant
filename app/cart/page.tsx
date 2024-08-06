@@ -11,45 +11,43 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "@/lib/store";
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
+import { applyCoupon } from "@/lib/actions/coupon"
 
 
 type steps = {
     tag: string
     text: string
 }
+
 const CartPage = () => {
     const cartItems = useSelector((state: RootState) => state.cart.items)
     const { register } = useForm();
     const [activeSteps, setActiceSteps] = useState<string>('1')
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [discount, setDiscount] = useState<number>(0);  // State for discount
+    const [couponError, setCouponError] = useState<string>(''); 
 
     const { push } = useRouter()
     const cart = useSelector((state: RootState) => state.cart);
     const user = useSelector((state: RootState) => state.user);
 
-
-
     const [selectedDelivery, setSelectedDelivery] = useState<number>(0);
-
 
     const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const deliveryCharge = selectedDelivery;
-    const totalAmount = subtotal + deliveryCharge;
+    const totalAmount = subtotal + deliveryCharge - discount;  // Subtract discount from total
 
     const handleDeliveryChange = (value: number) => {
         setSelectedDelivery(value);
     };
-
 
     const handleButtonClick = () => {
         setCurrentIndex(1)
         setActiceSteps('2')
     }
 
-
-
     const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!;
-    const amount = totalAmount; // Amount in kobo
+    const amount = totalAmount;
     const email = 'ajibadefarukyoungprof02@gmail.com';
 
     const onSuccess = (reference: any) => {
@@ -60,19 +58,31 @@ const CartPage = () => {
 
     const onClose = () => {
         console.log('Payment closed');
-        
     };
+
     const config = {
         email,
         amount,
         publicKey,
     };
+
     const initializePayment = usePaystackPayment(config);
 
     const handlePlaceOrderButton = (data: any) => {
         initializePayment({ onSuccess, onClose });
         console.log(data);
-     
+    }
+
+    const handleCouponSubmit = async (data: any) => {
+        const discountValue = await applyCoupon(data.coupon);
+        if (discountValue) {
+            setDiscount((subtotal * discountValue) / 100);  // Update discount state based on the percentage
+        }
+        else {
+            setCouponError("Invalid coupon code. Please try again.");
+            setDiscount(totalAmount); // Reset the total to original if the coupon is invalid
+        }
+        console.log(discountValue, 'discount');
     }
 
     const cartStepsArray = [
@@ -85,7 +95,8 @@ const CartPage = () => {
                     totalAmount={totalAmount}
                     CartItem={cartItems}
                     handleButtonClick={handleButtonClick}
-
+                    handleCouponSubmit={handleCouponSubmit}
+                    couponError={couponError}
                 />
         },
         {
@@ -109,7 +120,6 @@ const CartPage = () => {
         },
     ]
 
-
     const steps = [
         {
             tag: '1',
@@ -125,19 +135,16 @@ const CartPage = () => {
         },
     ]
 
-
-
     useEffect(() => {
         if (!user?.isAuthenticated) {
             push("/login");
         }
     }, [user?.isAuthenticated, push]);
 
-
     if (!user?.isAuthenticated) {
         return null;
     }
-    console.log(cart)
+
     return (
         <main className="container mx-auto px-8 md:px-0">
             <section className="my-[70px]">
@@ -171,7 +178,6 @@ const CartPage = () => {
                 {
                     cartStepsArray[currentIndex].component
                 }
-
             </section>
         </main>
     )
