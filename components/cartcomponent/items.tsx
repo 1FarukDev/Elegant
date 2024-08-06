@@ -22,6 +22,7 @@ interface CartItemProps {
     handleDeliveryChange: (value: number) => void
     handleCouponSubmit: (data: string) => void
     couponError: string
+    couponApplied: string
 }
 
 type DeliveryType = {
@@ -29,7 +30,7 @@ type DeliveryType = {
 }
 
 const CartItems = (props: CartItemProps) => {
-    const { CartItem, subTotal, totalAmount, handleDeliveryChange, handleCouponSubmit, couponError } = props
+    const { CartItem, subTotal, totalAmount, handleDeliveryChange, handleCouponSubmit, couponError, couponApplied } = props
     const { register, handleSubmit } = useForm<any>();
     const dispatch = useDispatch<AppDispatch>()
 
@@ -160,7 +161,7 @@ const CartItems = (props: CartItemProps) => {
                 </div>
             </div>
 
-            <div className="w-[30%] hidden md:block ">
+            <div className="w-[35%] hidden md:block ">
                 <ELText text='Have a coupon?' className={'font-semibold  text-[20px]'} />
                 <ELText text='Add your code for an instant cart discount' className={'font-medium text-gray-500  text-[20px] mt-2'} />
                 <form onSubmit={handleSubmit(handleCouponSubmit)}>
@@ -172,6 +173,7 @@ const CartItems = (props: CartItemProps) => {
                         <ELButton name='Apply' />
                     </div>
                     {couponError && <p className="text-red-500 mt-2">{couponError}</p>}
+                    {couponApplied && <p className="text-green-500 mt-2">{couponApplied}</p>}
                 </form>
             </div>
         </>
