@@ -1,7 +1,8 @@
 import { supabase } from "@/utils/supabase/client";
 
-export async function applyCoupon(code: string) {
+export async function applyCoupon(code: string): Promise<{ discount?: number, error?: string }> {
     console.log("Coupon code received:", code);
+
     const { data, error } = await supabase
         .from('coupon')
         .select('*')
@@ -10,12 +11,12 @@ export async function applyCoupon(code: string) {
 
     if (error) {
         console.error('Error fetching coupon:', error);
-        return;
+        return { error: 'An error occurred while fetching the coupon.' };
     }
 
     if (!data) {
         console.log('Coupon code not found.');
-        return;
+        return { error: 'Coupon code not found.' };
     }
 
     console.log('Coupon data retrieved:', data);
@@ -32,12 +33,14 @@ export async function applyCoupon(code: string) {
 
             await updateCouponUsage(data.id, data.usage_count, data.usage_limit);
 
-            return data.discount;
+            return { discount: data.discount };
         } else {
             console.log('Coupon is not valid at this time.');
+            return { error: 'Coupon is not valid at this time.' };
         }
     } else {
         console.log('Coupon is inactive or has reached its usage limit.');
+        return { error: 'Coupon is inactive or has reached its usage limit.' };
     }
 }
 

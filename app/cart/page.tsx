@@ -25,7 +25,8 @@ const CartPage = () => {
     const [activeSteps, setActiceSteps] = useState<string>('1')
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [discount, setDiscount] = useState<number>(0);  // State for discount
-    const [couponError, setCouponError] = useState<string>(''); 
+    const [couponError, setCouponError] = useState<string>('');
+    const [couponApplied, setCouponApplied] = useState<string>('');
 
     const { push } = useRouter()
     const cart = useSelector((state: RootState) => state.cart);
@@ -74,16 +75,22 @@ const CartPage = () => {
     }
 
     const handleCouponSubmit = async (data: any) => {
-        const discountValue = await applyCoupon(data.coupon);
-        if (discountValue) {
-            setDiscount((subtotal * discountValue) / 100);  // Update discount state based on the percentage
+        console.log("Coupon submit data:", data);
+
+        const { discount, error } = await applyCoupon(data.coupon);
+
+        console.log("applyCoupon result:", { discount, error });
+
+        if (discount) {
+            setDiscount((subtotal * discount) / 100);  // Update discount state based on the percentage
+            setCouponApplied('Coupon applied')
+            console.log("Discount applied:", discount);
+        } else {
+            setCouponError(error || "Invalid coupon code. Please try again.");
+            console.log("Coupon error:", error);
         }
-        else {
-            setCouponError("Invalid coupon code. Please try again.");
-            setDiscount(totalAmount); // Reset the total to original if the coupon is invalid
-        }
-        console.log(discountValue, 'discount');
     }
+
 
     const cartStepsArray = [
         {
@@ -97,6 +104,7 @@ const CartPage = () => {
                     handleButtonClick={handleButtonClick}
                     handleCouponSubmit={handleCouponSubmit}
                     couponError={couponError}
+                    couponApplied={couponApplied}
                 />
         },
         {
