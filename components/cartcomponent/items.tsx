@@ -18,8 +18,10 @@ interface CartItemProps {
     CartItem: any
     handleButtonClick: any
     subTotal: number
-    totalAmount:number
+    totalAmount: number
     handleDeliveryChange: (value: number) => void
+    handleCouponSubmit: (data: string) => void
+    couponError: string
 }
 
 type DeliveryType = {
@@ -27,8 +29,8 @@ type DeliveryType = {
 }
 
 const CartItems = (props: CartItemProps) => {
-    const { CartItem, subTotal, totalAmount, handleDeliveryChange } = props
-    const { register } = useForm();
+    const { CartItem, subTotal, totalAmount, handleDeliveryChange, handleCouponSubmit, couponError } = props
+    const { register, handleSubmit } = useForm<any>();
     const dispatch = useDispatch<AppDispatch>()
 
 
@@ -161,13 +163,16 @@ const CartItems = (props: CartItemProps) => {
             <div className="w-[30%] hidden md:block ">
                 <ELText text='Have a coupon?' className={'font-semibold  text-[20px]'} />
                 <ELText text='Add your code for an instant cart discount' className={'font-medium text-gray-500  text-[20px] mt-2'} />
-                <div className="flex justify-between border border-black px-4 mt-3">
-                    <div className="flex gap-2 items-center">
-                        <Image src={PromoIcon} alt="Promo Icon" />
-                        <ELInput name="coupon" placeholder="Coupon code" register={register} />
+                <form onSubmit={handleSubmit(handleCouponSubmit)}>
+                    <div className="flex justify-between border border-black px-4 mt-3">
+                        <div className="flex gap-2 items-center">
+                            <Image src={PromoIcon} alt="Promo Icon" />
+                            <ELInput name="coupon" placeholder="Coupon code" register={register} />
+                        </div>
+                        <ELButton name='Apply' />
                     </div>
-                    <ELButton name='Apply' />
-                </div>
+                    {couponError && <p className="text-red-500 mt-2">{couponError}</p>}
+                </form>
             </div>
         </>
     )
