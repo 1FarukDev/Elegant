@@ -7,6 +7,7 @@ import Image from "next/image"
 import ArticleImage from '@/public/assets/images/article image.svg'
 import { useRouter } from 'next/navigation'
 import client from "@/client"
+import { GetServerSideProps } from 'next';
 
 interface AtricleProps {
     blog: any

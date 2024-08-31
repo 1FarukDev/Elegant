@@ -145,7 +145,7 @@ const Blog = () => {
                     {BLogPosts.map((blog: any, index: number) => {
                         return (
                             <div className=" gap-6 md:mb-0 mb-7" key={index}>
-                                <BlogCard title={blog.title} image={blog.image} handleClick={() => router.push('/blogdetails', { scroll: false })} date={blog.date} />
+                                <BlogCard title={blog.title} image={blog.image}  date={blog.date} />
                             </div>
                         )
                     })}
