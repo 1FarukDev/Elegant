@@ -55,6 +55,18 @@
 
 }
 
+.no-scrollbar {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Edge, and Opera */
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
