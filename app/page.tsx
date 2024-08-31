@@ -6,16 +6,27 @@ import NewArrival from "@/components/screenComponent/HomePage/NewArrival";
 import NewsLetter from "@/components/screenComponent/HomePage/NewsLetter";
 import SalesSection from "@/components/screenComponent/HomePage/SalesSection";
 import { useSelector } from 'react-redux';
-import Star from '@/public/assets/icons/Rating Group.svg'
-import ProductImage from '@/public/assets/images/product.png'
 import { fetchProducts } from "@/lib/actions/product";
 import React, { useEffect, useState } from "react";
+import { fetchBlogPosts } from "@/api/blog/blog";
+
+
 
 export default function Home() {
   const user = useSelector((state: any) => state.user);
   const [product, setProduct] = useState([])
+  const [blog, setBlog] = useState([])
   const [productLoading, setProductLoading] = useState<boolean>(false)
 
+  useEffect(() => {
+    const getPosts = async () => {
+      const fetchedPosts = await fetchBlogPosts();
+      setBlog(fetchedPosts)
+      console.log(fetchedPosts, 'blog')
+    };
+
+    getPosts();
+  }, [])
   useEffect(() => {
     const fetchProduct = async () => {
       setProductLoading(true)
@@ -29,24 +40,22 @@ export default function Home() {
           })
       } catch (error) {
         setProductLoading(false)
-        // setLoading(false);
         console.error(error);
-        // router.push("/error");
       }
     }
     fetchProduct()
   }, [])
- 
+
   return (
     <section className="z-0">
       <main className="container mx-auto px-8 md:px-0">
         <HeroSection />
         <CategorySection />
-        <NewArrival newArrival={product} loading={productLoading}/>
+        <NewArrival newArrival={product} loading={productLoading} />
       </main>
       <SalesSection />
       <div className="px-8 md:px-0">
-        <ArticleSection />
+        <ArticleSection blog={blog} />
       </div>
       <NewsLetter />
     </section>

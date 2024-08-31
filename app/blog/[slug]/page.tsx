@@ -89,7 +89,7 @@ Even if you have a cabinet ready to swallow the clutter, it’s worth resisting 
                     {BLogPosts.map((blog: any, index: number) => {
                         return (
                             <div className=" gap-6 md:mb-0 mb-7" key={index}>
-                                <BlogCard title={blog.title} image={blog.image} handleClick={blog.handleClick} date={blog.date} />
+                                <BlogCard title={blog.title} image={blog.image}  date={blog.date} />
                             </div>
                         )
                     })}

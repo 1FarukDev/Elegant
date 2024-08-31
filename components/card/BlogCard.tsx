@@ -4,36 +4,37 @@ import Image from "next/image"
 import ELText from "../Atoms/ELText"
 import ArrowRight from '@/public/assets/icons/arrowRightBlack.svg'
 import { FC } from "react"
+import Link from "next/link"
 
 interface BLogCardFieldProps {
     image: string
     title: string
-    handleClick?: any
     date?: string
     readMore?: boolean
+    slug?:string
 }
 
 const BlogCard: FC<BLogCardFieldProps> = ({
     image,
     title,
-    handleClick,
     date,
-    readMore
+    readMore,
+    slug
 }) => {
     return (
-        <main className=" w-full cursor-pointer" onClick={handleClick}>
-            <Image src={image} alt="Article Image" className="w-full" />
+        <Link className=" w-full cursor-pointer" href={`/blog/${slug}`} passHref>
+            <Image src={image} alt="Article Image" className="w-[500px] h-[500px] border-red-400" width={200} height={200}/>
             <ELText text={title} className={'text-[20px] font-medium my-4'} />
             <div>
                 {date && <ELText text={date} className={'text-[15px] text-gray-400'}/>}
                 {readMore &&
-                    <div className="flex items-center gap-2 w-max  cursor-pointer border-b border-black" onClick={handleClick}>
+                    <div className="flex items-center gap-2 w-max  cursor-pointer border-b border-black" >
                         <ELText text='Read more' className={'font-normal text-[10px]'} />
                         <Image src={ArrowRight} alt="Arrow Icon" className="" />
                     </div>
                 }
             </div>
-        </main>
+        </Link>
     )
 }
 

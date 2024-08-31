@@ -30,7 +30,6 @@ const ELHeader = () => {
     const handleClosePromo = () => {
         setPromo(false)
     }
-    console.log(cart.items.length)
     const headerMenu = [
         {
             id: 0,

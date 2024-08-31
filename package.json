@@ -11,6 +11,7 @@
   "dependencies": {
     "@paystack/inline-js": "^2.19.2",
     "@reduxjs/toolkit": "^2.2.5",
+    "@sanity/client": "^6.21.3",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.43.4",
     "axios": "^1.7.2",
