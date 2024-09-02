@@ -1,29 +1,31 @@
-import client from "@/client"
+import client from "@/client";
 
-// types.ts
- interface Author {
-    name: string;
-}
-
- interface BlogPost {
-    title: string;
-    date: string;
-    content: string;
-    image: string; // Use a more specific type if needed (e.g., URL or custom image type)
-    author: Author;
-}
-
-
-export async function getBlogBySlug(slug: string): Promise<BlogPost | null> {
-    const query = `*[_type == "post" && slug.current == $slug][0]{
+export async function fetchBlogPostDetails(slug: string | string[]) {
+  const query = `*[_type == "post" && slug.current == $slug][0]{
     title,
-    date,
-    content,
-    image,
+    slug,
+    body,
+    publishedAt,
     author->{
-      name
+      name,
+      image{
+        asset->{
+          _id,
+          url
+        }
+      }
+    },
+    mainImage{
+      asset->{
+        _id,
+        url
+      }
+    },
+    categories[]->{
+      title
     }
-  }`
-    const params = { slug }
-    return await client.fetch<BlogPost | null>(query, params)
+  }`;
+
+  const postDetails = await client.fetch(query, { slug });
+  return postDetails;
 }

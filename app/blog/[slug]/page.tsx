@@ -9,12 +9,42 @@ import ArrowRight from '@/public/assets/icons/arrowRightBlack.svg'
 import BlogCard from '@/components/card/BlogCard'
 import ArticleImage from '@/public/assets/images/article image.svg'
 import NewsLetter from '@/components/screenComponent/HomePage/NewsLetter'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { fetchBlogPostDetails } from '@/api/blog/blogBySlug'
+import { PortableText } from "@portabletext/react";
+import { fetchBlogPosts } from '@/api/blog/blog'
+
 
 
 const BlogDetails = () => {
     const router = useRouter()
+    const params = useParams();
+    const { slug } = params;
+    const [blog, setBlog] = useState([])
+    const [blogDetail, setBlogDetail] = useState<any>('');
+    useEffect(() => {
+        const getPosts = async () => {
+            const fetchedPosts = await fetchBlogPosts();
+            setBlog(fetchedPosts.slice(0, 3))
+        };
 
+        getPosts();
+    }, [])
+
+    useEffect(() => {
+        const getBlogDetail = async () => {
+            if (!slug) return;
+            try {
+                const fetchedBlogDetail = await fetchBlogPostDetails(slug);
+                setBlogDetail(fetchedBlogDetail);
+            } catch (error) {
+                console.error("Error fetching blog details:", error);
+            }
+        };
+
+        getBlogDetail();
+    }, [slug]);
 
 
     const BLogPosts = [
@@ -44,19 +74,19 @@ const BlogDetails = () => {
         <section>
             <main className='container mx-auto px-8 md:px-0'>
                 <div className='md:flex hidden gap-2 items-center'>
-                    <ELText text='Home' className={'text-gray-400 cursor-pointer'} handleClick={() => router.push('/', { scroll: false })} />
+                    <ELText text={`Home`} className={'text-gray-400 cursor-pointer'} handleClick={() => router.push('/', { scroll: false })} />
                     <Image src={ArrorRight} alt='Arrow right' />
                     <ELText text='Blog' className={'text-gray-400 cursor-pointer'} handleClick={() => router.push('/blog', { scroll: false })} />
                     <Image src={ArrorRight} alt='Arrow right' />
-                    <ELText text='How to make a busy bathroom a place to relax' className={'text-black font-semibold'} />
+                    <ELText text={slug} className={'text-black font-semibold'} />
                 </div>
                 <div className='md:mt-14 mt-10'>
                     <ELText text='Article' className={'text-[15px] font-semibold'} />
-                    <ELText text='How to make a busy bathroom a place to relax' className={'text-[20px] md:text-[35px] font-semibold my-4'} />
+                    <ELText text={blogDetail.title} className={'text-[20px] md:text-[35px] font-semibold my-4'} />
                     <div className='flex gap-4 flex-col md:flex-row '>
                         <div className='flex gap-2'>
                             <Image src={ProfileIcon} alt='Profile Icon' />
-                            <ELText text='Faruk Ajibade' className={'text-gray-400'} />
+                            <ELText text={blogDetail?.author?.name} className={'text-gray-400'} />
                         </div>
                         <div className='flex gap-2'>
                             <Image src={Calender} alt='Profile Icon' />
@@ -64,17 +94,20 @@ const BlogDetails = () => {
                         </div>
                     </div>
                 </div>
-                <div className='mt-10 '>
-                    <Image src={DetailImage} alt='blog image' className='w-full' />
+                <div className='mt-10'>
+                    <Image
+                        src={blogDetail?.mainImage?.asset?.url}
+                        alt='blog image'
+                        className='w-full h-auto'
+                        width={800}
+                        height={0}
+                        layout="responsive"
+                    />
                 </div>
+
                 <div className='my-4'>
-                    <ELText text='A cleaning hub with built-in ventilation' className={'text-[20px] md:text-[25px] font-semibold'} />
-                    <ELText text='Your bathroom serves a string of busy functions on a daily basis. See how you can make all of them work, and still have room for comfort and relaxation.
-A cleaning hub with built-in ventilation
-Use a rod and a shower curtain to create a complement to your cleaning cupboard. Unsightly equipment is stored out of sight yet accessibly close – while the air flow helps dry any dampness. Storage with a calming effect
-Having a lot to store doesn’t mean it all has to go in a cupboard. Many bathroom items are better kept out in the open – either to be close at hand or are nice to look at. Add a plant or two to set a calm mood for the entire room (and they’ll thrive in the humid air).
-Kit your clutter for easy access
-Even if you have a cabinet ready to swallow the clutter, it’s worth resisting a little. Let containers hold kits for different activities – home spa, make-up, personal hygiene – to bring out or put back at a moment’s notice.' className={'text-[15px] md:text-[20px] font-medium'} />
+                    <ELText text={blogDetail.title} className={'text-[20px] md:text-[25px] font-semibold'} />
+                    <PortableText value={blogDetail.body} />
                 </div>
 
 
@@ -86,10 +119,10 @@ Even if you have a cabinet ready to swallow the clutter, it’s worth resisting 
                     </div>
                 </div>
                 <div className='grid md:grid-cols-3 gap-5 mb-7'>
-                    {BLogPosts.map((blog: any, index: number) => {
+                    {blog.map((blog: any, index: number) => {
                         return (
                             <div className=" gap-6 md:mb-0 mb-7" key={index}>
-                                <BlogCard title={blog.title} image={blog.image}  date={blog.date} />
+                                <BlogCard title={blog.title} image={blog.mainImage.asset.url} date={blog.date} slug={blog.slug.current} />
                             </div>
                         )
                     })}
