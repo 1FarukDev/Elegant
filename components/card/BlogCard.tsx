@@ -23,7 +23,14 @@ const BlogCard: FC<BLogCardFieldProps> = ({
 }) => {
     return (
         <Link className=" w-full cursor-pointer" href={`/blog/${slug}`} passHref>
-            <Image src={image} alt="Article Image" className="w-[500px] h-[500px] border-red-400" width={200} height={200}/>
+                <Image
+                    src={image}
+                    alt='Article Image'
+                    width={500}
+                    height={0} 
+                    layout="responsive"
+                    
+                />
             <ELText text={title} className={'text-[20px] font-medium my-4'} />
             <div>
                 {date && <ELText text={date} className={'text-[15px] text-gray-400'}/>}
